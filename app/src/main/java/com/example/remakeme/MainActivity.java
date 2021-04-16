@@ -1,4 +1,4 @@
-package com.example.testing;
+package com.example.remakeme;
 
 import androidx.appcompat.app.AppCompatActivity;
 
