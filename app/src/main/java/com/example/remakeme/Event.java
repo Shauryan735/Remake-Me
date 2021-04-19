@@ -9,7 +9,7 @@ import java.time.LocalTime;
 
 
 @Entity(tableName = "events")
-public class Events {
+public class Event {
 
     @PrimaryKey
     @ColumnInfo(name = "event_id")
@@ -26,7 +26,7 @@ public class Events {
     private Boolean repeat;
     private int repeatOffset;
 
-    public Events() {
+    public Event() {
     }
 
     public int getId() {
