@@ -1,94 +1,103 @@
 package com.example.remakeme;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+
+@Entity(tableName = "events")
 public class Events {
 
-    private int _id;
-    private String _eventName;
-    private LocalDate _eventDate;
-    private LocalTime _eventStart;
-    private LocalTime _eventEnd;
+    @PrimaryKey
+    @ColumnInfo(name = "event_id")
+    private int id;
 
-    private Boolean _sendReminders;
-    private LocalTime _remindTime;
+    private String eventName;
+    private LocalDate eventDate;
+    private LocalTime eventStart;
+    private LocalTime eventEnd;
 
-    private Boolean _repeat;
-    private int _repeatOffset;
+    private Boolean sendReminders;
+    private LocalTime remindTime;
+
+    private Boolean repeat;
+    private int repeatOffset;
 
     public Events() {
     }
 
-    public int get_id() {
-        return _id;
+    public int getId() {
+        return id;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String get_eventName() {
-        return _eventName;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void set_eventName(String _eventName) {
-        this._eventName = _eventName;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
-    public LocalDate get_eventDate() {
-        return _eventDate;
+    public LocalDate getEventDate() {
+        return eventDate;
     }
 
-    public void set_eventDate(LocalDate _eventDate) {
-        this._eventDate = _eventDate;
+    public void setEventDate(LocalDate eventDate) {
+        this.eventDate = eventDate;
     }
 
-    public LocalTime get_eventStart() {
-        return _eventStart;
+    public LocalTime getEventStart() {
+        return eventStart;
     }
 
-    public void set_eventStart(LocalTime _eventStart) {
-        this._eventStart = _eventStart;
+    public void setEventStart(LocalTime eventStart) {
+        this.eventStart = eventStart;
     }
 
-    public LocalTime get_eventEnd() {
-        return _eventEnd;
+    public LocalTime getEventEnd() {
+        return eventEnd;
     }
 
-    public void set_eventEnd(LocalTime _eventEnd) {
-        this._eventEnd = _eventEnd;
+    public void setEventEnd(LocalTime eventEnd) {
+        this.eventEnd = eventEnd;
     }
 
-    public Boolean get_sendReminders() {
-        return _sendReminders;
+    public Boolean getSendReminders() {
+        return sendReminders;
     }
 
-    public void set_sendReminders(Boolean _sendReminders) {
-        this._sendReminders = _sendReminders;
+    public void setSendReminders(Boolean sendReminders) {
+        this.sendReminders = sendReminders;
     }
 
-    public LocalTime get_remindTime() {
-        return _remindTime;
+    public LocalTime getRemindTime() {
+        return remindTime;
     }
 
-    public void set_remindTime(LocalTime _remindTime) {
-        this._remindTime = _remindTime;
+    public void setRemindTime(LocalTime remindTime) {
+        this.remindTime = remindTime;
     }
 
-    public Boolean get_repeat() {
-        return _repeat;
+    public Boolean getRepeat() {
+        return repeat;
     }
 
-    public void set_repeat(Boolean _repeat) {
-        this._repeat = _repeat;
+    public void setRepeat(Boolean repeat) {
+        this.repeat = repeat;
     }
 
-    public int get_repeatOffset() {
-        return _repeatOffset;
+    public int getRepeatOffset() {
+        return repeatOffset;
     }
 
-    public void set_repeatOffset(int _repeatOffset) {
-        this._repeatOffset = _repeatOffset;
+    public void setRepeatOffset(int repeatOffset) {
+        this.repeatOffset = repeatOffset;
     }
 }
