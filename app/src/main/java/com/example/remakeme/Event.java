@@ -4,8 +4,12 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.Calendar;
+/*
+ * Documentation for Calendar library:
+ * https://developer.android.com/reference/java/util/Calendar
+ *
+ */
 
 
 @Entity(tableName = "events")
@@ -16,17 +20,27 @@ public class Event {
     private int id;
 
     private String eventName;
-    private LocalDate eventDate;
-    private LocalTime eventStart;
-    private LocalTime eventEnd;
+    private Calendar eventStart;
+    private Calendar eventEnd;
 
     private Boolean sendReminders;
-    private LocalTime remindTime;
+    private Calendar remindTime;
 
     private Boolean repeat;
     private int repeatOffset;
 
     public Event() {
+    }
+
+    public Event(int id, String eventName, Calendar eventStart, Calendar eventEnd, Boolean sendReminders, Calendar remindTime, Boolean repeat, int repeatOffset) {
+        this.id = id;
+        this.eventName = eventName;
+        this.eventStart = eventStart;
+        this.eventEnd = eventEnd;
+        this.sendReminders = sendReminders;
+        this.remindTime = remindTime;
+        this.repeat = repeat;
+        this.repeatOffset = repeatOffset;
     }
 
     public int getId() {
@@ -45,27 +59,19 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public LocalDate getEventDate() {
-        return eventDate;
-    }
-
-    public void setEventDate(LocalDate eventDate) {
-        this.eventDate = eventDate;
-    }
-
-    public LocalTime getEventStart() {
+    public Calendar getEventStart() {
         return eventStart;
     }
 
-    public void setEventStart(LocalTime eventStart) {
+    public void setEventStart(Calendar eventStart) {
         this.eventStart = eventStart;
     }
 
-    public LocalTime getEventEnd() {
+    public Calendar getEventEnd() {
         return eventEnd;
     }
 
-    public void setEventEnd(LocalTime eventEnd) {
+    public void setEventEnd(Calendar eventEnd) {
         this.eventEnd = eventEnd;
     }
 
@@ -77,11 +83,11 @@ public class Event {
         this.sendReminders = sendReminders;
     }
 
-    public LocalTime getRemindTime() {
+    public Calendar getRemindTime() {
         return remindTime;
     }
 
-    public void setRemindTime(LocalTime remindTime) {
+    public void setRemindTime(Calendar remindTime) {
         this.remindTime = remindTime;
     }
 
