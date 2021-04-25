@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/navmenu_home"
+        android:title="Home"
+        android:icon="@android:drawable/ic_media_play"
+        />
+<!--    add icon-->
+
+    <item android:id="@+id/navmenu_dayview"
+        android:title="Day View"
+        android:icon="@android:drawable/ic_media_play"
+        />
+    <!--    add icon-->
+
+    <item android:id="@+id/navmenu_newevent"
+        android:title="New Event"
+        android:icon="@android:drawable/ic_media_play"
+        />
+    <!--    add icon-->
+
+    <item android:id="@+id/navmenu_infographics"
+        android:title="Infographics"
+        android:icon="@android:drawable/ic_media_play"
+        />
+    <!--    add icon-->
+
+    <item android:id="@+id/navmenu_reflection"
+        android:title="Daily Reflection"
+        android:icon="@android:drawable/ic_media_play"
+        />
+    <!--    add icon-->
+
+</menu>
