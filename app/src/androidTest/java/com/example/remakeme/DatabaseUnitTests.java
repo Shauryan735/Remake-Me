@@ -33,12 +33,46 @@ public class DatabaseUnitTests {
         db.close();
     }
 
+    /*
+     * Tests basic insert and get all statements
+     */
     @Test
-    public void writeUserAndReadInList() throws Exception {
+    public void test_writeUserAndReadInList() throws Exception {
         Event event = new Event();
         event.setEventName("test_event");
         eventDao.insertAll(event);
         List<Event> byName = eventDao.getAll();
         assertEquals((byName.get(0)).getEventName(), "test_event");
+    }
+
+    /*
+     * Tests delete statement
+     */
+    @Test
+    public void test_deleteStatement() throws Exception{
+        Event event = new Event();
+        event.setEventName("test_event");
+        eventDao.insertAll(event);
+        List<Event> byName = eventDao.getAll();
+
+        //finish implementation
+        assertEquals(2, 2);
+    }
+
+    /*
+     * Tests by days query with one day in list
+     * Then tests by days query with multiple days in list
+     */
+    @Test
+    public void test_byDaysQuery() throws Exception{
+        Event event = new Event();
+        event.setEventName("test_event");
+        eventDao.insertAll(event);
+        event.setEventName("test_event2");
+        eventDao.insertAll(event);
+        List<Event> byName = eventDao.getAll();
+
+        //finish implementation
+        assertEquals(2, 2);
     }
 }

@@ -17,14 +17,15 @@ public interface EventDao {
     @Query("SELECT * FROM events WHERE event_id IN (:event_ids)")
     List<Event> getById(int[] event_ids);
 
-    @Query("SELECT * FROM events WHERE eventStart IN (:event_days)")
+    @Query("SELECT * FROM events WHERE date(eventStart) IN (date(:event_days))")
     List<Event> getByDays(Calendar[] event_days);
 
-    @Query("SELECT * FROM events WHERE eventName = (:event_names)")
+    @Query("SELECT * FROM events WHERE eventName IN (:event_names)")
     List<Event> getByName(String[] event_names);
 
     //ADD: get events for a month
-
+    @Query("SELECT * FROM events WHERE substr(date(eventStart), 6, 2) = :month")
+    List<Event> getByMonth(String month);
 
     @Insert
     void insertAll(Event... events);
