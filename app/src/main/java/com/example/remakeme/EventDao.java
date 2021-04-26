@@ -36,4 +36,7 @@ public interface EventDao {
 
     @Delete
     void delete(Event event);
+
+    @Delete
+    int deleteAll(Event... events);
 }

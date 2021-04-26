@@ -40,9 +40,17 @@ public class DatabaseUnitTests {
     public void test_writeUserAndReadInList() throws Exception {
         Event event = new Event();
         event.setEventName("test_event");
+
         eventDao.insertAll(event);
         List<Event> byName = eventDao.getAll();
         assertEquals((byName.get(0)).getEventName(), "test_event");
+        event = byName.get(0);
+        int numDeleted = eventDao.deleteAll(event);
+        assertEquals(1, numDeleted);
+
+        //List<Event> newByName = eventDao.getAll();
+
+        //assertEquals(0, byName.size());
     }
 
     /*
