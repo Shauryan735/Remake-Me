@@ -15,7 +15,7 @@ import java.util.Calendar;
 @Entity(tableName = "events")
 public class Event {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "event_id")
     private int id;
 

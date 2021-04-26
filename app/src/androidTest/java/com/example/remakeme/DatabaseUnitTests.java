@@ -72,7 +72,11 @@ public class DatabaseUnitTests {
         eventDao.insertAll(event);
         List<Event> byName = eventDao.getAll();
 
+        Event event1 = byName.get(0);
+        Event event2 = byName.get(1);
+
         //finish implementation
-        assertEquals(2, 2);
+        assertEquals(event1.getEventName(), "test_event");
+        assertEquals(event2.getEventName(), "test_event2");
     }
 }

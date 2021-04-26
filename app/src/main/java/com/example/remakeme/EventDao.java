@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.time.OffsetDateTime;
 import java.util.Calendar;
@@ -26,6 +27,9 @@ public interface EventDao {
     //ADD: get events for a month
     @Query("SELECT * FROM events WHERE substr(date(eventStart), 6, 2) = :month")
     List<Event> getByMonth(String month);
+
+    @Update
+    int updateEvent(Event event);
 
     @Insert
     void insertAll(Event... events);
