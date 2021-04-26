@@ -23,6 +23,9 @@ public interface EventDao {
     @Query("SELECT * FROM events WHERE eventName = (:event_names)")
     List<Event> getByName(String[] event_names);
 
+    //ADD: get events for a month
+
+
     @Insert
     void insertAll(Event... events);
 

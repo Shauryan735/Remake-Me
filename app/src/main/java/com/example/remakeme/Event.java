@@ -23,6 +23,11 @@ public class Event {
     private Calendar eventStart;
     private Calendar eventEnd;
 
+    private String groupName;
+    private int groupColor;
+
+    private Boolean graded;
+
     private Boolean sendReminders;
     private Calendar remindTime;
 
@@ -30,17 +35,12 @@ public class Event {
     private int repeatOffset;
 
     public Event() {
-    }
-
-    public Event(int id, String eventName, Calendar eventStart, Calendar eventEnd, Boolean sendReminders, Calendar remindTime, Boolean repeat, int repeatOffset) {
-        this.id = id;
-        this.eventName = eventName;
-        this.eventStart = eventStart;
-        this.eventEnd = eventEnd;
-        this.sendReminders = sendReminders;
-        this.remindTime = remindTime;
-        this.repeat = repeat;
-        this.repeatOffset = repeatOffset;
+        this.graded = true;
+        this.sendReminders = false;
+        this.repeat = false;
+        this.eventStart = Calendar.getInstance();
+        this.eventEnd = Calendar.getInstance();
+        this.remindTime = Calendar.getInstance();
     }
 
     public int getId() {
@@ -73,6 +73,30 @@ public class Event {
 
     public void setEventEnd(Calendar eventEnd) {
         this.eventEnd = eventEnd;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public int getGroupColor() {
+        return groupColor;
+    }
+
+    public void setGroupColor(int groupColor) {
+        this.groupColor = groupColor;
+    }
+
+    public Boolean getGraded() {
+        return graded;
+    }
+
+    public void setGraded(Boolean graded) {
+        this.graded = graded;
     }
 
     public Boolean getSendReminders() {
