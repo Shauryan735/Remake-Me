@@ -19,6 +19,8 @@ public class Event {
     @ColumnInfo(name = "event_id")
     private int id;
 
+    private int baseid;
+
     private String eventName;
     private Calendar eventStart;
     private Calendar eventEnd;
@@ -29,10 +31,10 @@ public class Event {
     private Boolean graded;
 
     private Boolean sendReminders;
-    private Calendar remindTime;
+    private long remindOffset;
 
     private Boolean repeat;
-    private int repeatOffset;
+    private long repeatOffset;
 
     public Event() {
         this.graded = true;
@@ -40,7 +42,6 @@ public class Event {
         this.repeat = false;
         this.eventStart = Calendar.getInstance();
         this.eventEnd = Calendar.getInstance();
-        this.remindTime = Calendar.getInstance();
     }
 
     public int getId() {
@@ -107,14 +108,6 @@ public class Event {
         this.sendReminders = sendReminders;
     }
 
-    public Calendar getRemindTime() {
-        return remindTime;
-    }
-
-    public void setRemindTime(Calendar remindTime) {
-        this.remindTime = remindTime;
-    }
-
     public Boolean getRepeat() {
         return repeat;
     }
@@ -123,11 +116,27 @@ public class Event {
         this.repeat = repeat;
     }
 
-    public int getRepeatOffset() {
+    public long getRepeatOffset() {
         return repeatOffset;
     }
 
-    public void setRepeatOffset(int repeatOffset) {
+    public void setRepeatOffset(long repeatOffset) {
         this.repeatOffset = repeatOffset;
+    }
+
+    public long getRemindOffset() {
+        return remindOffset;
+    }
+
+    public void setRemindOffset(long remindOffset) {
+        this.remindOffset = remindOffset;
+    }
+
+    public int getBaseid() {
+        return baseid;
+    }
+
+    public void setBaseid(int baseid) {
+        this.baseid = baseid;
     }
 }
