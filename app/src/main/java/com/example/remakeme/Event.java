@@ -36,6 +36,9 @@ public class Event {
     private Boolean repeat;
     private long repeatOffset;
 
+    private String note;
+    private String location;
+
     public Event() {
         this.graded = true;
         this.sendReminders = false;
@@ -44,99 +47,32 @@ public class Event {
         this.eventEnd = Calendar.getInstance();
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getEventName() {
-        return eventName;
-    }
-
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
-    }
-
-    public Calendar getEventStart() {
-        return eventStart;
-    }
-
-    public void setEventStart(Calendar eventStart) {
-        this.eventStart = eventStart;
-    }
-
-    public Calendar getEventEnd() {
-        return eventEnd;
-    }
-
-    public void setEventEnd(Calendar eventEnd) {
-        this.eventEnd = eventEnd;
-    }
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
-
-    public int getGroupColor() {
-        return groupColor;
-    }
-
-    public void setGroupColor(int groupColor) {
-        this.groupColor = groupColor;
-    }
-
-    public Boolean getGraded() {
-        return graded;
-    }
-
-    public void setGraded(Boolean graded) {
-        this.graded = graded;
-    }
-
-    public Boolean getSendReminders() {
-        return sendReminders;
-    }
-
-    public void setSendReminders(Boolean sendReminders) {
-        this.sendReminders = sendReminders;
-    }
-
-    public Boolean getRepeat() {
-        return repeat;
-    }
-
-    public void setRepeat(Boolean repeat) {
-        this.repeat = repeat;
-    }
-
-    public long getRepeatOffset() {
-        return repeatOffset;
-    }
-
-    public void setRepeatOffset(long repeatOffset) {
-        this.repeatOffset = repeatOffset;
-    }
-
-    public long getRemindOffset() {
-        return remindOffset;
-    }
-
-    public void setRemindOffset(long remindOffset) {
-        this.remindOffset = remindOffset;
-    }
-
-    public int getBaseid() {
-        return baseid;
-    }
-
-    public void setBaseid(int baseid) {
-        this.baseid = baseid;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getEventName() { return eventName; }
+    public void setEventName(String eventName) { this.eventName = eventName; }
+    public Calendar getEventStart() { return eventStart; }
+    public void setEventStart(Calendar eventStart) { this.eventStart = eventStart; }
+    public Calendar getEventEnd() { return eventEnd; }
+    public void setEventEnd(Calendar eventEnd) { this.eventEnd = eventEnd; }
+    public String getGroupName() { return groupName; }
+    public void setGroupName(String groupName) { this.groupName = groupName; }
+    public int getGroupColor() { return groupColor; }
+    public void setGroupColor(int groupColor) { this.groupColor = groupColor; }
+    public Boolean getGraded() { return graded; }
+    public void setGraded(Boolean graded) { this.graded = graded; }
+    public Boolean getSendReminders() { return sendReminders; }
+    public void setSendReminders(Boolean sendReminders) { this.sendReminders = sendReminders; }
+    public Boolean getRepeat() { return repeat; }
+    public void setRepeat(Boolean repeat) { this.repeat = repeat; }
+    public long getRepeatOffset() { return repeatOffset; }
+    public void setRepeatOffset(long repeatOffset) { this.repeatOffset = repeatOffset; }
+    public long getRemindOffset() { return remindOffset; }
+    public void setRemindOffset(long remindOffset) { this.remindOffset = remindOffset; }
+    public int getBaseid() { return baseid; }
+    public void setBaseid(int baseid) { this.baseid = baseid; }
+    public String getNote() { return note; }
+    public void setNote(String note) { this.note = note; }
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
 }
