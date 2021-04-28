@@ -15,4 +15,9 @@
 
 
     </style>
+
+    <style name="MenuItems" parent="Widget.AppCompat.Toolbar">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
 </resources>

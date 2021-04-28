@@ -32,6 +32,10 @@
         android:layout_gravity="start"
         android:background="@color/navcolor"
         app:itemTextColor="@color/white"
+
+        app:itemTextAppearance="@style/MenuItems"
+        app:itemIconTint="@color/white"
+        app:itemIconSize="24dp"
         />
 
 

@@ -3,31 +3,32 @@
 
     <item android:id="@+id/navmenu_home"
         android:title="Home"
-        android:icon="@android:drawable/ic_media_play"
+        android:icon="@drawable/homeicon"
+
         />
 <!--    add icon-->
 
     <item android:id="@+id/navmenu_dayview"
         android:title="Day View"
-        android:icon="@android:drawable/ic_media_play"
+        android:icon="@drawable/dayicon"
         />
     <!--    add icon-->
 
     <item android:id="@+id/navmenu_newevent"
         android:title="New Event"
-        android:icon="@android:drawable/ic_media_play"
+        android:icon="@drawable/newicon"
         />
     <!--    add icon-->
 
     <item android:id="@+id/navmenu_infographics"
         android:title="Infographics"
-        android:icon="@android:drawable/ic_media_play"
+        android:icon="@drawable/infoicon"
         />
     <!--    add icon-->
 
     <item android:id="@+id/navmenu_reflection"
         android:title="Daily Reflection"
-        android:icon="@android:drawable/ic_media_play"
+        android:icon="@drawable/notesicon"
         />
     <!--    add icon-->
 
