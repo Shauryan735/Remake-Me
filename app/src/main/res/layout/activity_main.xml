@@ -31,7 +31,7 @@
             android:layout_marginEnd="108dp"
             android:layout_marginBottom="215dp"
             android:onClick="setDate"
-            android:text="Jump to Current Date" />
+            android:text="@string/jump_to_current_date" />
 
     </RelativeLayout>
 
