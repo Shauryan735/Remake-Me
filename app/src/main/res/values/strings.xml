@@ -3,4 +3,5 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="jump_to_current_date">Jump to Current Date</string>
+    <string name="main_menu">Main Menu</string>
 </resources>
