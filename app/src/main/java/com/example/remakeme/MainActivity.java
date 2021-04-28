@@ -7,9 +7,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CalendarView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -19,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     NavigationView nav;
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
+
+    private static final String TAG = "CalendarActivity";
+    public static String DATE_MESSAGE = "Meme";
+    public static String date = "Meme 2.0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,5 +82,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        CalendarView calendarView = (CalendarView) findViewById(R.id.calender);
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int day) {
+                month = month + 1;
+                date = month + "/" + day + "/" + year;
+                dayView(view);
+            }
+        });
     }
+
+    public void setDate(View view) {
+        CalendarView simpleCalendarView = (CalendarView) findViewById(R.id.calender);
+        long selectedDate = simpleCalendarView.getDate();
+        simpleCalendarView.setDate(selectedDate);
+    }
+
+    public void dayView(View view) {
+        Intent intent = new Intent(this, DayView.class);
+        intent.putExtra(DATE_MESSAGE, date);
+        startActivity(intent);
+    }
+
+    public void menu(View view) {
+        Intent intent = new Intent(this, Menu.class);
+        intent.putExtra(DATE_MESSAGE, date);
+        startActivity(intent);
+    }
+
 }
