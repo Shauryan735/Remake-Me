@@ -30,7 +30,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="none"
-        android:text="Add Event"
+        android:text="@string/add_event"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
