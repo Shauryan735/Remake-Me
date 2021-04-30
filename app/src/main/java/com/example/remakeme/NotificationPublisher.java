@@ -89,6 +89,7 @@ public class NotificationPublisher extends BroadcastReceiver {
     private static PendingIntent getEventNotificationIntent(Context context, String message, int id){
         // Intent intent = new Intent(context, DisplayMessageActivity.class);
         /** NEED TO ADD THE CORRECT ACTIVITY CLASS HERE**/
+        Intent intent = null; //temporary so I can run unit tests
 
 
         intent.putExtra(NotificationPublisher.getExtraMessage(), message);
