@@ -5,4 +5,20 @@
     <string name="jump_to_current_date">Jump to Current Date</string>
     <string name="main_menu">Main Menu</string>
     <string name="add_event">Add Event</string>
+    <string name="location">Location</string>
+    <string name="notes">Notes</string>
+    <string name="add_more">Add More</string>
+    <string name="reminder">Reminder</string>
+    <string name="end_time">End Time</string>
+    <string name="repeat">Repeat</string>
+    <string name="group_color">Group Color</string>
+    <string name="name">Name</string>
+    <string name="base_time">12:00</string>
+    <string name="location_hint">Home, Work, etc.</string>
+    <string name="work_in_progress">Work in Progress</string>
+    <string name="notes_hint">Notes...</string>
+    <string name="create_event">Create Event</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="start_time">Start Time</string>
 </resources>
