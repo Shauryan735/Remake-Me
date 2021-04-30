@@ -21,6 +21,7 @@ public class AddEvent extends AppCompatActivity {
     String groupColor = "Red";
     String repeat = "Never";
     String reminder = "Never";
+    String location = "";
     String title = "New Event";
     String notes = "";
     Calendar eventDate;
@@ -105,6 +106,8 @@ public class AddEvent extends AppCompatActivity {
 
     public void submit(View view) {
         String calendar = "Calendar";
+        boolean boolRepeat = false;
+        boolean boolReminder = false;
 
         EditText editTitle = findViewById(R.id.editTextName);
         title = editTitle.getText().toString();
@@ -112,10 +115,19 @@ public class AddEvent extends AppCompatActivity {
         EditText editDate = findViewById(R.id.editTextDate);
         date = editDate.getText().toString();
 
+        EditText editLocation = findViewById(R.id.editTextLocation);
+        location = editLocation.getText().toString();
+
         EditText editNotes = findViewById(R.id.editTextNotes);
         notes = editNotes.getText().toString();
 
-        Event event = new Event();
+        if (!(repeat.equals("Never")))
+            boolRepeat = true;
+
+        if (!(reminder.equals("Never")))
+            boolReminder = true;
+
+        Event event = new Event(title, null, null, 0, location, boolRepeat, boolReminder, notes);
 
         Intent intent = new Intent(this, DayView.class);
         intent.putExtra(DATE_MESSAGE, date);

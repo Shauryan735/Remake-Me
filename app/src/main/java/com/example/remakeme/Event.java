@@ -47,6 +47,17 @@ public class Event {
         this.eventEnd = Calendar.getInstance();
     }
 
+    public Event(String eventName, Calendar eventStart, Calendar eventEnd, int groupColor, String location, Boolean repeat, Boolean sendReminders, String note) {
+        this.eventName = eventName;
+        this.eventStart = eventStart;
+        this.eventEnd = eventEnd;
+        this.groupColor = groupColor;
+        this.location = location;
+        this.repeat = repeat;
+        this.sendReminders = sendReminders;
+        this.note = note;
+    }
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getEventName() { return eventName; }
