@@ -29,6 +29,14 @@ public class Event {
     private Boolean repeat;
     private int repeatOffset;
 
+    private String note;
+    private int groupColor;
+    private String location;
+    private int baseid;
+    private boolean graded;
+    private long remindOffset;
+    private String groupName;
+
     public Event() {
     }
 
@@ -76,7 +84,7 @@ public class Event {
     public void setGroupColor(int groupColor) { this.groupColor = groupColor; }
     public Boolean getGraded() { return graded; }
     public void setGraded(Boolean graded) { this.graded = graded; }
-    public void setRepeatOffset(long repeatOffset) { this.repeatOffset = repeatOffset; }
+    public void setRepeatOffset(long repeatOffset) { this.repeatOffset = (int) repeatOffset; }
     public long getRemindOffset() { return remindOffset; }
     public void setRemindOffset(long remindOffset) { this.remindOffset = remindOffset; }
     public int getBaseid() { return baseid; }
