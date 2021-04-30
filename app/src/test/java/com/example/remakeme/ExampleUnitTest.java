@@ -2,6 +2,10 @@ package com.example.remakeme;
 
 import org.junit.Test;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
 import static org.junit.Assert.*;
 
 /**
@@ -14,4 +18,5 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
 }
