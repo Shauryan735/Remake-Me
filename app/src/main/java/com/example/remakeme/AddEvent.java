@@ -92,11 +92,4 @@ public class AddEvent extends AppCompatActivity {
         EditText dateText = findViewById(R.id.editTextDate);
         dateText.setText(date);
     }
-
-
-    public void menu(View view) {
-        Intent intent = new Intent(this, Menu.class);
-        intent.putExtra(DATE_MESSAGE, date);
-        startActivity(intent);
-    }
 }

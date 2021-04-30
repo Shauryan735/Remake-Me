@@ -105,11 +105,4 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(DATE_MESSAGE, date);
         startActivity(intent);
     }
-
-    public void menu(View view) {
-        Intent intent = new Intent(this, Menu.class);
-        intent.putExtra(DATE_MESSAGE, date);
-        startActivity(intent);
-    }
-
 }
