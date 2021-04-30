@@ -16,7 +16,7 @@
     <string name="base_time">12:00</string>
     <string name="location_hint">Home, Work, etc.</string>
     <string name="work_in_progress">Work in Progress</string>
-    <string name="notes_hint">Notes...</string>
+    <string name="notes_hint">Notes…</string>
     <string name="create_event">Create Event</string>
     <string name="title">Title</string>
     <string name="date">Date</string>
