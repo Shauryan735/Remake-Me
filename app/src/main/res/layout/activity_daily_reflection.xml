@@ -6,23 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".DailyReflection">
 
-    <Button
-        android:id="@+id/menu_button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/calender"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:onClick="menu"
-        android:text="Main Menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
-        app:layout_constraintVertical_bias="0.873" />
-
     <TextView
         android:id="@+id/editTextTextPersonName3"
         android:layout_width="144dp"

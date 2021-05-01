@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "CalendarActivity";
     public static String DATE_MESSAGE = "Meme";
-    public static String date = "Meme 2.0";
+    public static String date = "4/30/2021";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,37 +49,34 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navmenu_home:
-                        Toast.makeText(getApplicationContext(), "Put Code to open Home", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+        nav.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.navmenu_home:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    monthView();
+                    break;
 
-                    case R.id.navmenu_dayview:
-                        Toast.makeText(getApplicationContext(), "Put Code to open Day View", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+                case R.id.navmenu_dayview:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    dayView();
+                    break;
 
-                    case R.id.navmenu_newevent:
-                        Toast.makeText(getApplicationContext(), "Put Code to open New Event", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+                case R.id.navmenu_newevent:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    eventView();
+                    break;
 
-                    case R.id.navmenu_infographics:
-                        Toast.makeText(getApplicationContext(), "Put Code to open Infographics", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+                case R.id.navmenu_infographics:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    infographcisView();
+                    break;
 
-                    case R.id.navmenu_reflection:
-                        Toast.makeText(getApplicationContext(), "Put Code to open Reflection", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                }
-                return true;
+                case R.id.navmenu_reflection:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    reflectionView();
+                    break;
             }
+            return true;
         });
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calender);
@@ -89,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int day) {
                 month = month + 1;
                 date = month + "/" + day + "/" + year;
-                dayView(view);
+                dayView();
             }
         });
     }
@@ -100,14 +97,32 @@ public class MainActivity extends AppCompatActivity {
         simpleCalendarView.setDate(selectedDate);
     }
 
-    public void dayView(View view) {
+    public void monthView() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(DATE_MESSAGE, date);
+        startActivity(intent);
+    }
+
+    public void dayView() {
         Intent intent = new Intent(this, DayView.class);
         intent.putExtra(DATE_MESSAGE, date);
         startActivity(intent);
     }
 
-    public void menu(View view) {
-        Intent intent = new Intent(this, Menu.class);
+    public void eventView() {
+        Intent intent = new Intent(this, AddEvent.class);
+        intent.putExtra(DATE_MESSAGE, date);
+        startActivity(intent);
+    }
+
+    public void infographcisView() {
+        Intent intent = new Intent(this, Infographics.class);
+        intent.putExtra(DATE_MESSAGE, date);
+        startActivity(intent);
+    }
+
+    public void reflectionView() {
+        Intent intent = new Intent(this, DailyReflection.class);
         intent.putExtra(DATE_MESSAGE, date);
         startActivity(intent);
     }
