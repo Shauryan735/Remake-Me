@@ -21,6 +21,7 @@ public class NotificationPublisher extends BroadcastReceiver {
     public static String NOTIFICATION = "notification";
     private final static String default_notification_channel_id = "default";
     private static final String EXTRA_MESSAGE = "MESSAGE_ID";
+    private static String DATE_MESSAGE = "Meme";
     public static String getExtraMessage(){ return EXTRA_MESSAGE; }
 
     public void onReceive (Context context, Intent intent) {
@@ -50,7 +51,8 @@ public class NotificationPublisher extends BroadcastReceiver {
                 event.getEventName(),
                 event.getRemindOffset(),
                 event.getGroupColor(),
-                event.getId());
+                event.getId(),
+                event.getEventStart());
 
         Calendar now = Calendar.getInstance();
         long delay = event.getEventStart().getTimeInMillis() - now.getTimeInMillis() - event.getRemindOffset();
@@ -70,7 +72,8 @@ public class NotificationPublisher extends BroadcastReceiver {
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
     }
 
-    private static Notification getEventNotification (Context context, String location, String eventName, long reminderOffset, int color, int id) {
+    private static Notification getEventNotification (Context context,
+            String location, String eventName, long reminderOffset, int color, int id, Calendar start) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
                 default_notification_channel_id);
         builder.setContentTitle(eventName);
@@ -78,7 +81,7 @@ public class NotificationPublisher extends BroadcastReceiver {
         builder.setSmallIcon(R.drawable.ic_launcher_foreground);
         builder.setAutoCancel(true);
         builder.setChannelId(NOTIFICATION_CHANNEL_ID);
-        builder.setContentIntent(getEventNotificationIntent(context, eventName, id));
+        builder.setContentIntent(getEventNotificationIntent(context, eventName, id, start));
         if(color != 0) {
             builder.setColorized(true);
             builder.setColor(color);
@@ -86,10 +89,13 @@ public class NotificationPublisher extends BroadcastReceiver {
         return builder.build();
     }
 
-    private static PendingIntent getEventNotificationIntent(Context context, String message, int id){
-        Intent intent = new Intent(context, DisplayMessageActivity.class);
-        /** NEED TO ADD THE CORRECT ACTIVITY CLASS HERE**/
-
+    private static PendingIntent getEventNotificationIntent(Context context, String message, int id, Calendar start){
+        Intent intent = new Intent(context, DayView.class);
+        Integer month = start.get(Calendar.MONTH);
+        Integer day = start.get(Calendar.DAY_OF_MONTH);
+        Integer year = start.get(Calendar.YEAR);
+        String date = month.toString() + "/" + day.toString() + "/" + year.toString();
+        intent.putExtra(DATE_MESSAGE, date);
 
         intent.putExtra(NotificationPublisher.getExtraMessage(), message);
         // Create the TaskStackBuilder and add the intent, which inflates the back stack

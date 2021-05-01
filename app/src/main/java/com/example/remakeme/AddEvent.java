@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class AddEvent extends AppCompatActivity {
 
@@ -93,10 +94,93 @@ public class AddEvent extends AppCompatActivity {
         dateText.setText(date);
     }
 
-
     public void menu(View view) {
         Intent intent = new Intent(this, Menu.class);
         intent.putExtra(DATE_MESSAGE, date);
         startActivity(intent);
+    }
+
+    private void createEventsOnClick(View view){
+        if(getRepeating()){
+            int id = genID(getName());
+            createRepeatedEvents(id);
+        }
+        else{ createEvent(); }
+    }
+
+    private void createEvent(){
+        Event event = new Event();
+
+        event.setEventName(getName());
+        event.setEventStart(getStart());
+        event.setEventEnd(getEnd());
+        event.setGroupColor(getColor());
+        event.setGraded(getGraded());
+        event.setSendReminders(getSendReminders());
+        event.setNote(getNote());
+        event.setLocation(getLocation());
+
+        if(event.getSendReminders()){
+            event.setRemindOffset(getRemindOffset());
+            NotificationPublisher.scheduleEventNotification(this, event);
+        }
+    }
+
+    private boolean getRepeating(){
+        /**dummy method
+         * for Noah**/
+        return true;
+    }
+    private int genID(String name){
+        return name.hashCode();
+    }
+    private void createRepeatedEvents(int id){
+        /**dummy method
+         * for each of n events, createEvent()**/
+    }
+    private String getName(){
+        /**dummy method
+         * for Noah**/
+        return "";
+    }
+    private Calendar getStart(){
+        /**dummy method
+         * for Noah**/
+        return Calendar.getInstance();
+    }
+    private Calendar getEnd(){
+        /**dummy method
+         * for Noah**/
+        return Calendar.getInstance();
+    }
+    private int getColor(){
+        /**dummy method
+         * for Noah**/
+        return -1;
+    }
+    private boolean getGraded(){
+        /**dummy method
+         * for Noah**/
+        return true;
+    }
+    private boolean getSendReminders(){
+        /**dummy method
+         * for Noah**/
+        return true;
+    }
+    private String getNote(){
+        /**dummy method
+         * for Noah**/
+        return "";
+    }
+    private String getLocation(){
+        /**dummy method
+         * for Noah**/
+        return "";
+    }
+    private long getRemindOffset() {
+        /**dummy method
+         * for Noah**/
+        return -1;
     }
 }
