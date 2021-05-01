@@ -6,22 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".AddEvent">
 
-    <Button
-        android:id="@+id/menu_button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/calender"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="menu"
-        android:text="@string/main_menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNotes"
-        app:layout_constraintVertical_bias="0.888" />
-
     <TextView
         android:id="@+id/textViewAddEvent"
         android:layout_width="117dp"
@@ -331,8 +315,8 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="submit"
         android:text="@string/create_event"
-        android:onClick="createEventsOnClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
