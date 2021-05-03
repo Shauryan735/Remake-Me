@@ -38,6 +38,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        CalendarView calendarView = (CalendarView) findViewById(R.id.calender);
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int day) {
+                month = month + 1;
+                date = month + "/" + day + "/" + year;
+                navOpenDayView();
+            }
+        });
+
+        // TODO: Start of Navigation bar code
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -53,42 +66,33 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navmenu_home:
                     drawerLayout.closeDrawer(GravityCompat.START);
-                    monthView();
+                    navOpenHome();
                     break;
 
                 case R.id.navmenu_dayview:
                     drawerLayout.closeDrawer(GravityCompat.START);
-                    dayView();
+                    navOpenDayView();
                     break;
 
                 case R.id.navmenu_newevent:
                     drawerLayout.closeDrawer(GravityCompat.START);
-                    eventView();
+                    navOpenEvent();
                     break;
 
                 case R.id.navmenu_infographics:
                     drawerLayout.closeDrawer(GravityCompat.START);
-                    infographcisView();
+                    navOpenInfo();
                     break;
 
                 case R.id.navmenu_reflection:
                     drawerLayout.closeDrawer(GravityCompat.START);
-                    reflectionView();
+                    navOpenReflect();
                     break;
             }
             return true;
         });
 
-        CalendarView calendarView = (CalendarView) findViewById(R.id.calender);
-
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int day) {
-                month = month + 1;
-                date = month + "/" + day + "/" + year;
-                dayView();
-            }
-        });
+        // TODO: End of Navigation bar code
     }
 
     public void setDate(View view) {
@@ -97,33 +101,35 @@ public class MainActivity extends AppCompatActivity {
         simpleCalendarView.setDate(selectedDate);
     }
 
-    public void monthView() {
-        Intent intent = new Intent(this, MainActivity.class);
+    // TODO: Navigation bar helper code
+
+    public void navOpenHome(){
+        Intent intent = new Intent(this, com.example.remakeme.MainActivity.class);
+        intent.putExtra(DATE_MESSAGE, MainActivity.date);
+        startActivity(intent);
+    }
+
+    public void navOpenDayView(){
+        Intent intent = new Intent(this, com.example.remakeme.DayView.class);
+        intent.putExtra(DATE_MESSAGE, MainActivity.date);
+        startActivity(intent);
+    }
+
+    public void navOpenEvent(){
+        Intent intent = new Intent(this, com.example.remakeme.AddEvent.class);
         intent.putExtra(DATE_MESSAGE, date);
         startActivity(intent);
     }
 
-    public void dayView() {
-        Intent intent = new Intent(this, DayView.class);
-        intent.putExtra(DATE_MESSAGE, date);
+    public void navOpenInfo(){
+        Intent intent = new Intent(this, com.example.remakeme.Infographics.class);
+        intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
     }
 
-    public void eventView() {
-        Intent intent = new Intent(this, AddEvent.class);
-        intent.putExtra(DATE_MESSAGE, date);
-        startActivity(intent);
-    }
-
-    public void infographcisView() {
-        Intent intent = new Intent(this, Infographics.class);
-        intent.putExtra(DATE_MESSAGE, date);
-        startActivity(intent);
-    }
-
-    public void reflectionView() {
-        Intent intent = new Intent(this, DailyReflection.class);
-        intent.putExtra(DATE_MESSAGE, date);
+    public void navOpenReflect(){
+        Intent intent = new Intent(this, com.example.remakeme.DailyReflection.class);
+        intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
     }
 
