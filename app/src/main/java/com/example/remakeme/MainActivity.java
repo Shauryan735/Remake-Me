@@ -31,7 +31,75 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "CalendarActivity";
     public static String DATE_MESSAGE = "Meme";
-    public static String date = "Meme 2.0";
+    public static String date = "4/30/2021";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        CalendarView calendarView = (CalendarView) findViewById(R.id.calender);
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int day) {
+                month = month + 1;
+                date = month + "/" + day + "/" + year;
+                navOpenDayView();
+            }
+        });
+
+        // TODO: Start of Navigation bar code
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        nav = findViewById(R.id.nav);
+
+        drawerLayout = findViewById(R.id.drawer);
+
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        nav.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.navmenu_home:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    navOpenHome();
+                    break;
+
+                case R.id.navmenu_dayview:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    navOpenDayView();
+                    break;
+
+                case R.id.navmenu_newevent:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    navOpenEvent();
+                    break;
+
+                case R.id.navmenu_infographics:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    navOpenInfo();
+                    break;
+
+                case R.id.navmenu_reflection:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    navOpenReflect();
+                    break;
+            }
+            return true;
+        });
+
+        // TODO: End of Navigation bar code
+    }
+
+    public void setDate(View view) {
+        CalendarView simpleCalendarView = (CalendarView) findViewById(R.id.calender);
+        long selectedDate = simpleCalendarView.getDate();
+        simpleCalendarView.setDate(selectedDate);
+    }
 
     // TODO: Navigation bar helper code
 
@@ -62,88 +130,6 @@ public class MainActivity extends AppCompatActivity {
     public void navOpenReflect(){
         Intent intent = new Intent(this, com.example.remakeme.DailyReflection.class);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
-        startActivity(intent);
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        CalendarView calendarView = (CalendarView) findViewById(R.id.calender);
-
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int day) {
-                month = month + 1;
-                date = month + "/" + day + "/" + year;
-                dayView(view);
-            }
-        });
-
-        // TODO: Start of Navigation bar code
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        nav = findViewById(R.id.nav);
-        drawerLayout = findViewById(R.id.drawer);
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navmenu_home:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        navOpenHome();
-                        break;
-
-                    case R.id.navmenu_dayview:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        navOpenDayView();
-                        break;
-
-                    case R.id.navmenu_newevent:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        navOpenEvent();
-                        break;
-
-                    case R.id.navmenu_infographics:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        navOpenInfo();
-                        break;
-
-                    case R.id.navmenu_reflection:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        navOpenReflect();
-                        break;
-                }
-                return true;
-            }
-        });
-
-        // TODO: End of Navigation bar code
-    }
-
-    public void setDate(View view) {
-        CalendarView simpleCalendarView = (CalendarView) findViewById(R.id.calender);
-        long selectedDate = simpleCalendarView.getDate();
-        simpleCalendarView.setDate(selectedDate);
-    }
-
-    public void dayView(View view) {
-        Intent intent = new Intent(this, DayView.class);
-        intent.putExtra(DATE_MESSAGE, date);
-        startActivity(intent);
-    }
-
-    public void menu(View view) {
-        Intent intent = new Intent(this, Menu.class);
-        intent.putExtra(DATE_MESSAGE, date);
         startActivity(intent);
     }
 

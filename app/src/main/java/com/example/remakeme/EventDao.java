@@ -1,5 +1,6 @@
 package com.example.remakeme;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -37,8 +38,19 @@ public interface EventDao {
             "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 6, 2) = :month")
     List<Event> getByMonth(String month);
 
+    @Query("SELECT " +
+            "* " +
+            "FROM " +
+            "events " +
+            "WHERE " +
+            "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) = :day")
+    LiveData<List<Event>> getByDay(String day);
+
     @Update
     int updateEvent(Event event);
+
+    @Insert
+    void insert(Event event);
 
     @Insert
     void insertAll(Event... events);

@@ -35,45 +35,46 @@ public class Notes extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         nav = findViewById(R.id.nav);
+
         drawerLayout = findViewById(R.id.drawer);
+
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navmenu_home:
-                        navOpenHome();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+        nav.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.navmenu_home:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    navOpenHome();
+                    break;
 
-                    case R.id.navmenu_dayview:
-                        navOpenDayView();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+                case R.id.navmenu_dayview:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    navOpenDayView();
+                    break;
 
-                    case R.id.navmenu_newevent:
-                        navOpenEvent();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+                case R.id.navmenu_newevent:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    navOpenEvent();
+                    break;
 
-                    case R.id.navmenu_infographics:
-                        navOpenInfo();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+                case R.id.navmenu_infographics:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    navOpenInfo();
+                    break;
 
-                    case R.id.navmenu_reflection:
-                        navOpenReflect();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                }
-                return true;
+                case R.id.navmenu_reflection:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    navOpenReflect();
+                    break;
             }
+            return true;
         });
 
         // TODO: End of Navigation bar code
+
+
 
         Intent intent = getIntent();
         date = intent.getStringExtra(DATE_MESSAGE);

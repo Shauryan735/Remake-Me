@@ -14,7 +14,6 @@
         <activity android:name=".Notes" />
         <activity android:name=".AddEvent" />
         <activity android:name=".Infographics" />
-        <activity android:name=".Menu" />
         <activity android:name=".DayView" />
         <activity android:name=".MainActivity">
             <intent-filter>
