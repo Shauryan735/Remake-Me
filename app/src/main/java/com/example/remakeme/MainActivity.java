@@ -33,54 +33,43 @@ public class MainActivity extends AppCompatActivity {
     public static String DATE_MESSAGE = "Meme";
     public static String date = "Meme 2.0";
 
+    // TODO: Navigation bar helper code
+
+    public void navOpenHome(){
+        Intent intent = new Intent(this, com.example.remakeme.MainActivity.class);
+        intent.putExtra(DATE_MESSAGE, MainActivity.date);
+        startActivity(intent);
+    }
+
+    public void navOpenDayView(){
+        Intent intent = new Intent(this, com.example.remakeme.DayView.class);
+        intent.putExtra(DATE_MESSAGE, MainActivity.date);
+        startActivity(intent);
+    }
+
+    public void navOpenEvent(){
+        Intent intent = new Intent(this, com.example.remakeme.AddEvent.class);
+        intent.putExtra(DATE_MESSAGE, date);
+        startActivity(intent);
+    }
+
+    public void navOpenInfo(){
+        Intent intent = new Intent(this, com.example.remakeme.Infographics.class);
+        intent.putExtra(DATE_MESSAGE, MainActivity.date);
+        startActivity(intent);
+    }
+
+    public void navOpenReflect(){
+        Intent intent = new Intent(this, com.example.remakeme.DailyReflection.class);
+        intent.putExtra(DATE_MESSAGE, MainActivity.date);
+        startActivity(intent);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        nav = findViewById(R.id.nav);
-
-        drawerLayout = findViewById(R.id.drawer);
-
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navmenu_home:
-                        Toast.makeText(getApplicationContext(), "Put Code to open Home", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-
-                    case R.id.navmenu_dayview:
-                        Toast.makeText(getApplicationContext(), "Put Code to open Day View", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-
-                    case R.id.navmenu_newevent:
-                        Toast.makeText(getApplicationContext(), "Put Code to open New Event", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-
-                    case R.id.navmenu_infographics:
-                        Toast.makeText(getApplicationContext(), "Put Code to open Infographics", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-
-                    case R.id.navmenu_reflection:
-                        Toast.makeText(getApplicationContext(), "Put Code to open Reflection", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                }
-                return true;
-            }
-        });
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calender);
 
@@ -92,6 +81,52 @@ public class MainActivity extends AppCompatActivity {
                 dayView(view);
             }
         });
+
+        // TODO: Start of Navigation bar code
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        nav = findViewById(R.id.nav);
+        drawerLayout = findViewById(R.id.drawer);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navmenu_home:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        navOpenHome();
+                        break;
+
+                    case R.id.navmenu_dayview:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        navOpenDayView();
+                        break;
+
+                    case R.id.navmenu_newevent:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        navOpenEvent();
+                        break;
+
+                    case R.id.navmenu_infographics:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        navOpenInfo();
+                        break;
+
+                    case R.id.navmenu_reflection:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        navOpenReflect();
+                        break;
+                }
+                return true;
+            }
+        });
+
+        // TODO: End of Navigation bar code
     }
 
     public void setDate(View view) {
