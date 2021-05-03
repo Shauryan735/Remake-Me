@@ -130,6 +130,8 @@ public class AddEvent extends AppCompatActivity {
         Event event = new Event(title, null, null, 0, location, boolRepeat, boolReminder, notes);
         /**dont forget to call scheduleEventNotification(this, event)**/
 
+        /**instead of starting a new activity, simply destroy this one, forcing a return to the previous view
+         * (I'm not sure how to do that)**/
         Intent intent = new Intent(this, DayView.class);
         intent.putExtra(DATE_MESSAGE, date);
         startActivity(intent);

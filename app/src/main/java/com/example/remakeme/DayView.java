@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class DayView extends AppCompatActivity {
 
@@ -22,10 +24,16 @@ public class DayView extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.textView);
         textView.setText(date);
+
+        /*add the toolbar and enable upwards navigation*/
+        Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar2);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
     }
 
-    public void goToCalendar(View view) {
+    /*public void goToCalendar(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-    }
+    }*/
 }
