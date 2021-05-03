@@ -2,6 +2,7 @@ package com.example.remakeme;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Calendar;
@@ -40,6 +41,7 @@ public class Event {
     public Event() {
     }
 
+    @Ignore
     public Event(int id, String eventName, Calendar eventStart, Calendar eventEnd, Boolean sendReminders, Calendar remindTime, Boolean repeat, int repeatOffset) {
         this.id = id;
         this.eventName = eventName;
