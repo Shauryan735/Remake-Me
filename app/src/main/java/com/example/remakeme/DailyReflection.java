@@ -89,31 +89,31 @@ public class DailyReflection extends AppCompatActivity {
     // TODO: Navigation bar helper code
 
     public void navOpenHome(){
-        Intent intent = new Intent(this, com.example.remakeme.MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
     }
 
     public void navOpenDayView(){
-        Intent intent = new Intent(this, com.example.remakeme.DayView.class);
+        Intent intent = new Intent(this, DayView.class);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
     }
 
     public void navOpenEvent(){
-        Intent intent = new Intent(this, com.example.remakeme.AddEvent.class);
+        Intent intent = new Intent(this, AddEvent.class);
         intent.putExtra(DATE_MESSAGE, date);
         startActivity(intent);
     }
 
     public void navOpenInfo(){
-        Intent intent = new Intent(this, com.example.remakeme.Infographics.class);
+        Intent intent = new Intent(this, Infographics.class);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
     }
 
     public void navOpenReflect(){
-        Intent intent = new Intent(this, com.example.remakeme.DailyReflection.class);
+        Intent intent = new Intent(this, DailyReflection.class);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
     }
