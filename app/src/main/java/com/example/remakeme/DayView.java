@@ -7,15 +7,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
-import androidx.appcompat.widget.Toolbar;
 
 public class DayView extends AppCompatActivity {
 
@@ -39,7 +38,7 @@ public class DayView extends AppCompatActivity {
 
         // TODO: Start of Navigation bar code
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        /*Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         nav = findViewById(R.id.nav);
@@ -79,20 +78,21 @@ public class DayView extends AppCompatActivity {
                 }
                 return true;
             }
-        });
+        });*/
         // TODO: End of Navigation bar code
 
         /*add the toolbar and enable upwards navigation*/
-        Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
-        setSupportActionBar(toolbar2);
+        /*Remove when navbar complete*/
+        Toolbar JKsToolbar = (Toolbar) findViewById(R.id.JKsToolbar);
+        setSupportActionBar(JKsToolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
     }
 
-    /*public void goToCalendar(View view) {
+    public void goToCalendar(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-    }*/
+    }
 
 //    public void menu(View view) {
 //        Intent intent = new Intent(this, Menu.class);
