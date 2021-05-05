@@ -7,8 +7,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import java.time.OffsetDateTime;
-import java.util.Calendar;
 import java.util.List;
 
 @Dao
@@ -38,6 +36,7 @@ public interface EventDao {
             "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 6, 2) = :month")
     List<Event> getByMonth(String month);
 
+    //"2020-03-28"
     @Query("SELECT " +
             "* " +
             "FROM " +

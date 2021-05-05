@@ -35,7 +35,7 @@ public class Event {
     private String note;
     private int groupColor;
     private String location;
-    private int baseid;
+    private long baseId;
     private boolean graded;
     private long remindOffset;
     private String groupName;
@@ -44,8 +44,8 @@ public class Event {
     }
 
     @Ignore
-    public Event(long id, String eventName, Calendar eventStart, Calendar eventEnd, Boolean sendReminders, Calendar remindTime, Boolean repeat, int repeatOffset) {
-        this.id = id;
+    public Event(long baseId, String eventName, Calendar eventStart, Calendar eventEnd, Boolean sendReminders, Calendar remindTime, Boolean repeat, int repeatOffset) {
+        this.baseId = baseId;
         this.eventName = eventName;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
@@ -71,6 +71,7 @@ public class Event {
         this.eventName = eventName;
     }
 
+    @Ignore
     public Event(String eventName, Calendar eventStart, Calendar eventEnd,
                  int groupColor, String location, Boolean repeat, Boolean sendReminders, String note) {
         this.eventName = eventName;
@@ -92,8 +93,8 @@ public class Event {
     public void setRepeatOffset(long repeatOffset) { this.repeatOffset = (int) repeatOffset; }
     public long getRemindOffset() { return remindOffset; }
     public void setRemindOffset(long remindOffset) { this.remindOffset = remindOffset; }
-    public int getBaseid() { return baseid; }
-    public void setBaseid(int baseid) { this.baseid = baseid; }
+    public long getBaseId() { return baseId; }
+    public void setBaseId(long baseId) { this.baseId = baseId; }
     public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
     public String getLocation() { return location; }

@@ -23,6 +23,8 @@ import java.util.Calendar;
 
 public class AddEvent extends AppCompatActivity {
 
+    private EventDao eventDao;
+
     NavigationView nav;
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
@@ -48,6 +50,8 @@ public class AddEvent extends AppCompatActivity {
         EditText editDate = findViewById(R.id.editTextDate);
         editDate.setText(date);
 
+        AppDatabase instance = AppDatabase.getInstance(this);
+        eventDao = instance.getEventDao();
 
         // TODO: Start of Navigation bar code
 
@@ -242,7 +246,10 @@ public class AddEvent extends AppCompatActivity {
 
 
         Event event = new Event(title, startCalendar, endCalendar, color, location, boolRepeat, boolReminder, notes);
-
+        long event_id = eventDao.insert(event);
+        if(boolRepeat){
+            repeat(event, event_id);
+        }
         /**dont forget to call scheduleEventNotification(this, event)**/
 
         /**instead of starting a new activity, simply destroy this one, forcing a return to the previous view
@@ -290,9 +297,8 @@ public class AddEvent extends AppCompatActivity {
         return new Intent(context, AddEvent.class);
     }
 
-    public void repeat(Event e)
+    public void repeat(Event e, long baseId)
     {
-        long id = e.getId();
         String name = e.getEventName();
         Calendar startTime = e.getEventStart();
         Calendar endTime = e.getEventEnd();
@@ -301,9 +307,6 @@ public class AddEvent extends AppCompatActivity {
         Boolean repeat = e.getRepeat(); 							    //repeat offset is being treated as follows:
         int repeatOffset = e.getRepeatOffset();						    //Daily:    1         |Weekly:   2
                                                                         //BiWeekly: 3         |Monthly:  4
-        Calendar nStartTime = startTime;                                //Yearly:   5
-        Calendar nEndTime = endTime;
-
         if(repeat)
         {
             if(repeatOffset == 1)									    //If repeat set to Daily create new events one year out
@@ -311,11 +314,12 @@ public class AddEvent extends AppCompatActivity {
                 int count = 0;										    //count init at 0 for one year of events
                 while(count < 365)									    //check if count is still less than 365
                 {													    //
-                    nStartTime.add(Calendar.DAY_OF_YEAR, count+1);	//update the calendar with new time from repeat loop
-                    nEndTime.add(Calendar.DAY_OF_YEAR, count+1);	//update the calendar with new time from repeat loop
+                    startTime.add(Calendar.DAY_OF_YEAR, count+1);	//update the calendar with new time from repeat loop
+                    endTime.add(Calendar.DAY_OF_YEAR, count+1);	    //update the calendar with new time from repeat loop
                                                                         //
-                    Event ne = new Event(id,name,nStartTime,nEndTime,   //
+                    Event ne = new Event(baseId,name, startTime, endTime,   //
                             remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
+                    eventDao.insert(ne);
                     count+=1;										    //increment the event counter
                 }
             }
@@ -324,11 +328,12 @@ public class AddEvent extends AppCompatActivity {
                 int count = 0;										    //count init at 0 for one year of events
                 while(count < 365)									    //check if count is still less than 365
                 {													    //
-                    nStartTime.add(Calendar.DAY_OF_YEAR, count+7);	//update the calendar with new time from repeat loop
-                    nEndTime.add(Calendar.DAY_OF_YEAR, count+7);	//update the calendar with new time from repeat loop
+                    startTime.add(Calendar.DAY_OF_YEAR, count+7);	//update the calendar with new time from repeat loop
+                    endTime.add(Calendar.DAY_OF_YEAR, count+7);	//update the calendar with new time from repeat loop
                                                                         //
-                    Event ne = new Event(id,name,nStartTime,nEndTime,   //
+                    Event ne = new Event(baseId,name, startTime, endTime,   //
                             remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
+                    eventDao.insert(ne);
                     count+=7;										    //increment the event counter by seven days
                 }
             }
@@ -337,11 +342,12 @@ public class AddEvent extends AppCompatActivity {
                 int count = 0;										    //count init at 0 for one year of events
                 while(count < 365)									    //check if count is still less than 365
                 {													    //
-                    nStartTime.add(Calendar.DAY_OF_YEAR, count+14);	//update the calendar with new time from repeat loop
-                    nEndTime.add(Calendar.DAY_OF_YEAR, count+14);	//update the calendar with new time from repeat loop
+                    startTime.add(Calendar.DAY_OF_YEAR, count+14);	//update the calendar with new time from repeat loop
+                    endTime.add(Calendar.DAY_OF_YEAR, count+14);	//update the calendar with new time from repeat loop
                                                                         //
-                    Event ne = new Event(id,name,nStartTime,nEndTime,   //
+                    Event ne = new Event(baseId,name, startTime, endTime,   //
                             remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
+                    eventDao.insert(ne);
                     count+=14;										    //increment the event counter by seven days
                 }
             }
@@ -350,21 +356,23 @@ public class AddEvent extends AppCompatActivity {
                 int count = 0;										    //count init at 0 for one year of events
                 while(count < 12)									    //check if count is still less than 365
                 {													    //
-                    nStartTime.add(Calendar.MONTH, count+1);		//update the calendar with new time from repeat loop
-                    nEndTime.add(Calendar.MONTH, count+1);			//update the calendar with new time from repeat loop
+                    startTime.add(Calendar.MONTH, count+1);		//update the calendar with new time from repeat loop
+                    endTime.add(Calendar.MONTH, count+1);			//update the calendar with new time from repeat loop
                                                                         //
-                    Event ne = new Event(id,name,nStartTime,nEndTime,   //
+                    Event ne = new Event(baseId,name, startTime, endTime,   //
                             remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
+                    eventDao.insert(ne);
                     count+=1;										    //increment the event counter by seven days
                 }
             }
             else if(repeatOffset == 5)								    //If repeat set to Yearly create an event one year out
             {														    //
-                nStartTime.add(Calendar.YEAR, 1);					//update the calendar with new time
-                nEndTime.add(Calendar.YEAR, 1);						//update the calendar with new time
+                startTime.add(Calendar.YEAR, 1);					//update the calendar with new time
+                endTime.add(Calendar.YEAR, 1);						//update the calendar with new time
                                                                         //
-                Event ne = new Event(id,name,nStartTime,nEndTime,       //
+                Event ne = new Event(baseId,name, startTime, endTime,       //
                         remind,remindTime,repeat,repeatOffset);	        //Create a new event with the new calendars
+                eventDao.insert(ne);
             }
         }
     }

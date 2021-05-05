@@ -114,10 +114,9 @@ public class DatabaseUnitTests {
     @Test
     public void test_insertReturnsLong() throws Exception{
         Event event = new Event();
-        event.setEventName("name_test");
-        eventDao.insertAll(event);
-
-        long id = eventDao.insert(event);
+        event.setEventName("other name");
+        long id;
+        id = eventDao.insert(event);
         assertEquals(1, id);
     }
 
