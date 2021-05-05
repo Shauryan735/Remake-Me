@@ -16,9 +16,9 @@ import java.util.Calendar;
 @Entity(tableName = "events")
 public class Event {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "event_id")
-    private int id;
+    private long id;
 
     private String eventName;
     private Calendar eventStart;
@@ -42,7 +42,7 @@ public class Event {
     }
 
     @Ignore
-    public Event(int id, String eventName, Calendar eventStart, Calendar eventEnd, Boolean sendReminders, Calendar remindTime, Boolean repeat, int repeatOffset) {
+    public Event(long id, String eventName, Calendar eventStart, Calendar eventEnd, Boolean sendReminders, Calendar remindTime, Boolean repeat, int repeatOffset) {
         this.id = id;
         this.eventName = eventName;
         this.eventStart = eventStart;
@@ -53,11 +53,11 @@ public class Event {
         this.repeatOffset = repeatOffset;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -145,7 +145,7 @@ public class Event {
 
     public void repeat(Event e)
     {
-        int id = e.getId();
+        long id = e.getId();
         String name = e.getEventName();
         Calendar startTime = e.getEventStart();
         Calendar endTime = e.getEventEnd();

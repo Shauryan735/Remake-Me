@@ -17,7 +17,7 @@ public interface EventDao {
     List<Event> getAll();
 
     @Query("SELECT * FROM events WHERE event_id IN (:event_ids)")
-    List<Event> getById(int[] event_ids);
+    List<Event> getById(long[] event_ids);
 
     @Query("SELECT " +
             "* " +
@@ -50,7 +50,7 @@ public interface EventDao {
     int updateEvent(Event event);
 
     @Insert
-    void insert(Event event);
+    long insert(Event event);
 
     @Insert
     void insertAll(Event... events);
