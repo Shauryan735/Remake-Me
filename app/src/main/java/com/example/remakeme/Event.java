@@ -1,5 +1,7 @@
 package com.example.remakeme;
 
+import android.annotation.SuppressLint;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -69,7 +71,8 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public Event(String eventName, Calendar eventStart, Calendar eventEnd, int groupColor, String location, Boolean repeat, Boolean sendReminders, String note) {
+    public Event(String eventName, Calendar eventStart, Calendar eventEnd,
+                 int groupColor, String location, Boolean repeat, Boolean sendReminders, String note) {
         this.eventName = eventName;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
@@ -141,5 +144,13 @@ public class Event {
 
     public void setRepeatOffset(int repeatOffset) {
         this.repeatOffset = repeatOffset;
+    }
+
+    public String getFormattedTime(){
+        @SuppressLint("DefaultLocale") String startHour = String.format("%02d", this.eventStart.get(Calendar.HOUR));
+        @SuppressLint("DefaultLocale") String startMin = String.format("%02d", this.eventStart.get(Calendar.MINUTE));
+        @SuppressLint("DefaultLocale") String endHour = String.format("%02d", this.eventEnd.get(Calendar.HOUR));
+        @SuppressLint("DefaultLocale") String endMin = String.format("%02d", this.eventEnd.get(Calendar.MINUTE));
+        return startHour + ":" + startMin + " - " + endHour + ":" + endMin;
     }
 }

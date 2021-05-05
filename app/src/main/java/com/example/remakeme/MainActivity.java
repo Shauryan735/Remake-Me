@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void navOpenDayView(){
-        Intent intent = DayView.makeIntent(MainActivity.this);
+        Intent intent = ScrollingDayView.makeIntent(MainActivity.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
         finish();
