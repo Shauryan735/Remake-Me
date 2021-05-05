@@ -12,3 +12,5 @@ Spring 2021
 Cal Poly San Luis Obispo
 
 RemakeMe is a calendar app designed to encourage self-reflection and thoughtful planning.
+
+![alt text](https://github.com/Shauryan735/Remake-Me/blob/master/Component%20Diagram.PNG "System Architecture")
