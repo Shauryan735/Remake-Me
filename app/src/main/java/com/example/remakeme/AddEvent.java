@@ -3,12 +3,12 @@ package com.example.remakeme;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -163,18 +163,52 @@ public class AddEvent extends AppCompatActivity {
         String calendar = "Calendar";
         boolean boolRepeat = false;
         boolean boolReminder = false;
+        int color = 0;
+        Calendar startCalendar = Calendar.getInstance();
+        Calendar endCalendar = Calendar.getInstance();
 
         EditText editTitle = findViewById(R.id.editTextName);
-        title = editTitle.getText().toString();
+        try {
+            title = editTitle.getText().toString();
+        }
+        catch (Exception e) {
+            title = "New Event";
+        }
 
         EditText editDate = findViewById(R.id.editTextDate);
         date = editDate.getText().toString();
+        String[] numbers = date.split("/");
+        int year = Integer.parseInt(numbers[2]);
+        int month = Integer.parseInt(numbers[0]);
+        int day = Integer.parseInt(numbers[1]);
 
         EditText editLocation = findViewById(R.id.editTextLocation);
-        location = editLocation.getText().toString();
+        try {
+            location = editLocation.getText().toString();
+        }
+        catch (Exception e) {
+            location = "None";
+        }
 
         EditText editNotes = findViewById(R.id.editTextNotes);
-        notes = editNotes.getText().toString();
+        try {
+            notes = editNotes.getText().toString();
+        }
+        catch (Exception e) {
+            notes = "None";
+        }
+
+        EditText editStart = findViewById(R.id.editTextStartTime);
+        String[] startTime = editStart.getText().toString().split(":");
+        int startHour = Integer.parseInt(startTime[0]);
+        int startMinute = Integer.parseInt(startTime[1]);
+        startCalendar.set(year, month, day, startHour, startMinute);
+
+        EditText editEnd = findViewById(R.id.editTextEndTime);
+        String[] endTime = editEnd.getText().toString().split(":");
+        int endHour = Integer.parseInt(endTime[0]);
+        int endMinute = Integer.parseInt(endTime[1]);
+        endCalendar.set(year, month, day, endHour, endMinute);
 
         if (!(repeat.equals("Never")))
             boolRepeat = true;
@@ -182,7 +216,33 @@ public class AddEvent extends AppCompatActivity {
         if (!(reminder.equals("Never")))
             boolReminder = true;
 
-        Event event = new Event(title, null, null, 0, location, boolRepeat, boolReminder, notes);
+        if (groupColor.equals("Red")) {
+            color = 0xFFFF0000;
+        }
+
+        if (groupColor.equals("Orange")) {
+            color = 0xFFFFA500;
+        }
+
+        if (groupColor.equals("Yellow")) {
+            color = 0xFFFFFF00;
+        }
+
+        if (groupColor.equals("Green")) {
+            color = 0xFF008000;
+        }
+
+        if (groupColor.equals("Blue")) {
+            color = 0xFF0000FF;
+        }
+
+        if (groupColor.equals("Purple")) {
+            color = 0xFF800080;
+        }
+
+
+        Event event = new Event(title, startCalendar, endCalendar, color, location, boolRepeat, boolReminder, notes);
+
         /**dont forget to call scheduleEventNotification(this, event)**/
 
         /**instead of starting a new activity, simply destroy this one, forcing a return to the previous view
@@ -228,5 +288,84 @@ public class AddEvent extends AppCompatActivity {
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, AddEvent.class);
+    }
+
+    public void repeat(Event e)
+    {
+        long id = e.getId();
+        String name = e.getEventName();
+        Calendar startTime = e.getEventStart();
+        Calendar endTime = e.getEventEnd();
+        Boolean remind = e.getSendReminders();
+        Calendar remindTime = e.getRemindTime();
+        Boolean repeat = e.getRepeat(); 							    //repeat offset is being treated as follows:
+        int repeatOffset = e.getRepeatOffset();						    //Daily:    1         |Weekly:   2
+                                                                        //BiWeekly: 3         |Monthly:  4
+        Calendar nStartTime = startTime;                                //Yearly:   5
+        Calendar nEndTime = endTime;
+
+        if(repeat)
+        {
+            if(repeatOffset == 1)									    //If repeat set to Daily create new events one year out
+            {														    //
+                int count = 0;										    //count init at 0 for one year of events
+                while(count < 365)									    //check if count is still less than 365
+                {													    //
+                    nStartTime.add(Calendar.DAY_OF_YEAR, count+1);	//update the calendar with new time from repeat loop
+                    nEndTime.add(Calendar.DAY_OF_YEAR, count+1);	//update the calendar with new time from repeat loop
+                                                                        //
+                    Event ne = new Event(id,name,nStartTime,nEndTime,   //
+                            remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
+                    count+=1;										    //increment the event counter
+                }
+            }
+        else if(repeatOffset == 2)								        //If repeat set to Weekly create new events one year out
+            {														    //
+                int count = 0;										    //count init at 0 for one year of events
+                while(count < 365)									    //check if count is still less than 365
+                {													    //
+                    nStartTime.add(Calendar.DAY_OF_YEAR, count+7);	//update the calendar with new time from repeat loop
+                    nEndTime.add(Calendar.DAY_OF_YEAR, count+7);	//update the calendar with new time from repeat loop
+                                                                        //
+                    Event ne = new Event(id,name,nStartTime,nEndTime,   //
+                            remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
+                    count+=7;										    //increment the event counter by seven days
+                }
+            }
+            else if(repeatOffset == 3)								    //If repeat set to BiWeekly create new events one year out
+            {														    //
+                int count = 0;										    //count init at 0 for one year of events
+                while(count < 365)									    //check if count is still less than 365
+                {													    //
+                    nStartTime.add(Calendar.DAY_OF_YEAR, count+14);	//update the calendar with new time from repeat loop
+                    nEndTime.add(Calendar.DAY_OF_YEAR, count+14);	//update the calendar with new time from repeat loop
+                                                                        //
+                    Event ne = new Event(id,name,nStartTime,nEndTime,   //
+                            remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
+                    count+=14;										    //increment the event counter by seven days
+                }
+            }
+            else if(repeatOffset == 4)								    //If repeat set to Monthly create new events one year out
+            {														    //
+                int count = 0;										    //count init at 0 for one year of events
+                while(count < 12)									    //check if count is still less than 365
+                {													    //
+                    nStartTime.add(Calendar.MONTH, count+1);		//update the calendar with new time from repeat loop
+                    nEndTime.add(Calendar.MONTH, count+1);			//update the calendar with new time from repeat loop
+                                                                        //
+                    Event ne = new Event(id,name,nStartTime,nEndTime,   //
+                            remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
+                    count+=1;										    //increment the event counter by seven days
+                }
+            }
+            else if(repeatOffset == 5)								    //If repeat set to Yearly create an event one year out
+            {														    //
+                nStartTime.add(Calendar.YEAR, 1);					//update the calendar with new time
+                nEndTime.add(Calendar.YEAR, 1);						//update the calendar with new time
+                                                                        //
+                Event ne = new Event(id,name,nStartTime,nEndTime,       //
+                        remind,remindTime,repeat,repeatOffset);	        //Create a new event with the new calendars
+            }
+        }
     }
 }

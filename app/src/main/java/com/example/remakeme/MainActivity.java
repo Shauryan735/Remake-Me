@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.room.Room;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -32,11 +33,19 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "CalendarActivity";
     public static String DATE_MESSAGE = "Meme";
     public static String date = "4/30/2021";
+    public EventDao eventDao;
+    public AppDatabase database;
+    public int start = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (start == 0 ) {
+            // Create database and eventDao
+        }
+        start = 1;
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calender);
 

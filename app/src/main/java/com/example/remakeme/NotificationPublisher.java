@@ -56,7 +56,7 @@ public class NotificationPublisher extends BroadcastReceiver {
 
         Calendar now = Calendar.getInstance();
         long delay = event.getEventStart().getTimeInMillis() - now.getTimeInMillis() - event.getRemindOffset();
-        scheduleNotification(context, notification, delay, ((Integer)event.getId()).toString());
+        scheduleNotification(context, notification, delay, ((Long)event.getId()).toString());
     }
 
     private static void scheduleNotification (Context context, Notification notification, long delay, String id) {
@@ -73,7 +73,7 @@ public class NotificationPublisher extends BroadcastReceiver {
     }
 
     private static Notification getEventNotification (Context context,
-            String location, String eventName, long reminderOffset, int color, int id, Calendar start) {
+                                                      String location, String eventName, long reminderOffset, int color, long id, Calendar start) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
                 default_notification_channel_id);
         builder.setContentTitle(eventName);
@@ -89,7 +89,7 @@ public class NotificationPublisher extends BroadcastReceiver {
         return builder.build();
     }
 
-    private static PendingIntent getEventNotificationIntent(Context context, String message, int id, Calendar start){
+    private static PendingIntent getEventNotificationIntent(Context context, String message, long id, Calendar start){
         Intent intent = new Intent(context, DayView.class);
         Integer month = start.get(Calendar.MONTH);
         Integer day = start.get(Calendar.DAY_OF_MONTH);
@@ -101,6 +101,6 @@ public class NotificationPublisher extends BroadcastReceiver {
         // Create the TaskStackBuilder and add the intent, which inflates the back stack
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addNextIntentWithParentStack(intent);
-        return stackBuilder.getPendingIntent(id, 0);
+        return stackBuilder.getPendingIntent((int) id, 0);
     }
 }
