@@ -1,5 +1,6 @@
 package com.example.remakeme;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -87,33 +88,38 @@ public class Infographics extends AppCompatActivity {
     // TODO: Navigation bar helper code
 
     public void navOpenHome(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = MainActivity.makeIntent(Infographics.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
     public void navOpenDayView(){
-        Intent intent = new Intent(this, DayView.class);
+        Intent intent = DayView.makeIntent(Infographics.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
     public void navOpenEvent(){
-        Intent intent = new Intent(this, AddEvent.class);
-        intent.putExtra(DATE_MESSAGE, date);
-        startActivity(intent);
-    }
-
-    public void navOpenInfo(){
-        Intent intent = new Intent(this, Infographics.class);
+        Intent intent = AddEvent.makeIntent(Infographics.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
+    }
+
+    public boolean navOpenInfo(){
+        return true;
     }
 
     public void navOpenReflect(){
-        Intent intent = new Intent(this, DailyReflection.class);
+        Intent intent = DailyReflection.makeIntent(Infographics.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, Infographics.class);
+    }
 }

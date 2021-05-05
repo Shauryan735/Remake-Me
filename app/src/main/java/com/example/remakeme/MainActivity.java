@@ -106,34 +106,39 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO: Navigation bar helper code
 
-    public void navOpenHome(){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(DATE_MESSAGE, MainActivity.date);
-        startActivity(intent);
+    public boolean navOpenHome(){
+        return true;
     }
 
     public void navOpenDayView(){
-        Intent intent = new Intent(this, DayView.class);
+        Intent intent = DayView.makeIntent(MainActivity.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
     public void navOpenEvent(){
-        Intent intent = new Intent(this, AddEvent.class);
+        Intent intent = AddEvent.makeIntent(MainActivity.this);
         intent.putExtra(DATE_MESSAGE, date);
         startActivity(intent);
+        finish();
     }
 
     public void navOpenInfo(){
-        Intent intent = new Intent(this, Infographics.class);
+        Intent intent = Infographics.makeIntent(MainActivity.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
     public void navOpenReflect(){
-        Intent intent = new Intent(this, DailyReflection.class);
+        Intent intent = DailyReflection.makeIntent(MainActivity.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, MainActivity.class);
+    }
 }

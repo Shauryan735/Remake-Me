@@ -1,5 +1,6 @@
 package com.example.remakeme;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -194,32 +195,38 @@ public class AddEvent extends AppCompatActivity {
     // TODO: Navigation bar helper code
 
     public void navOpenHome(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = MainActivity.makeIntent(AddEvent.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
     public void navOpenDayView(){
-        Intent intent = new Intent(this, DayView.class);
+        Intent intent = DayView.makeIntent(AddEvent.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
-    public void navOpenEvent(){
-        Intent intent = new Intent(this, AddEvent.class);
-        intent.putExtra(DATE_MESSAGE, date);
-        startActivity(intent);
+    public boolean navOpenEvent(){
+        return true;
     }
 
     public void navOpenInfo(){
-        Intent intent = new Intent(this, Infographics.class);
+        Intent intent = Infographics.makeIntent(AddEvent.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
     public void navOpenReflect(){
-        Intent intent = new Intent(this, DailyReflection.class);
+        Intent intent = DailyReflection.makeIntent(AddEvent.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
+    }
+
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, AddEvent.class);
     }
 }

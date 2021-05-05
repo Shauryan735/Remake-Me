@@ -1,5 +1,6 @@
 package com.example.remakeme;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -89,32 +90,38 @@ public class DailyReflection extends AppCompatActivity {
     // TODO: Navigation bar helper code
 
     public void navOpenHome(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = MainActivity.makeIntent(DailyReflection.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
     public void navOpenDayView(){
-        Intent intent = new Intent(this, DayView.class);
+        Intent intent = DayView.makeIntent(DailyReflection.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
     public void navOpenEvent(){
-        Intent intent = new Intent(this, AddEvent.class);
-        intent.putExtra(DATE_MESSAGE, date);
+        Intent intent = AddEvent.makeIntent(DailyReflection.this);
+        intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
     public void navOpenInfo(){
-        Intent intent = new Intent(this, Infographics.class);
+        Intent intent = Infographics.makeIntent(DailyReflection.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
-    public void navOpenReflect(){
-        Intent intent = new Intent(this, DailyReflection.class);
-        intent.putExtra(DATE_MESSAGE, MainActivity.date);
-        startActivity(intent);
+    public boolean navOpenReflect(){
+        return true;
+    }
+
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, DailyReflection.class);
     }
 }

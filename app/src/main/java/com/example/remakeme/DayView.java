@@ -1,5 +1,6 @@
 package com.example.remakeme;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -104,33 +105,38 @@ public class DayView extends AppCompatActivity {
     // TODO: Navigation bar helper code
 
     public void navOpenHome(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = MainActivity.makeIntent(DayView.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
-    public void navOpenDayView(){
-        Intent intent = new Intent(this, DayView.class);
-        intent.putExtra(DATE_MESSAGE, MainActivity.date);
-        startActivity(intent);
+    public boolean navOpenDayView(){
+        return true;
     }
 
     public void navOpenEvent(){
-        Intent intent = new Intent(this, AddEvent.class);
-        intent.putExtra(DATE_MESSAGE, date);
+        Intent intent = AddEvent.makeIntent(DayView.this);
+        intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
     public void navOpenInfo(){
-        Intent intent = new Intent(this, Infographics.class);
+        Intent intent = Infographics.makeIntent(DayView.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
     public void navOpenReflect(){
-        Intent intent = new Intent(this, DailyReflection.class);
+        Intent intent = DailyReflection.makeIntent(DayView.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
+        finish();
     }
 
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, DayView.class);
+    }
 }
