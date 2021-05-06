@@ -8,9 +8,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
@@ -19,7 +21,6 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
     private ArrayList<Event> dataSet;
     Context mContext;
 
-    // View lookup cache
     private static class ViewHolder {
         TextView eventName;
         TextView eventTime;
@@ -29,7 +30,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
     public EventArrayAdapter(ArrayList<Event> data, Context context) {
         super(context, R.layout.hour, data);
         this.dataSet = data;
-        this.mContext=context;
+        this.mContext = context;
 
     }
 
@@ -45,6 +46,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
 
     private int lastPosition = -1;
 
+    @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
@@ -57,8 +59,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
         if (convertView == null) {
 
             viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.hour, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.hour, parent, false);
             viewHolder.eventName = (TextView) convertView.findViewById(R.id.eventName);
             viewHolder.eventTime = (TextView) convertView.findViewById(R.id.eventTime);
             viewHolder.eventColor = (ImageView) convertView.findViewById(R.id.eventColor);
@@ -66,7 +67,8 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
             result=convertView;
 
             convertView.setTag(viewHolder);
-        } else {
+        }
+        else {
             viewHolder = (ViewHolder) convertView.getTag();
             result=convertView;
         }
@@ -79,7 +81,6 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
         viewHolder.eventTime.setText(event.getFormattedTime());
         viewHolder.eventColor.setOnClickListener(this);
         viewHolder.eventColor.setTag(position);
-        // Return the completed view to render on screen
         return convertView;
     }
 }

@@ -1,58 +1,50 @@
 package com.example.remakeme;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-public class ScrollingDayView extends AppCompatActivity {
+public class DayViewV2 extends AppCompatActivity {
 
     String DATE_MESSAGE = "Meme";
     String date = "Meme 2.0";
+    Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling_day_view);
+        setContentView(R.layout.activity_day_view_v2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.dayViewToolbar);
         setSupportActionBar(toolbar);
-        CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        toolBarLayout.setTitle(getTitle());
-
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        //TODO: replace onClick method body with a call to addEvent activity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = AddEvent.makeIntent(context);
+                intent.putExtra(DATE_MESSAGE, date);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -62,7 +54,7 @@ public class ScrollingDayView extends AppCompatActivity {
         textView.setText(date);
 
         //TODO: add left and right swipe navigation between dayViews
-        /*String[] dateParts = date.split("/");
+        String[] dateParts = date.split("/");
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, parseInt(dateParts[0]));
         calendar.set(Calendar.DAY_OF_MONTH, parseInt(dateParts[1]));
@@ -70,8 +62,7 @@ public class ScrollingDayView extends AppCompatActivity {
         Calendar left = calendar;
         left.add(Calendar.HOUR, -24);
         Calendar right = calendar;
-        right.add(Calendar.HOUR, 24);*/
-        //TODO: add left and right buttons that call Dayview with left and right dates
+        right.add(Calendar.HOUR, 24);
 
 
 
@@ -112,6 +103,11 @@ public class ScrollingDayView extends AppCompatActivity {
                 0xFFFF69BC, "location4", false, false, "none"));
 
         final EventArrayAdapter adapter = new EventArrayAdapter(dayEvents, getApplicationContext());
+        if(adapter == null){
+            Toast.makeText(getApplicationContext(),
+                    "null adapter", Toast.LENGTH_LONG)
+                    .show();
+        }
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -128,7 +124,6 @@ public class ScrollingDayView extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context) {
-        return new Intent(context, ScrollingDayView.class);
+        return new Intent(context, DayViewV2.class);
     }
-
 }

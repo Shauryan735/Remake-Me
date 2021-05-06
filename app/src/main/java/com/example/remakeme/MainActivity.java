@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (start == 0 ) {
+        if (start == 0) {
             // Create database and eventDao
         }
         start = 1;
@@ -120,31 +120,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void navOpenDayView(){
-        Intent intent = ScrollingDayView.makeIntent(MainActivity.this);
+        Intent intent = DayViewV2.makeIntent(MainActivity.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
-        finish();
     }
 
     public void navOpenEvent(){
         Intent intent = AddEvent.makeIntent(MainActivity.this);
         intent.putExtra(DATE_MESSAGE, date);
         startActivity(intent);
-        finish();
     }
 
     public void navOpenInfo(){
         Intent intent = Infographics.makeIntent(MainActivity.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
-        finish();
     }
 
     public void navOpenReflect(){
         Intent intent = DailyReflection.makeIntent(MainActivity.this);
         intent.putExtra(DATE_MESSAGE, MainActivity.date);
         startActivity(intent);
-        finish();
     }
 
     public static Intent makeIntent(Context context) {

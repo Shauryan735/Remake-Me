@@ -8,10 +8,9 @@
     tools:context=".ScrollingDayView"
     tools:showIn="@layout/activity_scrolling_day_view">
 
-
     <ListView
         android:id="@+id/listView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:divider="#f00"
         android:dividerHeight="1dp"/>
