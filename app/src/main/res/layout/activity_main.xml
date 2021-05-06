@@ -8,35 +8,6 @@
     tools:openDrawer="start"
     tools:context=".MainActivity">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/navcolor"
-            app:title="Remake Me"
-            app:titleTextColor="@color/white" />
-
-    </RelativeLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/nav"
-        app:menu="@menu/navmenu"
-        app:headerLayout="@layout/navlogo"
-        android:layout_gravity="start"
-        android:background="@color/navcolor"
-        app:itemTextColor="@color/white"
-
-        app:itemTextAppearance="@style/MenuItems"
-        app:itemIconTint="@color/white"
-        app:itemIconSize="24dp"
-        />
-
     <CalendarView
         android:id="@+id/calender"
         android:layout_width="wrap_content"
@@ -51,10 +22,37 @@
         android:layout_marginLeft="34dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"></CalendarView>
+        android:layout_marginRight="28dp" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar"
+            app:title="Remake Me"
+            app:titleTextColor="@color/white"
+            android:background="@color/navcolor"
+            />
+
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/nav"
+        app:menu="@menu/navmenu"
+        app:headerLayout="@layout/navheader"
+        android:layout_gravity = "start"
+        android:background="@color/navcolor"
+        app:itemTextColor="@color/white"
+
+        app:itemTextAppearance="@style/MenuItems"
+        app:itemIconTint="@color/white"
+        app:itemIconSize="24dp"/>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
-
-
-

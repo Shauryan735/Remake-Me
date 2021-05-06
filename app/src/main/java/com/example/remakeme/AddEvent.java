@@ -3,16 +3,16 @@ package com.example.remakeme;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddEvent extends AppCompatActivity {
-
-    private EventDao eventDao;
 
     NavigationView nav;
     ActionBarDrawerToggle toggle;
@@ -44,60 +42,56 @@ public class AddEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
-        Intent intent = getIntent();
-        date = intent.getStringExtra(DATE_MESSAGE);
-
-        EditText editDate = findViewById(R.id.editTextDate);
-        editDate.setText(date);
-
-        AppDatabase instance = AppDatabase.getInstance(this);
-        eventDao = instance.getEventDao();
-
-        // TODO: Start of Navigation bar code
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         nav = findViewById(R.id.nav);
-
         drawerLayout = findViewById(R.id.drawer);
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        nav.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.navmenu_home:
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    navOpenHome();
-                    break;
+        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                case R.id.navmenu_dayview:
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    navOpenDayView();
-                    break;
-
-                case R.id.navmenu_newevent:
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    navOpenEvent();
-                    break;
-
-                case R.id.navmenu_infographics:
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    navOpenInfo();
-                    break;
-
-                case R.id.navmenu_reflection:
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    navOpenReflect();
-                    break;
+                switch (item.getItemId()) {
+                    case R.id.navmenu_home:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        finish();
+                        break;
+                    case R.id.navmenu_dayView:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent day = new Intent(AddEvent.this, DayView.class);
+                        startActivity(day);
+                        finish();
+                        break;
+                    case R.id.navmenu_newEvent:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case R.id.navmenu_infographics:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent info = new Intent(AddEvent.this, Infographics.class);
+                        startActivity(info);
+                        finish();
+                        break;
+                    case R.id.navmenu_reflection:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent reflect = new Intent(AddEvent.this, DailyReflection.class);
+                        startActivity(reflect);
+                        finish();
+                        break;
+                }
+                return true;
             }
-            return true;
         });
 
-        // TODO: End of Navigation bar code
+        Intent intent = getIntent();
+        date = intent.getStringExtra(DATE_MESSAGE);
 
+        EditText editDate = findViewById(R.id.editTextDate);
+        editDate.setText(date);
 
         Spinner spinner = findViewById(R.id.spinnerColor);
         ArrayList<String> arrayList = new ArrayList<>();
@@ -115,6 +109,7 @@ public class AddEvent extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 groupColor = parent.getItemAtPosition(position).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -135,6 +130,7 @@ public class AddEvent extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 repeat = parent.getItemAtPosition(position).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -157,11 +153,13 @@ public class AddEvent extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 reminder = parent.getItemAtPosition(position).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }
+
 
     public void submit(View view) {
         String calendar = "Calendar";
@@ -220,35 +218,34 @@ public class AddEvent extends AppCompatActivity {
         if (!(reminder.equals("Never")))
             boolReminder = true;
 
-        switch (groupColor) {
-            case "Orange":
-                color = 0xFFFFA500;
-                break;
-            case "Yellow":
-                color = 0xFFFFFF00;
-                break;
-            case "Green":
-                color = 0xFF008000;
-                break;
-            case "Blue":
-                color = 0xFF0000FF;
-                break;
-            case "Purple":
-                color = 0xFF800080;
-                break;
-            case "Red":
-            default:
-                color = 0xFFFF0000;
-                break;
+        if (groupColor.equals("Red")) {
+            color = 0xFFFF0000;
+        }
+
+        if (groupColor.equals("Orange")) {
+            color = 0xFFFFA500;
+        }
+
+        if (groupColor.equals("Yellow")) {
+            color = 0xFFFFFF00;
+        }
+
+        if (groupColor.equals("Green")) {
+            color = 0xFF008000;
+        }
+
+        if (groupColor.equals("Blue")) {
+            color = 0xFF0000FF;
+        }
+
+        if (groupColor.equals("Purple")) {
+            color = 0xFF800080;
         }
 
 
         Event event = new Event(title, startCalendar, endCalendar, color, location, boolRepeat, boolReminder, notes);
-        long event_id = eventDao.insert(event);
-        if(boolRepeat){
-            repeat(event, event_id);
-        }
-        NotificationPublisher.scheduleEventNotification(this, event);
+
+        /**dont forget to call scheduleEventNotification(this, event)**/
 
         /**instead of starting a new activity, simply destroy this one, forcing a return to the previous view
          * (I'm not sure how to do that)**/
@@ -257,46 +254,13 @@ public class AddEvent extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // TODO: Navigation bar helper code
-
-    public void navOpenHome(){
-        Intent intent = MainActivity.makeIntent(AddEvent.this);
-        intent.putExtra(DATE_MESSAGE, MainActivity.date);
-        startActivity(intent);
-        finish();
-    }
-
-    public void navOpenDayView(){
-        Intent intent = DayView.makeIntent(AddEvent.this);
-        intent.putExtra(DATE_MESSAGE, MainActivity.date);
-        startActivity(intent);
-        finish();
-    }
-
-    public boolean navOpenEvent(){
-        return true;
-    }
-
-    public void navOpenInfo(){
-        Intent intent = Infographics.makeIntent(AddEvent.this);
-        intent.putExtra(DATE_MESSAGE, MainActivity.date);
-        startActivity(intent);
-        finish();
-    }
-
-    public void navOpenReflect(){
-        Intent intent = DailyReflection.makeIntent(AddEvent.this);
-        intent.putExtra(DATE_MESSAGE, MainActivity.date);
-        startActivity(intent);
-        finish();
-    }
-
     public static Intent makeIntent(Context context) {
         return new Intent(context, AddEvent.class);
     }
 
-    public void repeat(Event e, long baseId)
+    public void repeat(Event e)
     {
+        long id = e.getId();
         String name = e.getEventName();
         Calendar startTime = e.getEventStart();
         Calendar endTime = e.getEventEnd();
@@ -304,7 +268,10 @@ public class AddEvent extends AppCompatActivity {
         Calendar remindTime = e.getRemindTime();
         Boolean repeat = e.getRepeat(); 							    //repeat offset is being treated as follows:
         int repeatOffset = e.getRepeatOffset();						    //Daily:    1         |Weekly:   2
-                                                                        //BiWeekly: 3         |Monthly:  4
+        //BiWeekly: 3         |Monthly:  4
+        Calendar nStartTime = startTime;                                //Yearly:   5
+        Calendar nEndTime = endTime;
+
         if(repeat)
         {
             if(repeatOffset == 1)									    //If repeat set to Daily create new events one year out
@@ -312,26 +279,24 @@ public class AddEvent extends AppCompatActivity {
                 int count = 0;										    //count init at 0 for one year of events
                 while(count < 365)									    //check if count is still less than 365
                 {													    //
-                    startTime.add(Calendar.DAY_OF_YEAR, count+1);	//update the calendar with new time from repeat loop
-                    endTime.add(Calendar.DAY_OF_YEAR, count+1);	    //update the calendar with new time from repeat loop
-                                                                        //
-                    Event ne = new Event(baseId,name, startTime, endTime,   //
+                    nStartTime.add(Calendar.DAY_OF_YEAR, count+1);	//update the calendar with new time from repeat loop
+                    nEndTime.add(Calendar.DAY_OF_YEAR, count+1);	//update the calendar with new time from repeat loop
+                    //
+                    Event ne = new Event(id,name,nStartTime,nEndTime,   //
                             remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
-                    eventDao.insert(ne);
                     count+=1;										    //increment the event counter
                 }
             }
-        else if(repeatOffset == 2)								        //If repeat set to Weekly create new events one year out
+            else if(repeatOffset == 2)								        //If repeat set to Weekly create new events one year out
             {														    //
                 int count = 0;										    //count init at 0 for one year of events
                 while(count < 365)									    //check if count is still less than 365
                 {													    //
-                    startTime.add(Calendar.DAY_OF_YEAR, count+7);	//update the calendar with new time from repeat loop
-                    endTime.add(Calendar.DAY_OF_YEAR, count+7);	//update the calendar with new time from repeat loop
-                                                                        //
-                    Event ne = new Event(baseId,name, startTime, endTime,   //
+                    nStartTime.add(Calendar.DAY_OF_YEAR, count+7);	//update the calendar with new time from repeat loop
+                    nEndTime.add(Calendar.DAY_OF_YEAR, count+7);	//update the calendar with new time from repeat loop
+                    //
+                    Event ne = new Event(id,name,nStartTime,nEndTime,   //
                             remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
-                    eventDao.insert(ne);
                     count+=7;										    //increment the event counter by seven days
                 }
             }
@@ -340,12 +305,11 @@ public class AddEvent extends AppCompatActivity {
                 int count = 0;										    //count init at 0 for one year of events
                 while(count < 365)									    //check if count is still less than 365
                 {													    //
-                    startTime.add(Calendar.DAY_OF_YEAR, count+14);	//update the calendar with new time from repeat loop
-                    endTime.add(Calendar.DAY_OF_YEAR, count+14);	//update the calendar with new time from repeat loop
-                                                                        //
-                    Event ne = new Event(baseId,name, startTime, endTime,   //
+                    nStartTime.add(Calendar.DAY_OF_YEAR, count+14);	//update the calendar with new time from repeat loop
+                    nEndTime.add(Calendar.DAY_OF_YEAR, count+14);	//update the calendar with new time from repeat loop
+                    //
+                    Event ne = new Event(id,name,nStartTime,nEndTime,   //
                             remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
-                    eventDao.insert(ne);
                     count+=14;										    //increment the event counter by seven days
                 }
             }
@@ -354,23 +318,21 @@ public class AddEvent extends AppCompatActivity {
                 int count = 0;										    //count init at 0 for one year of events
                 while(count < 12)									    //check if count is still less than 365
                 {													    //
-                    startTime.add(Calendar.MONTH, count+1);		//update the calendar with new time from repeat loop
-                    endTime.add(Calendar.MONTH, count+1);			//update the calendar with new time from repeat loop
-                                                                        //
-                    Event ne = new Event(baseId,name, startTime, endTime,   //
+                    nStartTime.add(Calendar.MONTH, count+1);		//update the calendar with new time from repeat loop
+                    nEndTime.add(Calendar.MONTH, count+1);			//update the calendar with new time from repeat loop
+                    //
+                    Event ne = new Event(id,name,nStartTime,nEndTime,   //
                             remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
-                    eventDao.insert(ne);
                     count+=1;										    //increment the event counter by seven days
                 }
             }
             else if(repeatOffset == 5)								    //If repeat set to Yearly create an event one year out
             {														    //
-                startTime.add(Calendar.YEAR, 1);					//update the calendar with new time
-                endTime.add(Calendar.YEAR, 1);						//update the calendar with new time
-                                                                        //
-                Event ne = new Event(baseId,name, startTime, endTime,       //
+                nStartTime.add(Calendar.YEAR, 1);					//update the calendar with new time
+                nEndTime.add(Calendar.YEAR, 1);						//update the calendar with new time
+                //
+                Event ne = new Event(id,name,nStartTime,nEndTime,       //
                         remind,remindTime,repeat,repeatOffset);	        //Create a new event with the new calendars
-                eventDao.insert(ne);
             }
         }
     }

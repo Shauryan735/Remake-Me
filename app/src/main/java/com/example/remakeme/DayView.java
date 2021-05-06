@@ -31,19 +31,13 @@ public class DayView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view);
 
-        Intent intent = getIntent();
-        date = intent.getStringExtra(DATE_MESSAGE);
-
-        TextView textView = findViewById(R.id.textView);
-        textView.setText(date);
-
         // TODO: Start of Navigation bar code
-
-        /*Toolbar toolbar = findViewById(R.id.toolbar);
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         nav = findViewById(R.id.nav);
         drawerLayout = findViewById(R.id.drawer);
+
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -51,43 +45,53 @@ public class DayView extends AppCompatActivity {
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 switch (item.getItemId()) {
                     case R.id.navmenu_home:
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        navOpenHome();
+                        finish();
                         break;
-
-                    case R.id.navmenu_dayview:
+                    case R.id.navmenu_dayView:
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        navOpenDayView();
                         break;
-
-                    case R.id.navmenu_newevent:
+                    case R.id.navmenu_newEvent:
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        navOpenEvent();
+                        Intent event = new Intent(DayView.this, AddEvent.class);
+                        startActivity(event);
+                        finish();
                         break;
-
                     case R.id.navmenu_infographics:
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        navOpenInfo();
+                        Intent info = new Intent(DayView.this, Infographics.class);
+                        startActivity(info);
+                        finish();
                         break;
-
                     case R.id.navmenu_reflection:
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        navOpenReflect();
+                        Intent reflect = new Intent(DayView.this, DailyReflection.class);
+                        startActivity(reflect);
+                        finish();
                         break;
                 }
                 return true;
             }
-        });*/
+        });
         // TODO: End of Navigation bar code
+
+
+        Intent intent = getIntent();
+        date = intent.getStringExtra(DATE_MESSAGE);
+
+        TextView textView = findViewById(R.id.textView);
+        textView.setText(date);
+
 
         /*add the toolbar and enable upwards navigation*/
         /*Remove when navbar complete*/
-        Toolbar JKsToolbar = (Toolbar) findViewById(R.id.JKsToolbar);
-        setSupportActionBar(JKsToolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
+//        Toolbar JKsToolbar = (Toolbar) findViewById(R.id.JKsToolbar);
+//        setSupportActionBar(JKsToolbar);
+//        ActionBar ab = getSupportActionBar();
+//        ab.setDisplayHomeAsUpEnabled(true);
     }
 
     public void goToCalendar(View view) {
@@ -103,40 +107,4 @@ public class DayView extends AppCompatActivity {
 
 
     // TODO: Navigation bar helper code
-
-    public void navOpenHome(){
-        Intent intent = MainActivity.makeIntent(DayView.this);
-        intent.putExtra(DATE_MESSAGE, MainActivity.date);
-        startActivity(intent);
-        finish();
-    }
-
-    public boolean navOpenDayView(){
-        return true;
-    }
-
-    public void navOpenEvent(){
-        Intent intent = AddEvent.makeIntent(DayView.this);
-        intent.putExtra(DATE_MESSAGE, MainActivity.date);
-        startActivity(intent);
-        finish();
-    }
-
-    public void navOpenInfo(){
-        Intent intent = Infographics.makeIntent(DayView.this);
-        intent.putExtra(DATE_MESSAGE, MainActivity.date);
-        startActivity(intent);
-        finish();
-    }
-
-    public void navOpenReflect(){
-        Intent intent = DailyReflection.makeIntent(DayView.this);
-        intent.putExtra(DATE_MESSAGE, MainActivity.date);
-        startActivity(intent);
-        finish();
-    }
-
-    public static Intent makeIntent(Context context) {
-        return new Intent(context, DayView.class);
-    }
 }

@@ -3,32 +3,22 @@
 
     <item android:id="@+id/navmenu_home"
         android:title="Home"
-        android:icon="@drawable/homeicon"
-        />
-<!--    add icon-->
+        android:icon="@drawable/homeicon"/>
 
-    <item android:id="@+id/navmenu_dayview"
+    <item android:id="@+id/navmenu_dayView"
         android:title="Day View"
-        android:icon="@drawable/dayicon"
-        />
-    <!--    add icon-->
+        android:icon="@drawable/dayicon"/>
 
-    <item android:id="@+id/navmenu_newevent"
+    <item android:id="@+id/navmenu_newEvent"
         android:title="New Event"
-        android:icon="@drawable/newicon"
-        />
-    <!--    add icon-->
+        android:icon="@drawable/newicon"/>
 
     <item android:id="@+id/navmenu_infographics"
         android:title="Infographics"
-        android:icon="@drawable/infoicon"
-        />
-    <!--    add icon-->
+        android:icon="@drawable/infoicon"/>
 
     <item android:id="@+id/navmenu_reflection"
-        android:title="Daily Reflection"
-        android:icon="@drawable/notesicon"
-        />
-    <!--    add icon-->
+        android:title="Reflection"
+        android:icon="@drawable/notesicon"/>
 
 </menu>
