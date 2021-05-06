@@ -220,28 +220,26 @@ public class AddEvent extends AppCompatActivity {
         if (!(reminder.equals("Never")))
             boolReminder = true;
 
-        if (groupColor.equals("Red")) {
-            color = 0xFFFF0000;
-        }
-
-        if (groupColor.equals("Orange")) {
-            color = 0xFFFFA500;
-        }
-
-        if (groupColor.equals("Yellow")) {
-            color = 0xFFFFFF00;
-        }
-
-        if (groupColor.equals("Green")) {
-            color = 0xFF008000;
-        }
-
-        if (groupColor.equals("Blue")) {
-            color = 0xFF0000FF;
-        }
-
-        if (groupColor.equals("Purple")) {
-            color = 0xFF800080;
+        switch (groupColor) {
+            case "Orange":
+                color = 0xFFFFA500;
+                break;
+            case "Yellow":
+                color = 0xFFFFFF00;
+                break;
+            case "Green":
+                color = 0xFF008000;
+                break;
+            case "Blue":
+                color = 0xFF0000FF;
+                break;
+            case "Purple":
+                color = 0xFF800080;
+                break;
+            case "Red":
+            default:
+                color = 0xFFFF0000;
+                break;
         }
 
 
@@ -250,7 +248,7 @@ public class AddEvent extends AppCompatActivity {
         if(boolRepeat){
             repeat(event, event_id);
         }
-        /**dont forget to call scheduleEventNotification(this, event)**/
+        NotificationPublisher.scheduleEventNotification(this, event);
 
         /**instead of starting a new activity, simply destroy this one, forcing a return to the previous view
          * (I'm not sure how to do that)**/
