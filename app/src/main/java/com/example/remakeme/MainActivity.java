@@ -53,11 +53,13 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navmenu_dayView:
                         drawerLayout.closeDrawer(GravityCompat.START);
                         Intent day = new Intent(MainActivity.this, DayViewV2.class);
+                        day.putExtra(DATE_MESSAGE, MainActivity.date);
                         startActivity(day);
                         break;
                     case R.id.navmenu_newEvent:
                         drawerLayout.closeDrawer(GravityCompat.START);
                         Intent event = new Intent(MainActivity.this, AddEvent.class);
+                        event.putExtra(DATE_MESSAGE, MainActivity.date);
                         startActivity(event);
                         break;
                     case R.id.navmenu_infographics:
