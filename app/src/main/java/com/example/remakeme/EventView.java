@@ -23,6 +23,7 @@ public class EventView extends AppCompatActivity {
 
     private long eventId;
     String EVENT_MESSAGE = "event_key";
+    private EventDao eventDao;
 
     NavigationView nav;
     ActionBarDrawerToggle toggle;
@@ -33,7 +34,6 @@ public class EventView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_view);
 
-        // TODO: Start of Navigation bar code
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -79,8 +79,6 @@ public class EventView extends AppCompatActivity {
             }
         });
 
-        // TODO: End of Navigation bar code
-
         TextView eventNameView = findViewById(R.id.eventViewName);
         /*TextView eventDateView = findViewById(R.id.eventViewDate);*/
         TextView eventDateDataView = findViewById(R.id.eventViewDateData);
@@ -107,8 +105,6 @@ public class EventView extends AppCompatActivity {
         relativeLayout.setBackgroundResource(event.getGroupColoredOutline());
     }
 
-    //TODO: add navBar functionality
-
     public static Intent makeIntent(Context context) {
         return new Intent(context, EventView.class);
     }
@@ -123,16 +119,19 @@ public class EventView extends AppCompatActivity {
     }
 
     private Event getEventById(long id){
-        //TODO: access event from database
+        AppDatabase instance = AppDatabase.getInstance(this);
+        eventDao = instance.getEventDao();
+        long[] ids = new long[]{id};
+        return eventDao.getById(ids).get(0);
 
-        Calendar start1 = Calendar.getInstance();
+        /*Calendar start1 = Calendar.getInstance();
         Calendar end1 = Calendar.getInstance();
         end1.add(Calendar.MINUTE, 10);
         return new Event("Event1", start1, end1,
                 0xFFFFA500, "location1 but i want a really long string that will " +
                 "go outside the box for testing purposes help me", false, false,
                 "really long testing note that is well beyond the length of the box I made to " +
-                        "see how overflow works, if at allllllllll");
+                        "see how overflow works, if at allllllllll");*/
     }
 
 }

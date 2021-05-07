@@ -48,7 +48,6 @@ public class DayViewV2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view_v2);
 
-        // TODO: Start of Navigation bar code
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -93,12 +92,11 @@ public class DayViewV2 extends AppCompatActivity {
                 return true;
             }
         });
-        // TODO: End of Navigation bar code
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.dayViewToolbar);
-//        setSupportActionBar(toolbar);
-//        ActionBar ab = getSupportActionBar();
-//        ab.setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar2 = (Toolbar) findViewById(R.id.dayViewToolbar);
+        setSupportActionBar(toolbar2);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -170,6 +168,8 @@ public class DayViewV2 extends AppCompatActivity {
         calendar2.set(Calendar.YEAR, parseInt(dateParts[2]));
 
         List<Event> events = eventDao.getNonLiveByDay(Event.getDBFormattedDate(calendar2));
+        /*List<Event> events = eventDao.getAll();*/
+        //TODO: currently appears to be 0 events in DB
         for(Event event : events){
             Toast.makeText(getApplicationContext(),
                     event.getEventName() + "found here", Toast.LENGTH_LONG)
@@ -232,8 +232,6 @@ public class DayViewV2 extends AppCompatActivity {
         });
 
     }
-
-    //TODO: add navBar functionality (and in .xml file)
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, DayViewV2.class);
