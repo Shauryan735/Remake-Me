@@ -1,14 +1,21 @@
 package com.example.remakeme;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Layout;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.Calendar;
 
@@ -17,10 +24,62 @@ public class EventView extends AppCompatActivity {
     private long eventId;
     String EVENT_MESSAGE = "event_key";
 
+    NavigationView nav;
+    ActionBarDrawerToggle toggle;
+    DrawerLayout drawerLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_view);
+
+        // TODO: Start of Navigation bar code
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        nav = findViewById(R.id.nav);
+        drawerLayout = findViewById(R.id.drawer);
+
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case R.id.navmenu_home:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        finish();
+                        break;
+                    case R.id.navmenu_dayView:
+                        finish();
+                        break;
+                    case R.id.navmenu_newEvent:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent event = new Intent(EventView.this, AddEvent.class);
+                        startActivity(event);
+                        finish();
+                        break;
+                    case R.id.navmenu_infographics:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent info = new Intent(EventView.this, Infographics.class);
+                        startActivity(info);
+                        finish();
+                        break;
+                    case R.id.navmenu_reflection:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent reflect = new Intent(EventView.this, DailyReflection.class);
+                        startActivity(reflect);
+                        finish();
+                        break;
+                }
+                return true;
+            }
+        });
+        // TODO: End of Navigation bar code
+
 
         TextView eventNameView = findViewById(R.id.eventViewName);
         /*TextView eventDateView = findViewById(R.id.eventViewDate);*/

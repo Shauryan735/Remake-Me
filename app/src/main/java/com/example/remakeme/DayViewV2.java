@@ -1,13 +1,18 @@
 package com.example.remakeme;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.LiveData;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -17,6 +22,7 @@ import android.widget.Toast;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -33,14 +39,66 @@ public class DayViewV2 extends AppCompatActivity {
     Context context = this;
     private EventDao eventDao;
 
+    NavigationView nav;
+    ActionBarDrawerToggle toggle;
+    DrawerLayout drawerLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view_v2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.dayViewToolbar);
+
+        // TODO: Start of Navigation bar code
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
+
+        nav = findViewById(R.id.nav);
+        drawerLayout = findViewById(R.id.drawer);
+
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case R.id.navmenu_home:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        finish();
+                        break;
+                    case R.id.navmenu_dayView:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case R.id.navmenu_newEvent:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent event = new Intent(DayViewV2.this, AddEvent.class);
+                        startActivity(event);
+                        finish();
+                        break;
+                    case R.id.navmenu_infographics:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent info = new Intent(DayViewV2.this, Infographics.class);
+                        startActivity(info);
+                        finish();
+                        break;
+                    case R.id.navmenu_reflection:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent reflect = new Intent(DayViewV2.this, DailyReflection.class);
+                        startActivity(reflect);
+                        finish();
+                        break;
+                }
+                return true;
+            }
+        });
+        // TODO: End of Navigation bar code
+
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.dayViewToolbar);
+//        setSupportActionBar(toolbar);
+//        ActionBar ab = getSupportActionBar();
+//        ab.setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
