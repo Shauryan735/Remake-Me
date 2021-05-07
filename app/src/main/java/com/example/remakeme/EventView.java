@@ -80,7 +80,6 @@ public class EventView extends AppCompatActivity {
         });
         // TODO: End of Navigation bar code
 
-
         TextView eventNameView = findViewById(R.id.eventViewName);
         /*TextView eventDateView = findViewById(R.id.eventViewDate);*/
         TextView eventDateDataView = findViewById(R.id.eventViewDateData);
