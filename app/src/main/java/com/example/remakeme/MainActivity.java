@@ -14,6 +14,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     NavigationView nav;
@@ -42,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        date = df.format(c);
+
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -53,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navmenu_dayView:
                         drawerLayout.closeDrawer(GravityCompat.START);
                         Intent day = new Intent(MainActivity.this, DayViewV2.class);
-                        day.putExtra(DATE_MESSAGE, MainActivity.date);
+                        day.putExtra(DATE_MESSAGE, date);
                         startActivity(day);
                         break;
                     case R.id.navmenu_newEvent:

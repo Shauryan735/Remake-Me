@@ -20,8 +20,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class AddEvent extends AppCompatActivity {
 
@@ -33,6 +36,8 @@ public class AddEvent extends AppCompatActivity {
 
     String DATE_MESSAGE = "Meme";
     String date = "Meme 2.0";
+    String EVENT_MESSAGE = "event_key";
+
     String groupColor = "Red";
     String repeat = "Never";
     String reminder = "Never";
@@ -40,6 +45,8 @@ public class AddEvent extends AppCompatActivity {
     String title = "New Event";
     String notes = "";
     Calendar eventDate;
+    Boolean editing = false;
+    long event_id = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,14 @@ public class AddEvent extends AppCompatActivity {
 
         Intent intent = getIntent();
         date = intent.getStringExtra(DATE_MESSAGE);
+
+        try {
+            event_id = intent.getLongExtra(EVENT_MESSAGE, 0);
+            if (event_id != 0) {
+                editing = true;
+            }
+        }
+        catch (Exception e) {}
 
         EditText editDate = findViewById(R.id.editTextDate);
         editDate.setText(date);
@@ -168,10 +183,72 @@ public class AddEvent extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        long[] events = {event_id};
+
+        if (editing) {
+            EditText editName = findViewById(R.id.editTextName);
+
+
+            List eventList = eventDao.getById(events);
+            Event editEvent = (Event) eventList.get(0);
+
+            // Switch to below for basic testing
+
+            /* Calendar start1 = Calendar.getInstance();
+            Calendar end1 = Calendar.getInstance();
+            Event editEvent = new Event("Cool Event", start1, end1, 0xFFFFA500, "San Luis Obispo", false, 0, false, "Really cool note");
+            */
+
+            editName.setText(editEvent.getEventName());
+
+            Calendar gotDate = editEvent.getEventStart();
+            Date c = gotDate.getTime();
+            SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+            String stringDate = df.format(c);
+            editDate.setText(stringDate);
+
+            EditText editStartTime = findViewById(R.id.editTextStartTime);
+            editStartTime.setText(editEvent.getFormattedStartTime());
+            EditText editEndTime = findViewById(R.id.editTextEndTime);
+            editEndTime.setText(editEvent.getFormattedEndTime());
+
+            String hexColor;
+            switch (editEvent.getGroupColor()) {
+                case 0xFFFFA500:
+                    hexColor = "Orange";
+                    break;
+                case 0xFFFFFF00:
+                    hexColor = "Yellow";
+                    break;
+                case 0xFF008000:
+                    hexColor = "Green";
+                    break;
+                case 0xFF0000FF:
+                    hexColor = "Blue";
+                    break;
+                case 0xFF800080:
+                    hexColor = "Purple";
+                    break;
+                case 0xFFFF0000:
+                default:
+                    hexColor = "Red";
+                    break;
+            }
+            spinner.setSelection(arrayAdapter.getPosition(hexColor));
+
+            EditText editLocation = findViewById(R.id.editTextLocation);
+            editLocation.setText(editEvent.getLocation());
+
+            repeatSpinner.setSelection(editEvent.getRepeatOffset());
+            repeatSpinner.setSelection(0);
+
+            EditText editNotes = findViewById(R.id.editTextNotes);
+            editNotes.setText(editEvent.getNote());
+        }
     }
 
     public void submit(View view) {
-        String calendar = "Calendar";
         boolean boolRepeat = false;
         boolean boolReminder = false;
         int repeatOffset = 0;
@@ -268,22 +345,31 @@ public class AddEvent extends AppCompatActivity {
                 break;
         }
 
-
         Event event = new Event(title, startCalendar, endCalendar, color, location, boolRepeat, repeatOffset, boolReminder, notes);
-        long event_id = eventDao.insert(event);
-        if(boolRepeat){
-            repeat(event, event_id);
-        }
-        event.setId(event_id);
+
+        if (!editing) {
+            long event_id = eventDao.insert(event);
+            if (boolRepeat) {
+                repeat(event, event_id);
+            }
+            event.setId(event_id);
+            //NotificationPublisher.scheduleEventNotification(this, event);
         if(event.getSendReminders()) {
             NotificationPublisher.scheduleEventNotification(this, event);
         }
 
-        /**instead of starting a new activity, simply destroy this one, forcing a return to the previous view
-         * (I'm not sure how to do that)**/
-        Intent intent = new Intent(this, DayViewV2.class);
-        intent.putExtra(DATE_MESSAGE, date);
-        startActivity(intent);
+            /**instead of starting a new activity, simply destroy this one, forcing a return to the previous view
+             * (I'm not sure how to do that)**/
+            Intent intent = new Intent(this, DayViewV2.class);
+            intent.putExtra(DATE_MESSAGE, date);
+            startActivity(intent);
+        }
+        else {
+            eventDao.updateEvent(event);
+            Intent intent = new Intent(this, EventView.class);
+            intent.putExtra(EVENT_MESSAGE, event_id);
+            startActivity(intent);
+        }
     }
 
     // TODO: Navigation bar helper code

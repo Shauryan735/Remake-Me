@@ -111,6 +111,7 @@ public class DayViewV2 extends AppCompatActivity {
 
         Intent intent = getIntent();
         date = intent.getStringExtra(DATE_MESSAGE);
+
         TextView textView = findViewById(R.id.textView);
         textView.setText(date);
 

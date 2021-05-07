@@ -32,7 +32,7 @@ public class Event {
     private Calendar remindTime;
 
     private Boolean repeat;
-    private int repeatOffset;
+    private int repeatOffset = 0;
 
     private String note;
     private int groupColor;

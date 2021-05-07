@@ -110,9 +110,12 @@ public class EventView extends AppCompatActivity {
     }
 
     public void editEvent(View view){
-        /*dummy*/
-        //TODO: add editEvent method
+        Intent intent = new Intent(EventView.this, AddEvent.class);
+        eventId = 1;
+        intent.putExtra(EVENT_MESSAGE, eventId);
+        startActivity(intent);
     }
+
     public void deleteEvent(View view){
         /*dummy*/
         //TODO: add deleteEvent method
@@ -127,11 +130,7 @@ public class EventView extends AppCompatActivity {
         /*Calendar start1 = Calendar.getInstance();
         Calendar end1 = Calendar.getInstance();
         end1.add(Calendar.MINUTE, 10);
-        return new Event("Event1", start1, end1,
-                0xFFFFA500, "location1 but i want a really long string that will " +
-                "go outside the box for testing purposes help me", false, false,
-                "really long testing note that is well beyond the length of the box I made to " +
-                        "see how overflow works, if at allllllllll");*/
+        return new Event("Cool Event", start1, end1, 0xFFFFA500, "San Luis Obispo", false, 0, false, "Really cool note"); */
     }
 
 }
