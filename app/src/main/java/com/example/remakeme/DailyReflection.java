@@ -47,7 +47,7 @@ public class DailyReflection extends AppCompatActivity {
                         break;
                     case R.id.navmenu_dayView:
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent day = new Intent(DailyReflection.this, DayView.class);
+                        Intent day = new Intent(DailyReflection.this, DayViewV2.class);
                         startActivity(day);
                         finish();
                         break;
@@ -73,5 +73,49 @@ public class DailyReflection extends AppCompatActivity {
         Intent intent = getIntent();
         date = intent.getStringExtra(DATE_MESSAGE);
 
+//    public void menu(View view) {
+//        Intent intent = new Intent(this, Menu.class);
+//        intent.putExtra(DATE_MESSAGE, date);
+//        startActivity(intent);
+//    }
+
+
+        // TODO: Navigation bar helper code
+
+    /*public void navOpenHome(){
+        Intent intent1 = MainActivity.makeIntent(DailyReflection.this);
+        intent1.putExtra(DATE_MESSAGE, MainActivity.date);
+        startActivity(intent1);
+        finish();
+    }
+
+    public void navOpenDayView(){
+        Intent intent1 = DayViewV2.makeIntent(DailyReflection.this);
+        intent1.putExtra(DATE_MESSAGE, MainActivity.date);
+        startActivity(intent1);
+        finish();
+    }
+
+    public void navOpenEvent(){
+        Intent intent = AddEvent.makeIntent(DailyReflection.this);
+        intent.putExtra(DATE_MESSAGE, MainActivity.date);
+        startActivity(intent);
+        finish();
+    }
+
+    public void navOpenInfo(){
+        Intent intent = Infographics.makeIntent(DailyReflection.this);
+        intent.putExtra(DATE_MESSAGE, MainActivity.date);
+        startActivity(intent);
+        finish();
+    }
+
+    public boolean navOpenReflect(){
+        return true;
+    }
+
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, DailyReflection.class);
+    }*/
     }
 }

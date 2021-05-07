@@ -1,6 +1,7 @@
 package com.example.remakeme;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -153,5 +154,54 @@ public class Event {
         @SuppressLint("DefaultLocale") String endHour = String.format("%02d", this.eventEnd.get(Calendar.HOUR));
         @SuppressLint("DefaultLocale") String endMin = String.format("%02d", this.eventEnd.get(Calendar.MINUTE));
         return startHour + ":" + startMin + " - " + endHour + ":" + endMin;
+    }
+
+    public String getFormattedStartTime(){
+        @SuppressLint("DefaultLocale") String startHour = String.format("%02d", this.eventStart.get(Calendar.HOUR));
+        @SuppressLint("DefaultLocale") String startMin = String.format("%02d", this.eventStart.get(Calendar.MINUTE));
+        return startHour + ":" + startMin;
+    }
+    public String getFormattedEndTime(){
+        @SuppressLint("DefaultLocale") String endHour = String.format("%02d", this.eventEnd.get(Calendar.HOUR));
+        @SuppressLint("DefaultLocale") String endMin = String.format("%02d", this.eventEnd.get(Calendar.MINUTE));
+        return endHour + ":" + endMin;
+    }
+
+    public int getGroupColoredBox() {
+        switch (this.groupColor) {
+            case 0xFFFFA500:
+                return R.drawable.orange_box;
+            case 0xFFFFFF00:
+                return R.drawable.yellow_box;
+            case 0xFF008000:
+                return R.drawable.green_box;
+            case 0xFF0000FF:
+                return R.drawable.blue_box;
+            case 0xFF800080:
+                return R.drawable.purple_box;
+            default:
+                return R.drawable.red_box;
+        }
+    }
+
+    static public String getFormattedDate(Calendar calendar){
+        return (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.YEAR);
+    }
+
+    public int getGroupColoredOutline() {
+        switch (this.groupColor) {
+            case 0xFFFFA500:
+                return R.drawable.orange_boarder;
+            case 0xFFFFFF00:
+                return R.drawable.yellow_boarder;
+            case 0xFF008000:
+                return R.drawable.green_boarder;
+            case 0xFF0000FF:
+                return R.drawable.blue_boarder;
+            case 0xFF800080:
+                return R.drawable.purple_boarder;
+            default:
+                return R.drawable.red_boarder;
+        }
     }
 }

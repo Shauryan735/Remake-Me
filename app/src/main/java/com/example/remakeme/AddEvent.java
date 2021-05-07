@@ -63,7 +63,7 @@ public class AddEvent extends AppCompatActivity {
                         break;
                     case R.id.navmenu_dayView:
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent day = new Intent(AddEvent.this, DayView.class);
+                        Intent day = new Intent(AddEvent.this, DayViewV2.class);
                         startActivity(day);
                         finish();
                         break;
@@ -249,7 +249,7 @@ public class AddEvent extends AppCompatActivity {
 
         /**instead of starting a new activity, simply destroy this one, forcing a return to the previous view
          * (I'm not sure how to do that)**/
-        Intent intent = new Intent(this, DayView.class);
+        Intent intent = new Intent(this, DayViewV2.class);
         intent.putExtra(DATE_MESSAGE, date);
         startActivity(intent);
     }

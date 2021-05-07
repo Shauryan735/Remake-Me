@@ -47,7 +47,7 @@ public class Infographics extends AppCompatActivity {
                         break;
                     case R.id.navmenu_dayView:
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent day = new Intent(Infographics.this, DayView.class);
+                        Intent day = new Intent(Infographics.this, DayViewV2.class);
                         startActivity(day);
                         finish();
                         break;

@@ -8,8 +8,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -81,6 +79,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
         viewHolder.eventTime.setText(event.getFormattedTime());
         viewHolder.eventColor.setOnClickListener(this);
         viewHolder.eventColor.setTag(position);
+        viewHolder.eventColor.setImageResource(event.getGroupColoredBox());
         return convertView;
     }
 }

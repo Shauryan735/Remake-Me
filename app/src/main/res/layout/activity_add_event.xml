@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textViewAddEvent"
+            android:id="@+id/eventViewName"
             android:layout_width="117dp"
             android:layout_height="46dp"
             android:layout_marginTop="32dp"
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewTitle"
+            android:id="@+id/eventViewDate"
             android:layout_width="110dp"
             android:layout_height="25dp"
             android:layout_marginStart="16dp"
@@ -39,10 +39,10 @@
             android:textColorHint="#00000000"
             android:textColorLink="#00000000"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewAddEvent" />
+            app:layout_constraintTop_toBottomOf="@+id/eventViewName" />
 
         <TextView
-            android:id="@+id/textViewDate"
+            android:id="@+id/eventViewStartTime"
             android:layout_width="110dp"
             android:layout_height="25dp"
             android:layout_marginStart="16dp"
@@ -54,10 +54,10 @@
             android:textColorHint="#00000000"
             android:textColorLink="#00000000"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/eventViewDate" />
 
         <TextView
-            android:id="@+id/textViewStartTime"
+            android:id="@+id/eventViewEndTime"
             android:layout_width="110dp"
             android:layout_height="25dp"
             android:layout_marginStart="16dp"
@@ -69,7 +69,7 @@
             android:textColorHint="#00000000"
             android:textColorLink="#00000000"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
+            app:layout_constraintTop_toBottomOf="@+id/eventViewStartTime" />
 
         <TextView
             android:id="@+id/textViewLocation"
@@ -84,7 +84,7 @@
             android:textColorHint="#00000000"
             android:textColorLink="#00000000"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewGroupColor" />
+            app:layout_constraintTop_toBottomOf="@+id/eventViewNote" />
 
         <TextView
             android:id="@+id/textViewNotes"
@@ -132,7 +132,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewRepeat" />
 
         <TextView
-            android:id="@+id/textViewEndTime"
+            android:id="@+id/eventViewLocation"
             android:layout_width="110dp"
             android:layout_height="25dp"
             android:layout_marginStart="16dp"
@@ -144,7 +144,7 @@
             android:textColorHint="#00000000"
             android:textColorLink="#00000000"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewStartTime" />
+            app:layout_constraintTop_toBottomOf="@+id/eventViewEndTime" />
 
         <TextView
             android:id="@+id/textViewRepeat"
@@ -162,7 +162,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewLocation" />
 
         <TextView
-            android:id="@+id/textViewGroupColor"
+            android:id="@+id/eventViewNote"
             android:layout_width="110dp"
             android:layout_height="25dp"
             android:layout_marginStart="16dp"
@@ -174,32 +174,36 @@
             android:textColorHint="#00000000"
             android:textColorLink="#00000000"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewEndTime" />
+            app:layout_constraintTop_toBottomOf="@+id/eventViewLocation" />
 
         <EditText
             android:id="@+id/editTextName"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
+            android:textColor="@color/black"
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="@string/name"
+            android:background="@drawable/redboarder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.67"
-            app:layout_constraintStart_toEndOf="@+id/textViewTitle"
-            app:layout_constraintTop_toBottomOf="@+id/textViewAddEvent" />
+            app:layout_constraintStart_toEndOf="@+id/eventViewDate"
+            app:layout_constraintTop_toBottomOf="@+id/eventViewName" />
 
         <EditText
             android:id="@+id/editTextStartTime"
             android:layout_width="200dp"
             android:layout_height="40dp"
+            android:background="@drawable/redboarder"
             android:layout_marginTop="5dp"
+            android:textColor="@color/black"
             android:ems="10"
             android:inputType="time"
             android:text="@string/base_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.67"
-            app:layout_constraintStart_toEndOf="@+id/textViewStartTime"
+            app:layout_constraintStart_toEndOf="@+id/eventViewEndTime"
             app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
         <EditText
@@ -208,24 +212,28 @@
             android:layout_height="40dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="28dp"
+            android:background="@drawable/redboarder"
+            android:textColor="@color/black"
             android:ems="10"
             android:text="@string/base_time"
             android:inputType="time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/textViewEndTime"
+            app:layout_constraintStart_toEndOf="@+id/eventViewLocation"
             app:layout_constraintTop_toBottomOf="@+id/editTextStartTime" />
 
         <EditText
             android:id="@+id/editTextDate"
+            android:background="@drawable/redboarder"
             android:layout_width="200dp"
             android:layout_height="40dp"
+            android:textColor="@color/black"
             android:layout_marginTop="5dp"
             android:ems="10"
             android:inputType="date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.67"
-            app:layout_constraintStart_toEndOf="@+id/textViewDate"
+            app:layout_constraintStart_toEndOf="@+id/eventViewStartTime"
             app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
 
@@ -235,6 +243,8 @@
             android:layout_height="40dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="28dp"
+            android:textColor="@color/black"
+            android:background="@drawable/redboarder"
             android:ems="10"
             android:inputType="textShortMessage"
             android:hint="@string/location_hint"
@@ -248,17 +258,21 @@
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
+            android:textColor="@color/black"
+            android:background="@drawable/redboarder"
             android:layout_marginEnd="28dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/textViewGroupColor"
+            app:layout_constraintStart_toEndOf="@+id/eventViewNote"
             app:layout_constraintTop_toBottomOf="@+id/editTextEndTime" />
 
         <Spinner
             android:id="@+id/spinnerRepeat"
+            android:background="@drawable/redboarder"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_marginTop="5dp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.67"
             app:layout_constraintStart_toEndOf="@+id/textViewRepeat"
@@ -271,6 +285,8 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="28dp"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/black"
+            android:background="@drawable/redboarder"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/textViewReminder"
             app:layout_constraintTop_toBottomOf="@+id/spinnerRepeat" />
@@ -285,6 +301,7 @@
             android:text="@string/work_in_progress"
             android:textColor="@color/black"
             android:textColorHint="#00000000"
+            android:background="@drawable/redboarder"
             android:textColorLink="#00000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.67"
@@ -299,13 +316,15 @@
             android:ems="10"
             android:hint="@string/notes_hint"
             android:inputType="textLongMessage"
+            android:textColor="@color/black"
+            android:background="@drawable/redboarder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.67"
             app:layout_constraintStart_toEndOf="@+id/textViewNotes"
             app:layout_constraintTop_toBottomOf="@+id/textViewMaintenance" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/eventViewEditButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_event"
@@ -321,7 +340,8 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/design_default_color_background">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"

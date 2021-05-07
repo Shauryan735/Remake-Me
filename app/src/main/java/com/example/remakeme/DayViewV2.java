@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class DayViewV2 extends AppCompatActivity {
 
     String DATE_MESSAGE = "Meme";
     String date = "Meme 2.0";
+    String EVENT_MESSAGE = "event_key";
     Context context = this;
 
     @Override
@@ -53,18 +55,40 @@ public class DayViewV2 extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView);
         textView.setText(date);
 
-        //TODO: add left and right swipe navigation between dayViews
         String[] dateParts = date.split("/");
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, parseInt(dateParts[0]));
         calendar.set(Calendar.DAY_OF_MONTH, parseInt(dateParts[1]));
         calendar.set(Calendar.YEAR, parseInt(dateParts[2]));
-        Calendar left = calendar;
-        left.add(Calendar.HOUR, -24);
-        Calendar right = calendar;
-        right.add(Calendar.HOUR, 24);
+        Calendar prevDay = calendar;
+        prevDay.add(Calendar.HOUR, -24);
+        String prevDate = Event.getFormattedDate(prevDay);
 
+        Button prevDayButton = (Button) findViewById(R.id.prevDay);
+        prevDayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = DayViewV2.makeIntent(context);
+                intent.putExtra(DATE_MESSAGE, prevDate);
+                startActivity(intent);
+                finish();
+            }
+        });
 
+        Calendar nextDay = calendar;
+        nextDay.add(Calendar.HOUR, 48);
+        String nextDate = Event.getFormattedDate(nextDay);
+
+        Button nextDayButton = (Button) findViewById(R.id.nextDay);
+        nextDayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = DayViewV2.makeIntent(context);
+                intent.putExtra(DATE_MESSAGE, nextDate);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         ListView listView = findViewById(R.id.listView);
 
@@ -94,29 +118,40 @@ public class DayViewV2 extends AppCompatActivity {
 
         ArrayList<Event> dayEvents = new ArrayList<Event>();
         dayEvents.add(new Event("Event1", start1, end1,
-                0xFF99FFFF, "location1", false, false, "none"));
+                0xFFFFA500, "location1", false, false, "none"));
         dayEvents.add(new Event("Event2", start2, end2,
-                0xFF998DFF, "location2", false, false, "none"));
+                0xFFFFFF00, "location2", false, false, "none"));
         dayEvents.add(new Event("Event3", start3, end3,
-                0xFF99FFBC, "location3", false, false, "none"));
+                0xFF008000, "location3", false, false, "none"));
         dayEvents.add(new Event("Event4", start4, end4,
-                0xFFFF69BC, "location4", false, false, "none"));
+                0xFF0000FF, "location4", false, false, "none"));
+        dayEvents.add(new Event("Event5", start1, end1,
+                0xFFFFA500, "location1", false, false, "none"));
+        dayEvents.add(new Event("Event6", start2, end2,
+                0xFFFFFF00, "location2", false, false, "none"));
+        dayEvents.add(new Event("Event7", start3, end3,
+                0xFF008000, "location3", false, false, "none"));
+        dayEvents.add(new Event("Event8", start4, end4,
+                0xFF0000FF, "location4", false, false, "none"));
 
         final EventArrayAdapter adapter = new EventArrayAdapter(dayEvents, getApplicationContext());
-        if(adapter == null){
+        /*if(adapter == null){
             Toast.makeText(getApplicationContext(),
                     "null adapter", Toast.LENGTH_LONG)
                     .show();
-        }
+        }*/
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(getApplicationContext(),
+                /*Toast.makeText(getApplicationContext(),
                         "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                        .show();
+                        .show();*/
+                Intent intent = EventView.makeIntent(context);
+                intent.putExtra(EVENT_MESSAGE, dayEvents.get(position).getId());
+                startActivity(intent);
                 //TODO: add eventView activity in response to this listener
             }
         });

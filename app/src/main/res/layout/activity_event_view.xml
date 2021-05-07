@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer"
+    tools:openDrawer="start"
+    tools:context=".EventView">
+
+    <RelativeLayout
+        android:id="@+id/eventView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/design_default_color_background">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/navcolor"
+            app:title="Remake Me"
+            app:titleTextColor="@color/white" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/nav"
+        app:menu="@menu/navmenu"
+        app:headerLayout="@layout/navheader"
+        android:layout_gravity="start"
+        android:background="@color/navcolor"
+        app:itemTextColor="@color/white"
+
+        app:itemTextAppearance="@style/MenuItems"
+        app:itemIconTint="@color/white"
+        app:itemIconSize="24dp"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/eventViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="none"
+            android:text="@string/event_title"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/eventViewDate"
+            android:inputType="none"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:ems="10"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventViewName" />
+
+        <TextView
+            android:id="@+id/eventViewDateData"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventViewName"/>
+
+        <TextView
+            android:id="@+id/eventViewStartTime"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/start_time"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventViewDateData" />
+
+        <TextView
+            android:id="@+id/eventViewStartTimeData"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventViewDateData"/>
+
+        <TextView
+            android:id="@+id/eventViewEndTime"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/end_time"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventViewStartTimeData" />
+
+        <TextView
+            android:id="@+id/eventViewEndTimeData"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventViewStartTimeData"/>
+
+        <TextView
+            android:id="@+id/eventViewLocation"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/location"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventViewEndTimeData" />
+
+        <TextView
+            android:id="@+id/eventViewLocationData"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventViewEndTimeData"/>
+
+        <TextView
+            android:id="@+id/eventViewNote"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/notes"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventViewLocationData" />
+
+        <TextView
+            android:id="@+id/eventViewNoteData"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventViewLocationData"/>
+
+
+        <Button
+            android:id="@+id/eventViewEditButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="editEvent"
+            android:text="@string/edit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/eventViewDeleteButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            android:onClick="deleteEvent"
+            android:text="@string/delete"
+            app:layout_constraintBottom_toTopOf="@id/eventViewEditButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

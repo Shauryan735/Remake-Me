@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:background="#B7EA7B"
+    android:background="#D0D0E0"
     android:padding="6dip"
     android:orientation="vertical">
 
@@ -16,7 +16,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="6dip"
         android:contentDescription="TODO"
-        android:background="@drawable/box"
         />
 
     <TextView

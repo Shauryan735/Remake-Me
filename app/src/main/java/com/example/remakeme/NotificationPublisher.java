@@ -90,7 +90,7 @@ public class NotificationPublisher extends BroadcastReceiver {
     }
 
     private static PendingIntent getEventNotificationIntent(Context context, String message, long id, Calendar start){
-        Intent intent = new Intent(context, DayView.class);
+        Intent intent = new Intent(context, DayViewV2.class);
         Integer month = start.get(Calendar.MONTH);
         Integer day = start.get(Calendar.DAY_OF_MONTH);
         Integer year = start.get(Calendar.YEAR);
