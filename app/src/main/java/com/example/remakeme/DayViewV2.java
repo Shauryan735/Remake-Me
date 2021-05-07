@@ -169,8 +169,13 @@ public class DayViewV2 extends AppCompatActivity {
         calendar2.set(Calendar.MONTH, parseInt(dateParts[0]) - 1);
         calendar2.set(Calendar.DAY_OF_MONTH, parseInt(dateParts[1]));
         calendar2.set(Calendar.YEAR, parseInt(dateParts[2]));
-        /*List<Event> events = eventDao.getByDay(Event.getDBFormattedDate(calendar2)).getValue();*/
 
+        List<Event> events = eventDao.getNonLiveByDay(Event.getDBFormattedDate(calendar2));
+        for(Event event : events){
+            Toast.makeText(getApplicationContext(),
+                    event.getEventName() + "found here", Toast.LENGTH_LONG)
+                    .show();
+        }//for testing
 
         Calendar start1 = Calendar.getInstance();
         Calendar start2 = Calendar.getInstance();
@@ -206,7 +211,7 @@ public class DayViewV2 extends AppCompatActivity {
         dayEvents.add(new Event("Event8", start4, end4,
                 0xFF0000FF, "location4", false, false, "none"));
 
-        final EventArrayAdapter adapter = new EventArrayAdapter(dayEvents, getApplicationContext());
+        final EventArrayAdapter adapter = new EventArrayAdapter(events, getApplicationContext());
         /*if(adapter == null){
             Toast.makeText(getApplicationContext(),
                     "null adapter", Toast.LENGTH_LONG)

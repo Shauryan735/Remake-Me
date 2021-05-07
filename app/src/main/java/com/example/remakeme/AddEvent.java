@@ -270,12 +270,14 @@ public class AddEvent extends AppCompatActivity {
 
 
         Event event = new Event(title, startCalendar, endCalendar, color, location, boolRepeat, repeatOffset, boolReminder, notes);
-        long event_id = eventDao.insert(event); // CURRENTLY CRASHES THE APP
+        long event_id = eventDao.insert(event);
         if(boolRepeat){
             repeat(event, event_id);
         }
         event.setId(event_id);
-        //NotificationPublisher.scheduleEventNotification(this, event);
+        if(event.getSendReminders()) {
+            NotificationPublisher.scheduleEventNotification(this, event);
+        }
 
         /**instead of starting a new activity, simply destroy this one, forcing a return to the previous view
          * (I'm not sure how to do that)**/
