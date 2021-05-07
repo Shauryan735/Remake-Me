@@ -201,8 +201,8 @@ public class Event {
         return (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.YEAR);
     }
     static public String getDBFormattedDate(Calendar calendar){
-        return String.format(Locale.getDefault(), "%04d - %02d - %02d",
-                calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1), calendar.get(Calendar.DAY_OF_MONTH));
+        return String.format(Locale.getDefault(), "%04d-%02d-%02d",
+                calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH)), calendar.get(Calendar.DAY_OF_MONTH));
     }
 
 
