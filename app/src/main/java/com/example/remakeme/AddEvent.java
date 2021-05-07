@@ -274,6 +274,7 @@ public class AddEvent extends AppCompatActivity {
         if(boolRepeat){
             repeat(event, event_id);
         }
+        event.setId(event_id);
         //NotificationPublisher.scheduleEventNotification(this, event);
 
         /**instead of starting a new activity, simply destroy this one, forcing a return to the previous view

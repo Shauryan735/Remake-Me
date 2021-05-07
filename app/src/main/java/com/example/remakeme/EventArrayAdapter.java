@@ -13,10 +13,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnClickListener{
 
-    private ArrayList<Event> dataSet;
+    private List<Event> dataSet;
     Context mContext;
 
     private static class ViewHolder {
@@ -25,7 +26,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
         ImageView eventColor;
     }
 
-    public EventArrayAdapter(ArrayList<Event> data, Context context) {
+    public EventArrayAdapter(List<Event> data, Context context) {
         super(context, R.layout.hour, data);
         this.dataSet = data;
         this.mContext = context;

@@ -9,6 +9,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Calendar;
+import java.util.Locale;
 /*
  * Documentation for Calendar library:
  * https://developer.android.com/reference/java/util/Calendar
@@ -199,6 +200,11 @@ public class Event {
     static public String getFormattedDate(Calendar calendar){
         return (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.YEAR);
     }
+    static public String getDBFormattedDate(Calendar calendar){
+        return String.format(Locale.getDefault(), "%04d - %02d - %02d",
+                calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1), calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
 
     public int getGroupColoredOutline() {
         switch (this.groupColor) {

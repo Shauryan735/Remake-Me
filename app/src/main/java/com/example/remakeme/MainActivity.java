@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.navmenu_dayView:
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent day = new Intent(MainActivity.this, DayView.class);
+                        Intent day = new Intent(MainActivity.this, DayViewV2.class);
                         startActivity(day);
                         break;
                     case R.id.navmenu_newEvent:

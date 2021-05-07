@@ -73,7 +73,12 @@ public class NotificationPublisher extends BroadcastReceiver {
     }
 
     private static Notification getEventNotification (Context context,
-                                                      String location, String eventName, long reminderOffset, int color, long id, Calendar start) {
+                                                      String location,
+                                                      String eventName,
+                                                      long reminderOffset,
+                                                      int color,
+                                                      long id,
+                                                      Calendar start) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
                 default_notification_channel_id);
         builder.setContentTitle(eventName);

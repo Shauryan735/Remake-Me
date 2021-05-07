@@ -35,7 +35,8 @@ public class EventView extends AppCompatActivity {
         TextView eventNoteDataView = findViewById(R.id.eventViewNoteData);
 
         Intent intent = getIntent();
-        Event event = getEventById(intent.getLongExtra(EVENT_MESSAGE, 0));
+        eventId = intent.getLongExtra(EVENT_MESSAGE, 0);
+        Event event = getEventById(eventId);
         eventNameView.setText(event.getEventName());
         eventDateDataView.setText(Event.getFormattedDate(event.getEventStart()));
         eventStartTimeDataView.setText(event.getFormattedStartTime());

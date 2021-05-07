@@ -3,6 +3,7 @@ package com.example.remakeme;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.LiveData;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
@@ -29,6 +31,7 @@ public class DayViewV2 extends AppCompatActivity {
     String date = "Meme 2.0";
     String EVENT_MESSAGE = "event_key";
     Context context = this;
+    private EventDao eventDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,13 +95,22 @@ public class DayViewV2 extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.listView);
 
-        String[] dates = new String[] {date};
         /*Event[] events = EventDao.getByDates(dates);
         final ArrayList<Event> dayEvents = new ArrayList<Event>();
         for (int i = 0; i < events.length; ++i) {
             dayEvents.add(events[i]);
         }*/
         //TODO: get events from database
+
+        AppDatabase instance = AppDatabase.getInstance(this);
+        eventDao = instance.getEventDao();
+        //"YYYY-MM-DD"
+        String[] dateParts2 = date.split("/");
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.set(Calendar.MONTH, parseInt(dateParts[0]) - 1);
+        calendar2.set(Calendar.DAY_OF_MONTH, parseInt(dateParts[1]));
+        calendar2.set(Calendar.YEAR, parseInt(dateParts[2]));
+        /*List<Event> events = eventDao.getByDay(Event.getDBFormattedDate(calendar2)).getValue();*/
 
 
         Calendar start1 = Calendar.getInstance();
