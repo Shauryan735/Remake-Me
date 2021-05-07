@@ -36,6 +36,7 @@ public interface EventDao {
             "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 6, 2) = :month")
     List<Event> getByMonth(String month);
 
+    //"YYYY-MM-DD"
     //"2020-03-28"
     @Query("SELECT " +
             "* " +
