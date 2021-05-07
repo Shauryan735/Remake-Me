@@ -72,7 +72,19 @@ public class Event {
         this.eventName = eventName;
     }
 
-    @Ignore
+    public Event(String eventName, Calendar eventStart, Calendar eventEnd,
+                 int groupColor, String location, Boolean repeat, int repeatOffset, Boolean sendReminders, String note) {
+        this.eventName = eventName;
+        this.eventStart = eventStart;
+        this.eventEnd = eventEnd;
+        this.groupColor = groupColor;
+        this.location = location;
+        this.repeat = repeat;
+        this.repeatOffset = repeatOffset;
+        this.sendReminders = sendReminders;
+        this.note = note;
+    }
+
     public Event(String eventName, Calendar eventStart, Calendar eventEnd,
                  int groupColor, String location, Boolean repeat, Boolean sendReminders, String note) {
         this.eventName = eventName;

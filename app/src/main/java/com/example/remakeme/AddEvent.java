@@ -174,6 +174,7 @@ public class AddEvent extends AppCompatActivity {
         String calendar = "Calendar";
         boolean boolRepeat = false;
         boolean boolReminder = false;
+        int repeatOffset = 0;
         int color = 0;
         Calendar startCalendar = Calendar.getInstance();
         Calendar endCalendar = Calendar.getInstance();
@@ -221,8 +222,26 @@ public class AddEvent extends AppCompatActivity {
         int endMinute = Integer.parseInt(endTime[1]);
         endCalendar.set(year, month, day, endHour, endMinute);
 
-        if (!(repeat.equals("Never")))
+        if (!(repeat.equals("Never"))) {
             boolRepeat = true;
+            switch (repeat) {
+                case "Daily":
+                    repeatOffset = 1;
+                    break;
+                case "Weekly":
+                    repeatOffset = 2;
+                    break;
+                case "Biweekly":
+                    repeatOffset = 3;
+                    break;
+                case "Monthly":
+                    repeatOffset = 4;
+                    break;
+                default:
+                    repeatOffset = 0;
+                    break;
+            }
+        }
 
         if (!(reminder.equals("Never")))
             boolReminder = true;
@@ -250,16 +269,16 @@ public class AddEvent extends AppCompatActivity {
         }
 
 
-        Event event = new Event(title, startCalendar, endCalendar, color, location, boolRepeat, boolReminder, notes);
-        long event_id = eventDao.insert(event);
+        Event event = new Event(title, startCalendar, endCalendar, color, location, boolRepeat, repeatOffset, boolReminder, notes);
+        long event_id = eventDao.insert(event); // CURRENTLY CRASHES THE APP
         if(boolRepeat){
             repeat(event, event_id);
         }
-        NotificationPublisher.scheduleEventNotification(this, event);
+        //NotificationPublisher.scheduleEventNotification(this, event);
 
         /**instead of starting a new activity, simply destroy this one, forcing a return to the previous view
          * (I'm not sure how to do that)**/
-        Intent intent = new Intent(this, DayView.class);
+        Intent intent = new Intent(this, DayViewV2.class);
         intent.putExtra(DATE_MESSAGE, date);
         startActivity(intent);
     }
