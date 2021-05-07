@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
+//TODO: remove ScrollingDayView.class
 
 public class ScrollingDayView extends AppCompatActivity {
 

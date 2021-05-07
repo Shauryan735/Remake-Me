@@ -47,6 +47,8 @@ public class EventView extends AppCompatActivity {
         relativeLayout.setBackgroundResource(event.getGroupColoredOutline());
     }
 
+    //TODO: add navBar functionality
+
     public static Intent makeIntent(Context context) {
         return new Intent(context, EventView.class);
     }

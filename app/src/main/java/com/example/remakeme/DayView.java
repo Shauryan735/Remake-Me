@@ -16,7 +16,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
-
+//TODO: remove DayView.class
 public class DayView extends AppCompatActivity {
 
     String DATE_MESSAGE = "Meme";

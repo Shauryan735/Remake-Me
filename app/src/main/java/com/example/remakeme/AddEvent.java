@@ -64,6 +64,7 @@ public class AddEvent extends AppCompatActivity {
                     case R.id.navmenu_dayView:
                         drawerLayout.closeDrawer(GravityCompat.START);
                         Intent day = new Intent(AddEvent.this, DayViewV2.class);
+                        day.putExtra(DATE_MESSAGE, date);
                         startActivity(day);
                         finish();
                         break;
@@ -178,6 +179,7 @@ public class AddEvent extends AppCompatActivity {
         }
 
         EditText editDate = findViewById(R.id.editTextDate);
+        //TODO: change this entry so that you can actually enter the required "/" characters or better yet make it pull up a small calendar
         date = editDate.getText().toString();
         String[] numbers = date.split("/");
         int year = Integer.parseInt(numbers[2]);

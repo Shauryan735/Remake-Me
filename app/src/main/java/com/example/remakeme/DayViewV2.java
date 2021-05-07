@@ -57,7 +57,7 @@ public class DayViewV2 extends AppCompatActivity {
 
         String[] dateParts = date.split("/");
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MONTH, parseInt(dateParts[0]));
+        calendar.set(Calendar.MONTH, parseInt(dateParts[0]) - 1);
         calendar.set(Calendar.DAY_OF_MONTH, parseInt(dateParts[1]));
         calendar.set(Calendar.YEAR, parseInt(dateParts[2]));
         Calendar prevDay = calendar;
@@ -98,6 +98,7 @@ public class DayViewV2 extends AppCompatActivity {
         for (int i = 0; i < events.length; ++i) {
             dayEvents.add(events[i]);
         }*/
+        //TODO: get events from database
 
 
         Calendar start1 = Calendar.getInstance();
@@ -152,11 +153,12 @@ public class DayViewV2 extends AppCompatActivity {
                 Intent intent = EventView.makeIntent(context);
                 intent.putExtra(EVENT_MESSAGE, dayEvents.get(position).getId());
                 startActivity(intent);
-                //TODO: add eventView activity in response to this listener
             }
         });
 
     }
+
+    //TODO: add navBar functionality (and in .xml file)
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, DayViewV2.class);

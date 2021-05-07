@@ -48,6 +48,7 @@ public class DailyReflection extends AppCompatActivity {
                     case R.id.navmenu_dayView:
                         drawerLayout.closeDrawer(GravityCompat.START);
                         Intent day = new Intent(DailyReflection.this, DayViewV2.class);
+                        day.putExtra(DATE_MESSAGE, date);
                         startActivity(day);
                         finish();
                         break;
