@@ -36,6 +36,8 @@ public interface EventDao {
             "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 6, 2) = :month")
     List<Event> getByMonth(String month);
 
+    // How to use
+    // https://stackoverflow.com/questions/54866247/android-assign-livedata-to-listview
     //"YYYY-MM-DD"
     //"2020-03-28"
     @Query("SELECT " +
@@ -45,6 +47,14 @@ public interface EventDao {
             "WHERE " +
             "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) = :day")
     LiveData<List<Event>> getByDay(String day);
+
+    @Query("SELECT " +
+            "* " +
+            "FROM " +
+            "events " +
+            "WHERE " +
+            "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) = :day")
+    List<Event> getNonLiveByDay(String day);
 
     @Update
     int updateEvent(Event event);
