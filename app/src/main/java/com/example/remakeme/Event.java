@@ -43,6 +43,9 @@ public class Event {
     private String groupName;
 
     public Event() {
+        this.eventStart = Calendar.getInstance();
+        this.eventEnd = Calendar.getInstance();
+        this.remindTime = Calendar.getInstance();
     }
 
     @Ignore
