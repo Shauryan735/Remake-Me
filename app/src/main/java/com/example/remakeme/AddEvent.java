@@ -252,7 +252,8 @@ public class AddEvent extends AppCompatActivity {
         boolean boolRepeat = false;
         boolean boolReminder = false;
         int repeatOffset = 0;
-        int color = 0;
+        int color;
+        int month;
         Calendar startCalendar = Calendar.getInstance();
         Calendar endCalendar = Calendar.getInstance();
 
@@ -268,7 +269,12 @@ public class AddEvent extends AppCompatActivity {
         date = editDate.getText().toString();
         String[] numbers = date.split("/");
         int year = Integer.parseInt(numbers[2]);
-        int month = Integer.parseInt(numbers[0]) - 2;
+        if (!editing) {
+            month = Integer.parseInt(numbers[0]) - 2;
+        }
+        else {
+            month = Integer.parseInt(numbers[0]) - 1;
+        }
         int day = Integer.parseInt(numbers[1]);
 
         EditText editLocation = findViewById(R.id.editTextLocation);
@@ -348,15 +354,15 @@ public class AddEvent extends AppCompatActivity {
         Event event = new Event(title, startCalendar, endCalendar, color, location, boolRepeat, repeatOffset, boolReminder, notes);
 
         if (!editing) {
-            long event_id = eventDao.insert(event);
+            event_id = eventDao.insert(event);
             if (boolRepeat) {
                 repeat(event, event_id);
             }
             event.setId(event_id);
             //NotificationPublisher.scheduleEventNotification(this, event);
-        if(event.getSendReminders()) {
+            if(event.getSendReminders()) {
             NotificationPublisher.scheduleEventNotification(this, event);
-        }
+            }
 
             /**instead of starting a new activity, simply destroy this one, forcing a return to the previous view
              * (I'm not sure how to do that)**/
@@ -365,6 +371,7 @@ public class AddEvent extends AppCompatActivity {
             startActivity(intent);
         }
         else {
+            event.setId(event_id);
             eventDao.updateEvent(event);
             Intent intent = new Intent(this, EventView.class);
             intent.putExtra(EVENT_MESSAGE, event_id);

@@ -111,7 +111,6 @@ public class EventView extends AppCompatActivity {
 
     public void editEvent(View view){
         Intent intent = new Intent(EventView.this, AddEvent.class);
-        eventId = 1;
         intent.putExtra(EVENT_MESSAGE, eventId);
         startActivity(intent);
     }

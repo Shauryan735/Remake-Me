@@ -65,6 +65,8 @@ public class DayViewV2 extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.navmenu_home:
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        Intent intent = new Intent(DayViewV2.this, MainActivity.class);
+                        startActivity(intent);
                         finish();
                         break;
                     case R.id.navmenu_dayView:
