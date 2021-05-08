@@ -130,7 +130,7 @@ public class EventView extends AppCompatActivity {
         /*Calendar start1 = Calendar.getInstance();
         Calendar end1 = Calendar.getInstance();
         end1.add(Calendar.MINUTE, 10);
-        return new Event("Cool Event", start1, end1, 0xFFFFA500, "San Luis Obispo", false, 0, false, "Really cool note"); */
+        return new Event("Cool Event", start1, end1, 0xFFFFA500, "San Luis Obispo", false, 0, false, "Really cool note");*/
     }
 
 }

@@ -268,7 +268,7 @@ public class AddEvent extends AppCompatActivity {
         date = editDate.getText().toString();
         String[] numbers = date.split("/");
         int year = Integer.parseInt(numbers[2]);
-        int month = Integer.parseInt(numbers[0]);
+        int month = Integer.parseInt(numbers[0]) + 1;
         int day = Integer.parseInt(numbers[1]);
 
         EditText editLocation = findViewById(R.id.editTextLocation);
