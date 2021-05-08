@@ -76,6 +76,7 @@ public class Event {
         this.eventName = eventName;
     }
 
+    @Ignore
     public Event(String eventName, Calendar eventStart, Calendar eventEnd,
                  int groupColor, String location, Boolean repeat, int repeatOffset, Boolean sendReminders, String note) {
         this.eventName = eventName;
@@ -88,7 +89,7 @@ public class Event {
         this.sendReminders = sendReminders;
         this.note = note;
     }
-
+    @Ignore
     public Event(String eventName, Calendar eventStart, Calendar eventEnd,
                  int groupColor, String location, Boolean repeat, Boolean sendReminders, String note) {
         this.eventName = eventName;
