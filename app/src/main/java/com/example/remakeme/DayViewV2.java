@@ -168,16 +168,16 @@ public class DayViewV2 extends AppCompatActivity {
         calendar2.set(Calendar.DAY_OF_MONTH, parseInt(dateParts[1]));
         calendar2.set(Calendar.YEAR, parseInt(dateParts[2]));
 
-        List<Event> events = eventDao.getNonLiveByDay(Event.getDBFormattedDate(calendar2));
-        /*List<Event> events = eventDao.getAll();*/
+        List<Event> dayEvents = eventDao.getNonLiveByDay(Event.getDBFormattedDate(calendar2));
+        /*List<Event> dayEvents = eventDao.getAll();*/
         //TODO: currently appears to be 0 events in DB
-        for(Event event : events){
+        for(Event event : dayEvents){
             Toast.makeText(getApplicationContext(),
                     event.getEventName() + "found here", Toast.LENGTH_LONG)
                     .show();
         }//for testing
 
-        Calendar start1 = Calendar.getInstance();
+        /*Calendar start1 = Calendar.getInstance();
         Calendar start2 = Calendar.getInstance();
         start2.add(Calendar.HOUR, 1);
         Calendar start3 = Calendar.getInstance();
@@ -209,9 +209,9 @@ public class DayViewV2 extends AppCompatActivity {
         dayEvents.add(new Event("Event7", start3, end3,
                 0xFF008000, "location3", false, false, "none"));
         dayEvents.add(new Event("Event8", start4, end4,
-                0xFF0000FF, "location4", false, false, "none"));
+                0xFF0000FF, "location4", false, false, "none"));*/
 
-        final EventArrayAdapter adapter = new EventArrayAdapter(events, getApplicationContext());
+        final EventArrayAdapter adapter = new EventArrayAdapter(dayEvents, getApplicationContext());
         /*if(adapter == null){
             Toast.makeText(getApplicationContext(),
                     "null adapter", Toast.LENGTH_LONG)
