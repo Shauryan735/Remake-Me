@@ -129,6 +129,7 @@ public class DatabaseUnitTests {
         assertEquals(1, id);
 
         List<Event> eventList = eventDao.getNonLiveByDay("2020-05-08");
+        assertEquals("other name", eventList.get(0).getEventName());
     }
 
 }

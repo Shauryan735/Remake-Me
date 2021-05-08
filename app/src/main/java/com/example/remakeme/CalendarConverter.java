@@ -8,8 +8,11 @@ public class CalendarConverter {
 
     @TypeConverter
     public static Calendar toCalendar(Long longCalendarTime){
-        Calendar newCalendar = Calendar.getInstance();
-        newCalendar.setTimeInMillis(longCalendarTime);
+        Calendar newCalendar = null;
+        if(longCalendarTime != null) {
+            newCalendar = Calendar.getInstance();
+            newCalendar.setTimeInMillis(longCalendarTime);
+        }
         return longCalendarTime == null ? null : newCalendar;
     }
 
