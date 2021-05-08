@@ -88,21 +88,6 @@
             android:textColorHint="#00000000"
             android:textColorLink="#00000000"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewAddMore" />
-
-        <TextView
-            android:id="@+id/textViewAddMore"
-            android:layout_width="110dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:inputType="none"
-            android:text="@string/add_more"
-            android:textColor="@color/black"
-            android:textColorHint="#00000000"
-            android:textColorLink="#00000000"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewReminder" />
 
         <TextView
@@ -281,23 +266,6 @@
             app:layout_constraintTop_toBottomOf="@+id/spinnerRepeat" />
 
         <EditText
-            android:id="@+id/textViewMaintenance"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:ems="10"
-            android:inputType="none"
-            android:text="@string/work_in_progress"
-            android:textColor="@color/black"
-            android:textColorHint="#00000000"
-            android:background="@drawable/redboarder"
-            android:textColorLink="#00000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.67"
-            app:layout_constraintStart_toEndOf="@+id/textViewAddMore"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerReminder" />
-
-        <EditText
             android:id="@+id/editTextNotes"
             android:layout_width="200dp"
             android:layout_height="40dp"
@@ -310,7 +278,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.67"
             app:layout_constraintStart_toEndOf="@+id/textViewNotes"
-            app:layout_constraintTop_toBottomOf="@+id/textViewMaintenance" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerReminder" />
 
         <Button
             android:id="@+id/eventViewEditButton"
