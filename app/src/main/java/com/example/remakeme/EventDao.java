@@ -56,6 +56,9 @@ public interface EventDao {
             "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) = :day")
     List<Event> getNonLiveByDay(String day);
 
+    @Query("DELETE FROM events")
+    void clearAll();
+
     @Update
     int updateEvent(Event event);
 

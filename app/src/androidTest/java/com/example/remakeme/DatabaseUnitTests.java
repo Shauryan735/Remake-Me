@@ -120,4 +120,15 @@ public class DatabaseUnitTests {
         assertEquals(1, id);
     }
 
+    @Test
+    public void test_getNonLiveByDay() throws Exception{
+        Event event = new Event();
+        event.setEventName("other name");
+        long id;
+        id = eventDao.insert(event);
+        assertEquals(1, id);
+
+        List<Event> eventList = eventDao.getNonLiveByDay("2020-05-08");
+    }
+
 }
