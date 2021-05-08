@@ -124,12 +124,17 @@ public class DatabaseUnitTests {
     public void test_getNonLiveByDay() throws Exception{
         Event event = new Event();
         event.setEventName("other name");
+        Calendar calendar = Calendar.getInstance();
+        event.setEventStart(calendar);
         long id;
         id = eventDao.insert(event);
         assertEquals(1, id);
 
+        List<String> dateTimes = eventDao.getDateTimes();
+        assertEquals("", dateTimes.get(0));
         List<Event> eventList = eventDao.getNonLiveByDay("2020-05-08");
         assertEquals("other name", eventList.get(0).getEventName());
+
     }
 
 }
