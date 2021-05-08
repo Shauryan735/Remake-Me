@@ -269,12 +269,7 @@ public class AddEvent extends AppCompatActivity {
         date = editDate.getText().toString();
         String[] numbers = date.split("/");
         int year = Integer.parseInt(numbers[2]);
-        if (!editing) {
-            month = Integer.parseInt(numbers[0]) - 2;
-        }
-        else {
-            month = Integer.parseInt(numbers[0]) - 1;
-        }
+        month = Integer.parseInt(numbers[0]) - 1;
         int day = Integer.parseInt(numbers[1]);
 
         EditText editLocation = findViewById(R.id.editTextLocation);
@@ -352,6 +347,9 @@ public class AddEvent extends AppCompatActivity {
         }
 
         Event event = new Event(title, startCalendar, endCalendar, color, location, boolRepeat, repeatOffset, boolReminder, notes);
+        Toast.makeText(getApplicationContext(),
+                event.getEventStart().get(Calendar.MONTH) + "/" + event.getEventStart().get(Calendar.DATE), Toast.LENGTH_LONG)
+                .show();
 
         if (!editing) {
             event_id = eventDao.insert(event);
