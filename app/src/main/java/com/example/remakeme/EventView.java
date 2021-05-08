@@ -122,15 +122,15 @@ public class EventView extends AppCompatActivity {
     }
 
     private Event getEventById(long id){
-        /*AppDatabase instance = AppDatabase.getInstance(this);
+        AppDatabase instance = AppDatabase.getInstance(this);
         eventDao = instance.getEventDao();
         long[] ids = new long[]{id};
-        return eventDao.getById(ids).get(0);*/
+        return eventDao.getById(ids).get(0);
 
-        Calendar start1 = Calendar.getInstance();
+        /*Calendar start1 = Calendar.getInstance();
         Calendar end1 = Calendar.getInstance();
         end1.add(Calendar.MINUTE, 10);
-        return new Event("Cool Event", start1, end1, 0xFFFFA500, "San Luis Obispo", false, 0, false, "Really cool note");
+        return new Event("Cool Event", start1, end1, 0xFFFFA500, "San Luis Obispo", false, 0, false, "Really cool note");*/
     }
 
 }
