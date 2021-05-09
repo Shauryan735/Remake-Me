@@ -22,26 +22,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity
-            android:name=".ScrollingDayView"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.Testing.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
         <activity android:name=".HomeScreen" />
         <activity android:name=".DailyReflection" />
         <activity android:name=".Notes" />
         <activity android:name=".AddEvent" />
         <activity android:name=".Infographics" />
-        <activity
-            android:name=".DayView"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

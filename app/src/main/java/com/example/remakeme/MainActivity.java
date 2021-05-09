@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (start == 0) {
             // Create database and eventDao
+            //TODO: define behavior
         }
         start = 1;
 
@@ -110,4 +111,10 @@ public class MainActivity extends AppCompatActivity {
         long selectedDate = simpleCalendarView.getDate();
         simpleCalendarView.setDate(selectedDate);
     }
+
+
+    /*Toast.makeText(getApplicationContext(),
+            "Click ListItem Number " + position, Toast.LENGTH_LONG)
+            .show();
+        sample code for "printing"*/
 }

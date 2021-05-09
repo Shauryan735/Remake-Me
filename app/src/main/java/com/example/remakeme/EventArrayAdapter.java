@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnClickListener{
@@ -35,12 +34,9 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
 
     @Override
     public void onClick(View v) {
-
         int position=(Integer) v.getTag();
         Object object= getItem(position);
         Event event=(Event)object;
-
-        //TODO: open eventView
     }
 
     private int lastPosition = -1;
@@ -48,10 +44,8 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
         Event event = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
-        ViewHolder viewHolder; // view lookup cache stored in tag
+        ViewHolder viewHolder;
 
         final View result;
 

@@ -15,7 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -62,7 +61,7 @@ public class AddEvent extends AppCompatActivity {
             if (event_id != 0) {
                 editing = true;
                 Button submitButton = findViewById(R.id.eventViewEditButton);
-                submitButton.setText("Edit Event");
+                submitButton.setText(R.string.editEvent);
             }
         }
         catch (Exception e) {}
@@ -73,8 +72,6 @@ public class AddEvent extends AppCompatActivity {
         AppDatabase instance = AppDatabase.getInstance(this);
         eventDao = instance.getEventDao();
         // eventDao.clearAll(); // Uncomment to clear database
-
-        // TODO: Start of Navigation bar code
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -366,7 +363,6 @@ public class AddEvent extends AppCompatActivity {
                 repeat(event_id);
             }
             event.setId(event_id);
-            //NotificationPublisher.scheduleEventNotification(this, event);
             if(event.getSendReminders()) {
             NotificationPublisher.scheduleEventNotification(this, event);
             }

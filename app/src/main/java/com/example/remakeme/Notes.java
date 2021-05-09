@@ -2,17 +2,7 @@ package com.example.remakeme;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import com.google.android.material.navigation.NavigationView;
 
 public class Notes extends AppCompatActivity {
 
@@ -25,14 +15,12 @@ public class Notes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
 
-        // TODO: End of Navigation bar code
-
         Intent intent = getIntent();
         date = intent.getStringExtra(DATE_MESSAGE);
 
     }
 
-    // TODO: Navigation bar helper code
+    // TODO: Navigation bar
 
 
 }
