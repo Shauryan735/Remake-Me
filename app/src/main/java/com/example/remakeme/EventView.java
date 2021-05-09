@@ -8,16 +8,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.Calendar;
 
 public class EventView extends AppCompatActivity {
 
@@ -84,15 +80,10 @@ public class EventView extends AppCompatActivity {
         });
 
         TextView eventNameView = findViewById(R.id.eventViewName);
-        /*TextView eventDateView = findViewById(R.id.eventViewDate);*/
         TextView eventDateDataView = findViewById(R.id.eventViewDateData);
-        /*TextView eventStartTimeView = findViewById(R.id.eventViewStartTime);*/
         TextView eventStartTimeDataView = findViewById(R.id.eventViewStartTimeData);
-        /*TextView eventEndTimeView = findViewById(R.id.eventViewEndTime);*/
         TextView eventEndTimeDataView = findViewById(R.id.eventViewEndTimeData);
-        /*TextView eventLocationView = findViewById(R.id.eventViewLocation);*/
         TextView eventLocationDataView = findViewById(R.id.eventViewLocationData);
-        /*TextView eventNoteView = findViewById(R.id.eventViewNote);*/
         TextView eventNoteDataView = findViewById(R.id.eventViewNoteData);
 
         Intent intent = getIntent();
@@ -135,10 +126,15 @@ public class EventView extends AppCompatActivity {
         long[] ids = new long[]{id};
         return eventDao.getById(ids).get(0);
 
+        //create dummy event for testing
         /*Calendar start1 = Calendar.getInstance();
         Calendar end1 = Calendar.getInstance();
         end1.add(Calendar.MINUTE, 10);
         return new Event("Cool Event", start1, end1, 0xFFFFA500, "San Luis Obispo", false, 0, false, "Really cool note");*/
+    }
+
+    public void back(View view){
+        finish();
     }
 
 }

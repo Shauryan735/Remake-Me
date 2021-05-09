@@ -24,6 +24,9 @@ public class NotificationPublisher extends BroadcastReceiver {
     private static String DATE_MESSAGE = "Meme";
     public static String getExtraMessage(){ return EXTRA_MESSAGE; }
 
+    //TODO: needs some more tweaking (check if event has location for message,
+    // make sure notification intent is able to start the correct activity
+
     public void onReceive (Context context, Intent intent) {
 
         String message = intent.getStringExtra(EXTRA_MESSAGE);
@@ -38,13 +41,12 @@ public class NotificationPublisher extends BroadcastReceiver {
         }
         Random random = new Random();
         int m = random.nextInt(9999 - 1000) + 1000;
-        /*int id = intent.getIntExtra(NOTIFICATION_ID, 0 );*/
         assert notificationManager != null;
         notificationManager.notify(m, notification);
     }
 
     public static void scheduleEventNotification(Context context, Event event){
-        assert(event.getSendReminders());//reminder for debugging
+        /*assert(event.getSendReminders());*///reminder for debugging
         Notification notification = getEventNotification(
                 context,
                 event.getLocation(),
@@ -63,7 +65,6 @@ public class NotificationPublisher extends BroadcastReceiver {
         Intent notificationIntent = new Intent(context, NotificationPublisher.class);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, id);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
-        /*TextView textView = findViewById(R.id.editNumNotifies);*/
         PendingIntent pendingIntent = PendingIntent.getBroadcast (context, Integer.parseInt(id),
                 notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -83,7 +84,7 @@ public class NotificationPublisher extends BroadcastReceiver {
                 default_notification_channel_id);
         builder.setContentTitle(eventName);
         builder.setContentText("Starting in " + reminderOffset / 60000 + " minutes at " + location + ".");
-        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        builder.setSmallIcon(R.drawable.logo);
         builder.setAutoCancel(true);
         builder.setChannelId(NOTIFICATION_CHANNEL_ID);
         builder.setContentIntent(getEventNotificationIntent(context, eventName, id, start));
@@ -96,14 +97,13 @@ public class NotificationPublisher extends BroadcastReceiver {
 
     private static PendingIntent getEventNotificationIntent(Context context, String message, long id, Calendar start){
         Intent intent = new Intent(context, DayViewV2.class);
-        Integer month = start.get(Calendar.MONTH);
-        Integer day = start.get(Calendar.DAY_OF_MONTH);
-        Integer year = start.get(Calendar.YEAR);
-        String date = month.toString() + "/" + day.toString() + "/" + year.toString();
+        int month = start.get(Calendar.MONTH);
+        int day = start.get(Calendar.DAY_OF_MONTH);
+        int year = start.get(Calendar.YEAR);
+        String date = month + "/" + day + "/" + year;
         intent.putExtra(DATE_MESSAGE, date);
 
         intent.putExtra(NotificationPublisher.getExtraMessage(), message);
-        // Create the TaskStackBuilder and add the intent, which inflates the back stack
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addNextIntentWithParentStack(intent);
         return stackBuilder.getPendingIntent((int) id, 0);
