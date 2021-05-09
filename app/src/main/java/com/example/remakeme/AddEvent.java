@@ -407,7 +407,7 @@ public class AddEvent extends AppCompatActivity {
     {
         long[] ids = {baseId};
         Event event = eventDao.getById(ids).get(0);
-        event.setId(null);
+        event.setId(0);
         event.setBaseId(baseId);                    //repeat offset is being treated as follows:
         int repeatOffset = event.getRepeatOffset();	//Daily:    1         |Weekly:   2
         int i = 0;                                  //BiWeekly: 3         |Monthly:  4
