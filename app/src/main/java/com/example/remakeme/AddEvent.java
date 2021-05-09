@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -60,6 +61,8 @@ public class AddEvent extends AppCompatActivity {
             event_id = intent.getLongExtra(EVENT_MESSAGE, 0);
             if (event_id != 0) {
                 editing = true;
+                Button submitButton = findViewById(R.id.eventViewEditButton);
+                submitButton.setText("Edit Event");
             }
         }
         catch (Exception e) {}
@@ -69,6 +72,7 @@ public class AddEvent extends AppCompatActivity {
 
         AppDatabase instance = AppDatabase.getInstance(this);
         eventDao = instance.getEventDao();
+        // eventDao.clearAll(); // Uncomment to clear database
 
         // TODO: Start of Navigation bar code
 
@@ -188,6 +192,8 @@ public class AddEvent extends AppCompatActivity {
 
         if (editing) {
             EditText editName = findViewById(R.id.editTextName);
+            Button button = findViewById(R.id.eventViewEditButton);
+            button.setText(R.string.editEvent);
 
 
             List eventList = eventDao.getById(events);
@@ -260,6 +266,9 @@ public class AddEvent extends AppCompatActivity {
         EditText editTitle = findViewById(R.id.editTextName);
         try {
             title = editTitle.getText().toString();
+            if (title.equals("")) {
+                title = "New Event";
+            }
         }
         catch (Exception e) {
             title = "New Event";
@@ -354,7 +363,7 @@ public class AddEvent extends AppCompatActivity {
         if (!editing) {
             event_id = eventDao.insert(event);
             if (boolRepeat) {
-                repeat(event, event_id);
+                repeat(event_id);
             }
             event.setId(event_id);
             //NotificationPublisher.scheduleEventNotification(this, event);
@@ -367,6 +376,7 @@ public class AddEvent extends AppCompatActivity {
             Intent intent = new Intent(this, DayViewV2.class);
             intent.putExtra(DATE_MESSAGE, date);
             startActivity(intent);
+            finish();
         }
         else {
             event.setId(event_id);
@@ -374,6 +384,7 @@ public class AddEvent extends AppCompatActivity {
             Intent intent = new Intent(this, EventView.class);
             intent.putExtra(EVENT_MESSAGE, event_id);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -383,83 +394,75 @@ public class AddEvent extends AppCompatActivity {
         return new Intent(context, AddEvent.class);
     }
 
-    public void repeat(Event e, long baseId)
+    private void incrementDayOfYear(Event event, int by){
+        Calendar start = event.getEventStart();
+        Calendar end = event.getEventEnd();
+        start.add(Calendar.DAY_OF_YEAR, by);
+        end.add(Calendar.DAY_OF_YEAR, by);
+        event.setEventStart(start);
+        event.setEventEnd(end);
+    }
+
+    public void repeat(long baseId)
     {
-        String name = e.getEventName();
-        Calendar startTime = e.getEventStart();
-        Calendar endTime = e.getEventEnd();
-        Boolean remind = e.getSendReminders();
-        Calendar remindTime = e.getRemindTime();
-        Boolean repeat = e.getRepeat(); 							    //repeat offset is being treated as follows:
-        int repeatOffset = e.getRepeatOffset();						    //Daily:    1         |Weekly:   2
-        //BiWeekly: 3         |Monthly:  4
-        if(repeat)
+        long[] ids = {baseId};
+        Event event = eventDao.getById(ids).get(0);
+        event.setId(0);
+        event.setBaseId(baseId);                    //repeat offset is being treated as follows:
+        int repeatOffset = event.getRepeatOffset();	//Daily:    1         |Weekly:   2
+        int i = 0;                                  //BiWeekly: 3         |Monthly:  4
+        if(repeatOffset == 1)
         {
-            if(repeatOffset == 1)									    //If repeat set to Daily create new events one year out
-            {														    //
-                int count = 0;										    //count init at 0 for one year of events
-                while(count < 365)									    //check if count is still less than 365
-                {													    //
-                    startTime.add(Calendar.DAY_OF_YEAR, count+1);	//update the calendar with new time from repeat loop
-                    endTime.add(Calendar.DAY_OF_YEAR, count+1);	    //update the calendar with new time from repeat loop
-                    //
-                    Event ne = new Event(baseId,name, startTime, endTime,   //
-                            remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
-                    eventDao.insert(ne);
-                    count+=1;										    //increment the event counter
-                }
+            while(i < 365)
+            {
+                incrementDayOfYear(event, 1);
+                eventDao.insert(event);
+                i+=1;
             }
-            else if(repeatOffset == 2)								        //If repeat set to Weekly create new events one year out
-            {														    //
-                int count = 0;										    //count init at 0 for one year of events
-                while(count < 365)									    //check if count is still less than 365
-                {													    //
-                    startTime.add(Calendar.DAY_OF_YEAR, count+7);	//update the calendar with new time from repeat loop
-                    endTime.add(Calendar.DAY_OF_YEAR, count+7);	//update the calendar with new time from repeat loop
-                    //
-                    Event ne = new Event(baseId,name, startTime, endTime,   //
-                            remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
-                    eventDao.insert(ne);
-                    count+=7;										    //increment the event counter by seven days
-                }
+        }
+        else if(repeatOffset == 2)
+        {
+            while(i < 365)
+            {
+                incrementDayOfYear(event, 7);
+                eventDao.insert(event);
+                i+=7;
             }
-            else if(repeatOffset == 3)								    //If repeat set to BiWeekly create new events one year out
-            {														    //
-                int count = 0;										    //count init at 0 for one year of events
-                while(count < 365)									    //check if count is still less than 365
-                {													    //
-                    startTime.add(Calendar.DAY_OF_YEAR, count+14);	//update the calendar with new time from repeat loop
-                    endTime.add(Calendar.DAY_OF_YEAR, count+14);	//update the calendar with new time from repeat loop
-                    //
-                    Event ne = new Event(baseId,name, startTime, endTime,   //
-                            remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
-                    eventDao.insert(ne);
-                    count+=14;										    //increment the event counter by seven days
-                }
+        }
+        else if(repeatOffset == 3)
+        {
+            while(i < 365)
+            {
+                incrementDayOfYear(event, 14);
+                eventDao.insert(event);
+                i+=14;
             }
-            else if(repeatOffset == 4)								    //If repeat set to Monthly create new events one year out
-            {														    //
-                int count = 0;										    //count init at 0 for one year of events
-                while(count < 12)									    //check if count is still less than 365
-                {													    //
-                    startTime.add(Calendar.MONTH, count+1);		//update the calendar with new time from repeat loop
-                    endTime.add(Calendar.MONTH, count+1);			//update the calendar with new time from repeat loop
-                    //
-                    Event ne = new Event(baseId,name, startTime, endTime,   //
-                            remind,remindTime,repeat,repeatOffset);	    //Create a new event with the new calendars
-                    eventDao.insert(ne);
-                    count+=1;										    //increment the event counter by seven days
-                }
+        }
+        else if(repeatOffset == 4)
+        {
+            while(i < 12)
+            {
+                Calendar start = event.getEventStart();
+                Calendar end = event.getEventEnd();
+                start.add(Calendar.MONTH, 1);
+                end.add(Calendar.MONTH, 1);
+                event.setEventStart(start);
+                event.setEventEnd(end);
+
+                eventDao.insert(event);
+                i+=1;
             }
-            else if(repeatOffset == 5)								    //If repeat set to Yearly create an event one year out
-            {														    //
-                startTime.add(Calendar.YEAR, 1);					//update the calendar with new time
-                endTime.add(Calendar.YEAR, 1);						//update the calendar with new time
-                //
-                Event ne = new Event(baseId,name, startTime, endTime,       //
-                        remind,remindTime,repeat,repeatOffset);	        //Create a new event with the new calendars
-                eventDao.insert(ne);
-            }
+        }
+        else if(repeatOffset == 5)
+        {
+            Calendar start = event.getEventStart();
+            Calendar end = event.getEventEnd();
+            start.add(Calendar.YEAR, 1);
+            end.add(Calendar.YEAR, 1);
+            event.setEventStart(start);
+            event.setEventEnd(end);
+
+            eventDao.insert(event);
         }
     }
 }

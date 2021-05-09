@@ -24,6 +24,7 @@ public class EventView extends AppCompatActivity {
     private long eventId;
     String EVENT_MESSAGE = "event_key";
     private EventDao eventDao;
+    public static String DATE_MESSAGE = "Meme";
 
     NavigationView nav;
     ActionBarDrawerToggle toggle;
@@ -39,6 +40,9 @@ public class EventView extends AppCompatActivity {
 
         nav = findViewById(R.id.nav);
         drawerLayout = findViewById(R.id.drawer);
+
+        AppDatabase instance = AppDatabase.getInstance(this);
+        eventDao = instance.getEventDao();
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
@@ -113,11 +117,16 @@ public class EventView extends AppCompatActivity {
         Intent intent = new Intent(EventView.this, AddEvent.class);
         intent.putExtra(EVENT_MESSAGE, eventId);
         startActivity(intent);
+        finish();
     }
 
     public void deleteEvent(View view){
-        /*dummy*/
-        //TODO: add deleteEvent method
+        Event event = getEventById(eventId);
+        Intent intent = new Intent(EventView.this, DayViewV2.class);
+        intent.putExtra(DATE_MESSAGE, Event.getFormattedDate(event.getEventStart()));
+        eventDao.delete(event);
+        startActivity(intent);
+        finish();
     }
 
     private Event getEventById(long id){
