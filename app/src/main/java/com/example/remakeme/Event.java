@@ -170,17 +170,29 @@ public class Event {
         @SuppressLint("DefaultLocale") String startMin = String.format("%02d", this.eventStart.get(Calendar.MINUTE));
         @SuppressLint("DefaultLocale") String endHour = String.format("%02d", this.eventEnd.get(Calendar.HOUR));
         @SuppressLint("DefaultLocale") String endMin = String.format("%02d", this.eventEnd.get(Calendar.MINUTE));
+        if (startHour.equals("00")) {
+            startHour = "12";
+        }
+        if (endHour.equals("00")) {
+            endHour = "12";
+        }
         return startHour + ":" + startMin + " - " + endHour + ":" + endMin;
     }
 
     public String getFormattedStartTime(){
         @SuppressLint("DefaultLocale") String startHour = String.format("%02d", this.eventStart.get(Calendar.HOUR));
         @SuppressLint("DefaultLocale") String startMin = String.format("%02d", this.eventStart.get(Calendar.MINUTE));
+        if (startHour.equals("00")) {
+            startHour = "12";
+        }
         return startHour + ":" + startMin;
     }
     public String getFormattedEndTime(){
         @SuppressLint("DefaultLocale") String endHour = String.format("%02d", this.eventEnd.get(Calendar.HOUR));
         @SuppressLint("DefaultLocale") String endMin = String.format("%02d", this.eventEnd.get(Calendar.MINUTE));
+        if (endHour.equals("00")) {
+            endHour = "12";
+        }
         return endHour + ":" + endMin;
     }
 

@@ -117,6 +117,7 @@ public class EventView extends AppCompatActivity {
         Intent intent = new Intent(EventView.this, AddEvent.class);
         intent.putExtra(EVENT_MESSAGE, eventId);
         startActivity(intent);
+        finish();
     }
 
     public void deleteEvent(View view){

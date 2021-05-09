@@ -61,6 +61,8 @@ public class AddEvent extends AppCompatActivity {
             event_id = intent.getLongExtra(EVENT_MESSAGE, 0);
             if (event_id != 0) {
                 editing = true;
+                Button submitButton = findViewById(R.id.eventViewEditButton);
+                submitButton.setText("Edit Event");
             }
         }
         catch (Exception e) {}
@@ -70,6 +72,7 @@ public class AddEvent extends AppCompatActivity {
 
         AppDatabase instance = AppDatabase.getInstance(this);
         eventDao = instance.getEventDao();
+        // eventDao.clearAll(); // Uncomment to clear database
 
         // TODO: Start of Navigation bar code
 
@@ -263,6 +266,9 @@ public class AddEvent extends AppCompatActivity {
         EditText editTitle = findViewById(R.id.editTextName);
         try {
             title = editTitle.getText().toString();
+            if (title.equals("")) {
+                title = "New Event";
+            }
         }
         catch (Exception e) {
             title = "New Event";
@@ -370,6 +376,7 @@ public class AddEvent extends AppCompatActivity {
             Intent intent = new Intent(this, DayViewV2.class);
             intent.putExtra(DATE_MESSAGE, date);
             startActivity(intent);
+            finish();
         }
         else {
             event.setId(event_id);
@@ -377,6 +384,7 @@ public class AddEvent extends AppCompatActivity {
             Intent intent = new Intent(this, EventView.class);
             intent.putExtra(EVENT_MESSAGE, event_id);
             startActivity(intent);
+            finish();
         }
     }
 
