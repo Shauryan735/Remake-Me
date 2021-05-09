@@ -1,8 +1,10 @@
 package com.example.remakeme;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -139,6 +141,10 @@ public class EventView extends AppCompatActivity {
         Calendar end1 = Calendar.getInstance();
         end1.add(Calendar.MINUTE, 10);
         return new Event("Cool Event", start1, end1, 0xFFFFA500, "San Luis Obispo", false, 0, false, "Really cool note");*/
+    }
+
+    public void back(View view){
+        finish();
     }
 
 }
