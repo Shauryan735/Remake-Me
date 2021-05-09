@@ -1,7 +1,6 @@
 package com.example.remakeme;
 
 import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -64,7 +63,7 @@ public class Event {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
