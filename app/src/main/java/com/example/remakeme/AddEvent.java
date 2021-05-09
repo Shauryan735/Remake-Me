@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -188,6 +189,8 @@ public class AddEvent extends AppCompatActivity {
 
         if (editing) {
             EditText editName = findViewById(R.id.editTextName);
+            Button button = findViewById(R.id.eventViewEditButton);
+            button.setText(R.string.editEvent);
 
 
             List eventList = eventDao.getById(events);

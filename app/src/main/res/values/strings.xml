@@ -126,5 +126,6 @@
     <string name="delete">Delete</string>
     <string name="edit">" Edit "</string>
     <string name="event_title">title</string>
+    <string name="editEvent">Edit Event</string>
 
 </resources>
