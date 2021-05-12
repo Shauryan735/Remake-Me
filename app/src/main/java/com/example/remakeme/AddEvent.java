@@ -44,7 +44,10 @@ public class AddEvent extends AppCompatActivity {
     String location = "";
     String title = "New Event";
     String notes = "";
-    Calendar eventDate;
+    String startHour = "";
+    String startMinute = "";
+    String endHour = "";
+    String endMinute = "";
     Boolean editing = false;
     long event_id = 0;
 
@@ -185,6 +188,103 @@ public class AddEvent extends AppCompatActivity {
             }
         });
 
+        Spinner startHourSpinner = findViewById(R.id.spinnerStartHour);
+        ArrayList<String> startHourList = new ArrayList<>();
+        startHourList.add("12");
+        startHourList.add("01");
+        startHourList.add("02");
+        startHourList.add("03");
+        startHourList.add("04");
+        startHourList.add("05");
+        startHourList.add("06");
+        startHourList.add("07");
+        startHourList.add("08");
+        startHourList.add("09");
+        startHourList.add("10");
+        startHourList.add("11");
+
+        ArrayAdapter<String> arrayAdapter4 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, startHourList);
+        arrayAdapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        startHourSpinner.setAdapter(arrayAdapter4);
+        startHourSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                startHour = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        Spinner startMinuteSpinner = findViewById(R.id.spinnerStartMinute);
+        ArrayList<String> startMinuteList = new ArrayList<>();
+        startMinuteList.add("00");
+        startMinuteList.add("15");
+        startMinuteList.add("30");
+        startMinuteList.add("45");
+
+        ArrayAdapter<String> arrayAdapter5 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, startMinuteList);
+        arrayAdapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        startMinuteSpinner.setAdapter(arrayAdapter5);
+        startMinuteSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                startMinute = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        Spinner endHourSpinner = findViewById(R.id.spinnerEndHour);
+        ArrayList<String> endHourList = new ArrayList<>();
+        endHourList.add("12");
+        endHourList.add("01");
+        endHourList.add("02");
+        endHourList.add("03");
+        endHourList.add("04");
+        endHourList.add("05");
+        endHourList.add("06");
+        endHourList.add("07");
+        endHourList.add("08");
+        endHourList.add("09");
+        endHourList.add("10");
+        endHourList.add("11");
+
+        ArrayAdapter<String> arrayAdapter6 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, endHourList);
+        arrayAdapter6.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        endHourSpinner.setAdapter(arrayAdapter6);
+        endHourSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                endHour = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        Spinner endMinuteSpinner = findViewById(R.id.spinnerEndMinute);
+        ArrayList<String> endMinuteList = new ArrayList<>();
+        endMinuteList.add("00");
+        endMinuteList.add("15");
+        endMinuteList.add("30");
+        endMinuteList.add("45");
+
+        ArrayAdapter<String> arrayAdapter7 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, endMinuteList);
+        arrayAdapter7.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        endMinuteSpinner.setAdapter(arrayAdapter7);
+        endMinuteSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                endMinute = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
         long[] events = {event_id};
 
         if (editing) {
@@ -211,10 +311,15 @@ public class AddEvent extends AppCompatActivity {
             String stringDate = df.format(c);
             editDate.setText(stringDate);
 
-            EditText editStartTime = findViewById(R.id.editTextStartTime);
-            editStartTime.setText(editEvent.getFormattedStartTime());
-            EditText editEndTime = findViewById(R.id.editTextEndTime);
-            editEndTime.setText(editEvent.getFormattedEndTime());
+            String oldStartTime = editEvent.getFormattedStartTime();
+            String[] oldStartArray = oldStartTime.split(":");
+            startHourSpinner.setSelection(arrayAdapter4.getPosition(oldStartArray[0]));
+            startMinuteSpinner.setSelection(arrayAdapter5.getPosition(oldStartArray[1]));
+
+            String oldEndTime = editEvent.getFormattedEndTime();
+            String[] oldEndArray = oldEndTime.split(":");
+            endHourSpinner.setSelection(arrayAdapter6.getPosition(oldEndArray[0]));
+            endMinuteSpinner.setSelection(arrayAdapter7.getPosition(oldEndArray[1]));
 
             String hexColor;
             switch (editEvent.getGroupColor()) {
@@ -244,7 +349,7 @@ public class AddEvent extends AppCompatActivity {
             editLocation.setText(editEvent.getLocation());
 
             repeatSpinner.setSelection(editEvent.getRepeatOffset());
-            repeatSpinner.setSelection(0);
+            reminderSpinner.setSelection(0);
 
             EditText editNotes = findViewById(R.id.editTextNotes);
             editNotes.setText(editEvent.getNote());
@@ -294,17 +399,13 @@ public class AddEvent extends AppCompatActivity {
             notes = "None";
         }
 
-        EditText editStart = findViewById(R.id.editTextStartTime);
-        String[] startTime = editStart.getText().toString().split(":");
-        int startHour = Integer.parseInt(startTime[0]);
-        int startMinute = Integer.parseInt(startTime[1]);
-        startCalendar.set(year, month, day, startHour, startMinute);
+        int hour1 = Integer.parseInt(startHour);
+        int minute1 = Integer.parseInt(startMinute);
+        int hour2 = Integer.parseInt(endHour);
+        int minute2 = Integer.parseInt(endMinute);
+        startCalendar.set(year, month, day, hour1, minute1);
+        endCalendar.set(year, month, day, hour2, minute2);
 
-        EditText editEnd = findViewById(R.id.editTextEndTime);
-        String[] endTime = editEnd.getText().toString().split(":");
-        int endHour = Integer.parseInt(endTime[0]);
-        int endMinute = Integer.parseInt(endTime[1]);
-        endCalendar.set(year, month, day, endHour, endMinute);
 
         if (!(repeat.equals("Never"))) {
             boolRepeat = true;
@@ -353,9 +454,9 @@ public class AddEvent extends AppCompatActivity {
         }
 
         Event event = new Event(title, startCalendar, endCalendar, color, location, boolRepeat, repeatOffset, boolReminder, notes);
-        Toast.makeText(getApplicationContext(),
+        /* Toast.makeText(getApplicationContext(),
                 event.getEventStart().get(Calendar.MONTH) + "/" + event.getEventStart().get(Calendar.DATE), Toast.LENGTH_LONG)
-                .show();
+                .show(); */
 
         if (!editing) {
             event_id = eventDao.insert(event);
