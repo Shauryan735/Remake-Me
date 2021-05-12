@@ -41,6 +41,9 @@ public class Event {
     private long remindOffset;
     private String groupName;
 
+    /*private String reviewNote;
+    private int grade;*/
+
     public Event() {
         this.eventStart = Calendar.getInstance();
         this.eventEnd = Calendar.getInstance();
@@ -119,50 +122,45 @@ public class Event {
     public Calendar getEventStart() {
         return eventStart;
     }
-
     public void setEventStart(Calendar eventStart) {
         this.eventStart = eventStart;
     }
-
     public Calendar getEventEnd() {
         return eventEnd;
     }
-
     public void setEventEnd(Calendar eventEnd) {
         this.eventEnd = eventEnd;
     }
-
     public Boolean getSendReminders() {
         return sendReminders;
     }
-
     public void setSendReminders(Boolean sendReminders) {
         this.sendReminders = sendReminders;
     }
-
     public Calendar getRemindTime() {
         return remindTime;
     }
-
     public void setRemindTime(Calendar remindTime) {
         this.remindTime = remindTime;
     }
-
     public Boolean getRepeat() {
         return repeat;
     }
-
     public void setRepeat(Boolean repeat) {
         this.repeat = repeat;
     }
-
     public int getRepeatOffset() {
         return repeatOffset;
     }
-
     public void setRepeatOffset(int repeatOffset) {
         this.repeatOffset = repeatOffset;
     }
+    /*public boolean isGraded() { return graded; }
+    public void setGraded(boolean graded) { this.graded = graded; }
+    public String getReviewNote() { return reviewNote; }
+    public void setReviewNote(String reviewNote) { this.reviewNote = reviewNote; }
+    public int getGrade() { return grade; }
+    public void setGrade(int grade) { this.grade = grade; }*/
 
     public String getFormattedTime(){
         @SuppressLint("DefaultLocale") String startHour = String.format("%02d", this.eventStart.get(Calendar.HOUR));
