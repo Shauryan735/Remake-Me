@@ -3,6 +3,7 @@ package com.example.remakeme;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -11,13 +12,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
 public class EventView extends AppCompatActivity {
 
   private long eventId;
+  private Event event;
   String EVENT_MESSAGE = "event_key";
   private EventDao eventDao;
   public static String DATE_MESSAGE = "Meme";
@@ -88,13 +92,20 @@ public class EventView extends AppCompatActivity {
 
     Intent intent = getIntent();
     eventId = intent.getLongExtra(EVENT_MESSAGE, 0);
-    Event event = getEventById(eventId);
+    event = getEventById(eventId);
     eventNameView.setText(event.getEventName());
     eventDateDataView.setText(Event.getFormattedDate(event.getEventStart()));
     eventStartTimeDataView.setText(event.getFormattedStartTime());
     eventEndTimeDataView.setText(event.getFormattedEndTime());
     eventLocationDataView.setText(event.getLocation());
     eventNoteDataView.setText(event.getNote());
+
+
+    if(!event.isGraded()){
+      Button reviewButton = findViewById(R.id.eventViewReflectButton);
+      reviewButton.setEnabled(false);
+      reviewButton.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.gray));
+    }
 
     View relativeLayout = findViewById(R.id.eventView);
     relativeLayout.setBackgroundResource(event.getGroupColoredOutline());
@@ -112,7 +123,6 @@ public class EventView extends AppCompatActivity {
   }
 
   public void deleteEvent(View view){
-    Event event = getEventById(eventId);
     Intent intent = new Intent(EventView.this, DayViewV2.class);
     intent.putExtra(DATE_MESSAGE, Event.getFormattedDate(event.getEventStart()));
     eventDao.delete(event);
@@ -131,6 +141,18 @@ public class EventView extends AppCompatActivity {
         Calendar end1 = Calendar.getInstance();
         end1.add(Calendar.MINUTE, 10);
         return new Event("Cool Event", start1, end1, 0xFFFFA500, "San Luis Obispo", false, 0, false, "Really cool note");*/
+  }
+
+  public void reflectEvent(View view){
+    if(!event.isGraded()){
+      Toast.makeText(getApplicationContext(),
+              event.getEventName() + " is not a graded event.", Toast.LENGTH_LONG)
+              .show();
+      return;
+    }
+    Intent intent = new Intent(EventView.this, EventReview.class);
+    intent.putExtra(EVENT_MESSAGE, eventId);
+    startActivity(intent);
   }
 
   public void back(View view){

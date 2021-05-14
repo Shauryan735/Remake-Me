@@ -30,17 +30,17 @@
 
         <TextView
             android:id="@+id/eventViewDate"
-            android:inputType="none"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="28dp"
             android:ems="10"
+            android:inputType="none"
             android:text="@string/date"
             android:textColor="@color/black"
             android:textColorHint="#00000000"
             android:textColorLink="#00000000"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventViewName" />
 
@@ -48,8 +48,8 @@
             android:id="@+id/eventViewDateData"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
             android:inputType="none"
@@ -59,13 +59,12 @@
             android:textColorLink="#00000000"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eventViewName"/>
+            app:layout_constraintTop_toBottomOf="@+id/eventViewName" />
 
         <TextView
             android:id="@+id/eventViewStartTime"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:ems="10"
@@ -74,6 +73,7 @@
             android:textColor="@color/black"
             android:textColorHint="#00000000"
             android:textColorLink="#00000000"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventViewDateData" />
 
@@ -81,8 +81,8 @@
             android:id="@+id/eventViewStartTimeData"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
             android:inputType="none"
@@ -92,13 +92,12 @@
             android:textColorLink="#00000000"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/eventViewDateData"/>
+            app:layout_constraintTop_toBottomOf="@id/eventViewDateData" />
 
         <TextView
             android:id="@+id/eventViewEndTime"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:ems="10"
@@ -107,6 +106,7 @@
             android:textColor="@color/black"
             android:textColorHint="#00000000"
             android:textColorLink="#00000000"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventViewStartTimeData" />
 
@@ -114,8 +114,8 @@
             android:id="@+id/eventViewEndTimeData"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
             android:inputType="none"
@@ -125,13 +125,12 @@
             android:textColorLink="#00000000"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/eventViewStartTimeData"/>
+            app:layout_constraintTop_toBottomOf="@id/eventViewStartTimeData" />
 
         <TextView
             android:id="@+id/eventViewLocation"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:ems="10"
@@ -140,6 +139,7 @@
             android:textColor="@color/black"
             android:textColorHint="#00000000"
             android:textColorLink="#00000000"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventViewEndTimeData" />
 
@@ -147,8 +147,8 @@
             android:id="@+id/eventViewLocationData"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
             android:inputType="none"
@@ -158,13 +158,12 @@
             android:textColorLink="#00000000"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/eventViewEndTimeData"/>
+            app:layout_constraintTop_toBottomOf="@id/eventViewEndTimeData" />
 
         <TextView
             android:id="@+id/eventViewNote"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:ems="10"
@@ -173,6 +172,7 @@
             android:textColor="@color/black"
             android:textColorHint="#00000000"
             android:textColorLink="#00000000"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventViewLocationData" />
 
@@ -180,8 +180,8 @@
             android:id="@+id/eventViewNoteData"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
             android:inputType="none"
@@ -191,44 +191,62 @@
             android:textColorLink="#00000000"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/eventViewLocationData"/>
+            app:layout_constraintTop_toBottomOf="@id/eventViewLocationData" />
 
 
         <Button
             android:id="@+id/eventViewEditButton"
-            android:layout_width="150dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_margin="16dp"
             android:onClick="editEvent"
             android:text="@string/edit"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toStartOf="@id/eventViewReflectButton"
+            app:layout_constraintStart_toEndOf="@id/eventViewDeleteButton" />
 
         <Button
             android:id="@+id/eventViewDeleteButton"
-            android:layout_width="150dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
             android:onClick="deleteEvent"
             android:text="@string/delete"
-            app:layout_constraintBottom_toTopOf="@id/eventViewEditButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+            android:id="@+id/eventViewReflectButton"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:onClick="reflectEvent"
+            android:text="@string/reflect"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:id="@+id/eventViewBackButton"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginTop="64dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="64dp"
+            android:background="@drawable/back_arrow"
+            android:drawableTint="@color/gray"
             android:onClick="back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/back_arrow"
-            android:drawableTint="@color/gray"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
