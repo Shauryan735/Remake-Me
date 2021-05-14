@@ -54,7 +54,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="@dimen/fab_margin"
-                app:srcCompat="@android:drawable/ic_input_add" />
+                app:srcCompat="@android:drawable/ic_input_add"
+                android:contentDescription="TODO" />
 
             <Button
                 android:id="@+id/prevDay"

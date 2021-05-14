@@ -19,6 +19,7 @@ public class NotificationPublisher extends BroadcastReceiver {
   public static final String NOTIFICATION_CHANNEL_ID = "10001";
   public static String NOTIFICATION_ID = "notification-id";
   public static String NOTIFICATION = "notification";
+  private static final String EVENT_MESSAGE = "event_key";
   private final static String default_notification_channel_id = "default";
   private static final String EXTRA_MESSAGE = "MESSAGE_ID";
   private static String DATE_MESSAGE = "Meme";
@@ -59,6 +60,7 @@ public class NotificationPublisher extends BroadcastReceiver {
     Calendar now = Calendar.getInstance();
     long delay = event.getEventStart().getTimeInMillis() - now.getTimeInMillis() - event.getRemindOffset();
     scheduleNotification(context, notification, delay, ((Long)event.getId()).toString());
+    //TODO: all events with notifications are sent ~5 sec after created, no matter when they were scheduled for
   }
 
   private static void scheduleNotification (Context context, Notification notification, long delay, String id) {
@@ -73,17 +75,14 @@ public class NotificationPublisher extends BroadcastReceiver {
     alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
   }
 
-  private static Notification getEventNotification (Context context,
-                                                    String location,
-                                                    String eventName,
-                                                    long reminderOffset,
-                                                    int color,
-                                                    long id,
-                                                    Calendar start) {
+  private static Notification getEventNotification (Context context, String location, String eventName,
+      long reminderOffset, int color, long id, Calendar start) {
     NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
             default_notification_channel_id);
     builder.setContentTitle(eventName);
-    builder.setContentText("Starting in " + reminderOffset / 60000 + " minutes at " + location + ".");
+    if(location.equals("")){ builder.setContentText("Starting in " + reminderOffset / 60000 + " minutes."); }
+    else{ builder.setContentText("Starting in " + reminderOffset / 60000 + " minutes at " + location + "."); }
+    //TODO: always says "in 0 minutes"
     builder.setSmallIcon(R.drawable.logo);
     builder.setAutoCancel(true);
     builder.setChannelId(NOTIFICATION_CHANNEL_ID);
@@ -96,14 +95,16 @@ public class NotificationPublisher extends BroadcastReceiver {
   }
 
   private static PendingIntent getEventNotificationIntent(Context context, String message, long id, Calendar start){
-    Intent intent = new Intent(context, DayViewV2.class);
+    Intent intent = new Intent(context, EventView.class);
     int month = start.get(Calendar.MONTH);
     int day = start.get(Calendar.DAY_OF_MONTH);
     int year = start.get(Calendar.YEAR);
     String date = month + "/" + day + "/" + year;
-    intent.putExtra(DATE_MESSAGE, date);
+    intent.putExtra(EVENT_MESSAGE, id);
+    intent.putExtra(EXTRA_MESSAGE, date);
 
     intent.putExtra(NotificationPublisher.getExtraMessage(), message);
+    //TODO: build stack s/t dayViewV2 gets the date
     TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
     stackBuilder.addNextIntentWithParentStack(intent);
     return stackBuilder.getPendingIntent((int) id, 0);

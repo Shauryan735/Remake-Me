@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="6dip"
-        android:contentDescription="TODO"
+        android:contentDescription="@string/EventLayoutImage"
         />
 
     <TextView
