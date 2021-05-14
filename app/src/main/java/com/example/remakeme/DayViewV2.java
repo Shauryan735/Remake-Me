@@ -158,7 +158,7 @@ public class DayViewV2 extends AppCompatActivity {
     calendar2.set(Calendar.DAY_OF_MONTH, parseInt(dateParts[1]));
     calendar2.set(Calendar.YEAR, parseInt(dateParts[2]));
 
-    List<Event> dayEvents = eventDao.getNonLiveByDay(Event.getDBFormattedDate(calendar2));
+    List<Event> dayEvents = eventDao.getNonLiveByDay(Event.getDbFormattedDate(calendar2));
 
 
     //create testing events

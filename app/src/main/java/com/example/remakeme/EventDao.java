@@ -36,6 +36,14 @@ public interface EventDao {
           "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 6, 2) = :month")
   List<Event> getByMonth(String month);
 
+  //TODO: GET EVENT BY DATE RANGE AND STAR RANGE
+  @Query("SELECT * FROM events WHERE " +
+          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and " +
+          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate and " +
+          "grade >= :minGrade and " +
+          "grade <= :maxGrade")
+  List<Event> getByDateStar(String minDate, String maxDate, int minGrade, int maxGrade);
+
   // How to use
   // https://stackoverflow.com/questions/54866247/android-assign-livedata-to-listview
   //"YYYY-MM-DD"
