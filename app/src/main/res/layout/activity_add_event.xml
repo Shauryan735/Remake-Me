@@ -272,7 +272,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/switch1" />
+            app:layout_constraintTop_toBottomOf="@+id/gradedSwitch" />
 
         <Spinner
             android:id="@+id/spinnerStartHour"
@@ -318,7 +318,7 @@
             app:layout_constraintTop_toBottomOf="@+id/spinnerStartMinute" />
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/gradedSwitch"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_marginTop="5dp"

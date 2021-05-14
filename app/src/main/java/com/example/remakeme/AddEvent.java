@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 // import android.widget.Toast;
 // import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -366,6 +367,9 @@ public class AddEvent extends AppCompatActivity {
 
       EditText editNotes = findViewById(R.id.editTextNotes);
       editNotes.setText(editEvent.getNote());
+
+      Switch gradedSwitch = findViewById(R.id.gradedSwitch);
+      gradedSwitch.setChecked(editEvent.isGraded());
     }
   }
 
@@ -472,8 +476,11 @@ public class AddEvent extends AppCompatActivity {
         break;
     }
 
+    Switch gradedSwitch = findViewById(R.id.gradedSwitch);
+    Boolean graded = gradedSwitch.isEnabled();
+
     Event event = new Event(title, startCalendar, endCalendar, color,
-            location, boolRepeat, repeatOffset, boolReminder, notes);
+            location, boolRepeat, repeatOffset, boolReminder, notes, graded);
     /* Toast.makeText(getApplicationContext(),
             event.getEventStart().get(Calendar.MONTH) + "/" +
             event.getEventStart().get(Calendar.DATE), Toast.LENGTH_LONG)
