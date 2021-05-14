@@ -242,7 +242,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/navcolor"
+            android:background="@color/nav_color"
             app:title="Event"
             app:titleTextColor="@color/white" />
 
@@ -252,10 +252,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/nav"
-        app:menu="@menu/navmenu"
-        app:headerLayout="@layout/navheader"
+        app:menu="@menu/nav_menu"
+        app:headerLayout="@layout/nav_header"
         android:layout_gravity="start"
-        android:background="@color/navcolor"
+        android:background="@color/nav_color"
         app:itemTextColor="@color/white"
 
         app:itemTextAppearance="@style/MenuItems"
