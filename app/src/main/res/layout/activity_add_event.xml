@@ -91,6 +91,21 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewReminder" />
 
         <TextView
+            android:id="@+id/textViewGraded"
+            android:layout_width="110dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="Graded"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNotes" />
+
+        <TextView
             android:id="@+id/textViewReminder"
             android:layout_width="110dp"
             android:layout_height="25dp"
@@ -252,13 +267,12 @@
             android:id="@+id/eventViewEditButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/create_event"
             android:onClick="submit"
+            android:text="@string/create_event"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNotes"
-            app:layout_constraintVertical_bias="0.297" />
+            app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
         <Spinner
             android:id="@+id/spinnerStartHour"
@@ -302,6 +316,18 @@
             android:background="@drawable/redboarder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerStartMinute" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:text="Graded"
+            android:background="@drawable/redboarder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.67"
+            app:layout_constraintStart_toEndOf="@+id/textViewGraded"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNotes" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

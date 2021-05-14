@@ -3,53 +3,50 @@ package com.example.remakeme;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+// import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
+// import android.widget.Toast;
+// import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.google.android.material.navigation.NavigationView;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Activity to create events for the calendar.
+ */
 public class AddEvent extends AppCompatActivity {
 
   private EventDao eventDao;
 
-  NavigationView nav;
+  private NavigationView nav;
   ActionBarDrawerToggle toggle;
   DrawerLayout drawerLayout;
 
-  String DATE_MESSAGE = "Meme";
-  String date = "Meme 2.0";
-  String EVENT_MESSAGE = "event_key";
+  private final String dateMessage = "Meme";
+  private String date = "Meme 2.0";
+  private final String eventMessage = "event_key";
 
-  String groupColor = "Red";
-  String repeat = "Never";
-  String reminder = "Never";
-  String location = "";
-  String title = "New Event";
-  String notes = "";
-  String startHour = "";
-  String startMinute = "";
-  String endHour = "";
-  String endMinute = "";
-  Boolean editing = false;
-  long event_id = 0;
+  private String groupColor = "Red";
+  private String repeat = "Never";
+  private String reminder = "Never";
+  private String startHour = "";
+  private String startMinute = "";
+  private String endHour = "";
+  private String endMinute = "";
+  private Boolean editing = false;
+  private long eventId = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -57,17 +54,19 @@ public class AddEvent extends AppCompatActivity {
     setContentView(R.layout.activity_add_event);
 
     Intent intent = getIntent();
-    date = intent.getStringExtra(DATE_MESSAGE);
+    date = intent.getStringExtra(dateMessage);
+
+    Button submitButton = findViewById(R.id.eventViewEditButton);
 
     try {
-      event_id = intent.getLongExtra(EVENT_MESSAGE, 0);
-      if (event_id != 0) {
+      eventId = intent.getLongExtra(eventMessage, 0);
+      if (eventId != 0) {
         editing = true;
-        Button submitButton = findViewById(R.id.eventViewEditButton);
         submitButton.setText(R.string.editEvent);
       }
+    } catch (Exception ignored) {
+      editing = false;
     }
-    catch (Exception e) {}
 
     EditText editDate = findViewById(R.id.editTextDate);
     editDate.setText(date);
@@ -86,46 +85,37 @@ public class AddEvent extends AppCompatActivity {
     drawerLayout.addDrawerListener(toggle);
     toggle.syncState();
 
-    nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-      @Override
-      public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    nav.setNavigationItemSelectedListener(item -> {
 
-        switch (item.getItemId()) {
-          case R.id.navmenu_home:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            finish();
-            break;
-          case R.id.navmenu_dayView:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            Intent day = new Intent(AddEvent.this, DayViewV2.class);
-            day.putExtra(DATE_MESSAGE, date);
-            startActivity(day);
-            finish();
-            break;
-          case R.id.navmenu_newEvent:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            break;
-          case R.id.navmenu_infographics:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            Intent info = new Intent(AddEvent.this, Infographics.class);
-            startActivity(info);
-            finish();
-            break;
-          case R.id.navmenu_reflection:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            Intent reflect = new Intent(AddEvent.this, DailyReflection.class);
-            startActivity(reflect);
-            finish();
-            break;
-        }
-        return true;
+      int itemId = item.getItemId();
+      if (itemId == R.id.navmenu_home) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+        finish();
+      } else if (itemId == R.id.navmenu_dayView) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+        Intent day = new Intent(AddEvent.this, DayViewV2.class);
+        day.putExtra(dateMessage, date);
+        startActivity(day);
+        finish();
+      } else if (itemId == R.id.navmenu_newEvent) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+      } else if (itemId == R.id.navmenu_infographics) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+        Intent info = new Intent(AddEvent.this, Infographics.class);
+        startActivity(info);
+        finish();
+      } else if (itemId == R.id.navmenu_reflection) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+        Intent reflect = new Intent(AddEvent.this, DailyReflection.class);
+        startActivity(reflect);
+        finish();
       }
+      return true;
     });
 
     // TODO: End of Navigation bar code
 
 
-    Spinner spinner = findViewById(R.id.spinnerColor);
     ArrayList<String> arrayList = new ArrayList<>();
     arrayList.add("Red");
     arrayList.add("Orange");
@@ -133,40 +123,45 @@ public class AddEvent extends AppCompatActivity {
     arrayList.add("Green");
     arrayList.add("Blue");
     arrayList.add("Purple");
-    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayList);
-    arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+            this, android.R.layout.simple_spinner_item, arrayList);
+    arrayAdapter.setDropDownViewResource(
+            android.R.layout.simple_spinner_dropdown_item);
+    Spinner spinner = findViewById(R.id.spinnerColor);
     spinner.setAdapter(arrayAdapter);
     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         groupColor = parent.getItemAtPosition(position).toString();
       }
+
       @Override
       public void onNothingSelected(AdapterView<?> parent) {
       }
     });
 
-    Spinner repeatSpinner = findViewById(R.id.spinnerRepeat);
     ArrayList<String> repeatList = new ArrayList<>();
     repeatList.add("Never");
     repeatList.add("Daily");
     repeatList.add("Weekly");
     repeatList.add("Monthly");
     repeatList.add("Annually");
-    ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, repeatList);
+    ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<>(
+            this, android.R.layout.simple_spinner_item, repeatList);
     arrayAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    Spinner repeatSpinner = findViewById(R.id.spinnerRepeat);
     repeatSpinner.setAdapter(arrayAdapter2);
     repeatSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         repeat = parent.getItemAtPosition(position).toString();
       }
+
       @Override
       public void onNothingSelected(AdapterView<?> parent) {
       }
     });
 
-    Spinner reminderSpinner = findViewById(R.id.spinnerReminder);
     ArrayList<String> reminderList = new ArrayList<>();
     reminderList.add("Never");
     reminderList.add("0 minutes before");
@@ -175,20 +170,24 @@ public class AddEvent extends AppCompatActivity {
     reminderList.add("30 minutes before");
     reminderList.add("1 hour before");
 
-    ArrayAdapter<String> arrayAdapter3 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, reminderList);
+    ArrayAdapter<String> arrayAdapter3 = new ArrayAdapter<>(
+            this, android.R.layout.simple_spinner_item, reminderList);
     arrayAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    Spinner reminderSpinner = findViewById(R.id.spinnerReminder);
+
     reminderSpinner.setAdapter(arrayAdapter3);
     reminderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         reminder = parent.getItemAtPosition(position).toString();
       }
+
       @Override
       public void onNothingSelected(AdapterView<?> parent) {
       }
     });
 
-    Spinner startHourSpinner = findViewById(R.id.spinnerStartHour);
+
     ArrayList<String> startHourList = new ArrayList<>();
     startHourList.add("12");
     startHourList.add("01");
@@ -203,40 +202,47 @@ public class AddEvent extends AppCompatActivity {
     startHourList.add("10");
     startHourList.add("11");
 
-    ArrayAdapter<String> arrayAdapter4 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, startHourList);
+    ArrayAdapter<String> arrayAdapter4 = new ArrayAdapter<>(
+            this, android.R.layout.simple_spinner_item, startHourList);
     arrayAdapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    Spinner startHourSpinner = findViewById(R.id.spinnerStartHour);
+
     startHourSpinner.setAdapter(arrayAdapter4);
     startHourSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         startHour = parent.getItemAtPosition(position).toString();
       }
+
       @Override
       public void onNothingSelected(AdapterView<?> parent) {
       }
     });
 
-    Spinner startMinuteSpinner = findViewById(R.id.spinnerStartMinute);
+
     ArrayList<String> startMinuteList = new ArrayList<>();
     startMinuteList.add("00");
     startMinuteList.add("15");
     startMinuteList.add("30");
     startMinuteList.add("45");
 
-    ArrayAdapter<String> arrayAdapter5 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, startMinuteList);
+    ArrayAdapter<String> arrayAdapter5 = new ArrayAdapter<>(
+            this, android.R.layout.simple_spinner_item, startMinuteList);
     arrayAdapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+    Spinner startMinuteSpinner = findViewById(R.id.spinnerStartMinute);
     startMinuteSpinner.setAdapter(arrayAdapter5);
     startMinuteSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         startMinute = parent.getItemAtPosition(position).toString();
       }
+
       @Override
       public void onNothingSelected(AdapterView<?> parent) {
       }
     });
 
-    Spinner endHourSpinner = findViewById(R.id.spinnerEndHour);
     ArrayList<String> endHourList = new ArrayList<>();
     endHourList.add("12");
     endHourList.add("01");
@@ -251,56 +257,63 @@ public class AddEvent extends AppCompatActivity {
     endHourList.add("10");
     endHourList.add("11");
 
-    ArrayAdapter<String> arrayAdapter6 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, endHourList);
+    ArrayAdapter<String> arrayAdapter6 = new ArrayAdapter<>(
+            this, android.R.layout.simple_spinner_item, endHourList);
     arrayAdapter6.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    Spinner endHourSpinner = findViewById(R.id.spinnerEndHour);
+
     endHourSpinner.setAdapter(arrayAdapter6);
     endHourSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         endHour = parent.getItemAtPosition(position).toString();
       }
+
       @Override
       public void onNothingSelected(AdapterView<?> parent) {
       }
     });
 
-    Spinner endMinuteSpinner = findViewById(R.id.spinnerEndMinute);
     ArrayList<String> endMinuteList = new ArrayList<>();
     endMinuteList.add("00");
     endMinuteList.add("15");
     endMinuteList.add("30");
     endMinuteList.add("45");
 
-    ArrayAdapter<String> arrayAdapter7 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, endMinuteList);
+    ArrayAdapter<String> arrayAdapter7 = new ArrayAdapter<>(
+            this, android.R.layout.simple_spinner_item, endMinuteList);
     arrayAdapter7.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    Spinner endMinuteSpinner = findViewById(R.id.spinnerEndMinute);
+
     endMinuteSpinner.setAdapter(arrayAdapter7);
     endMinuteSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         endMinute = parent.getItemAtPosition(position).toString();
       }
+
       @Override
       public void onNothingSelected(AdapterView<?> parent) {
       }
     });
 
 
-    long[] events = {event_id};
+    long[] events = {eventId};
 
     if (editing) {
       EditText editName = findViewById(R.id.editTextName);
-      Button button = findViewById(R.id.eventViewEditButton);
-      button.setText(R.string.editEvent);
+      submitButton.setText(R.string.editEvent);
 
 
-      List eventList = eventDao.getById(events);
+      List<Event> eventList = eventDao.getById(events);
       Event editEvent = (Event) eventList.get(0);
 
       // Switch to below for basic testing
 
-            /* Calendar start1 = Calendar.getInstance();
+      /* Calendar start1 = Calendar.getInstance();
             Calendar end1 = Calendar.getInstance();
-            Event editEvent = new Event("Cool Event", start1, end1, 0xFFFFA500, "San Luis Obispo", false, 0, false, "Really cool note");
+            Event editEvent = new Event("Cool Event", start1, end1, 0xFFFFA500,
+            "San Luis Obispo", false, 0, false, "Really cool note");
             */
 
       editName.setText(editEvent.getEventName());
@@ -356,53 +369,58 @@ public class AddEvent extends AppCompatActivity {
     }
   }
 
+  /**
+   * Sends the submitted data to the database.
+   * If editing an event, will instead edit the event.
+   */
   public void submit(View view) {
     boolean boolRepeat = false;
     boolean boolReminder = false;
     int repeatOffset = 0;
     int color;
-    int month;
-    Calendar startCalendar = Calendar.getInstance();
-    Calendar endCalendar = Calendar.getInstance();
 
     EditText editTitle = findViewById(R.id.editTextName);
+    String title = "New Event";
     try {
       title = editTitle.getText().toString();
       if (title.equals("")) {
         title = "New Event";
       }
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       title = "New Event";
     }
+
+    EditText editLocation = findViewById(R.id.editTextLocation);
+    String location = "";
+    try {
+      location = editLocation.getText().toString();
+    } catch (Exception e) {
+      location = "None";
+    }
+
+    EditText editNotes = findViewById(R.id.editTextNotes);
+    String notes = "";
+    try {
+      notes = editNotes.getText().toString();
+    } catch (Exception e) {
+      notes = "None";
+    }
+
+    final int hour1 = Integer.parseInt(startHour);
+    final int minute1 = Integer.parseInt(startMinute);
+    final int hour2 = Integer.parseInt(endHour);
+    final int minute2 = Integer.parseInt(endMinute);
+
+    Calendar startCalendar = Calendar.getInstance();
+    Calendar endCalendar = Calendar.getInstance();
 
     EditText editDate = findViewById(R.id.editTextDate);
     date = editDate.getText().toString();
     String[] numbers = date.split("/");
     int year = Integer.parseInt(numbers[2]);
-    month = Integer.parseInt(numbers[0]) - 1;
+    int month = Integer.parseInt(numbers[0]) - 1;
     int day = Integer.parseInt(numbers[1]);
 
-    EditText editLocation = findViewById(R.id.editTextLocation);
-    try {
-      location = editLocation.getText().toString();
-    }
-    catch (Exception e) {
-      location = "None";
-    }
-
-    EditText editNotes = findViewById(R.id.editTextNotes);
-    try {
-      notes = editNotes.getText().toString();
-    }
-    catch (Exception e) {
-      notes = "None";
-    }
-
-    int hour1 = Integer.parseInt(startHour);
-    int minute1 = Integer.parseInt(startMinute);
-    int hour2 = Integer.parseInt(endHour);
-    int minute2 = Integer.parseInt(endMinute);
     startCalendar.set(year, month, day, hour1, minute1);
     endCalendar.set(year, month, day, hour2, minute2);
 
@@ -428,8 +446,9 @@ public class AddEvent extends AppCompatActivity {
       }
     }
 
-    if (!(reminder.equals("Never")))
+    if (!(reminder.equals("Never"))) {
       boolReminder = true;
+    }
 
     switch (groupColor) {
       case "Orange":
@@ -453,34 +472,34 @@ public class AddEvent extends AppCompatActivity {
         break;
     }
 
-    Event event = new Event(title, startCalendar, endCalendar, color, location, boolRepeat, repeatOffset, boolReminder, notes);
-        /* Toast.makeText(getApplicationContext(),
-                event.getEventStart().get(Calendar.MONTH) + "/" + event.getEventStart().get(Calendar.DATE), Toast.LENGTH_LONG)
-                .show(); */
+    Event event = new Event(title, startCalendar, endCalendar, color,
+            location, boolRepeat, repeatOffset, boolReminder, notes);
+    /* Toast.makeText(getApplicationContext(),
+            event.getEventStart().get(Calendar.MONTH) + "/" +
+            event.getEventStart().get(Calendar.DATE), Toast.LENGTH_LONG)
+            .show(); */
 
     if (!editing) {
-      event_id = eventDao.insert(event);
+      eventId = eventDao.insert(event);
       if (boolRepeat) {
-        repeat(event_id);
+        repeat(eventId);
       }
-      event.setId(event_id);
-      if(event.getSendReminders()) {
+      event.setId(eventId);
+      if (event.getSendReminders()) {
         NotificationPublisher.scheduleEventNotification(this, event);
       }
 
       Intent intent = new Intent(this, DayViewV2.class);
-      intent.putExtra(DATE_MESSAGE, date);
+      intent.putExtra(dateMessage, date);
       startActivity(intent);
-      finish();
-    }
-    else {
-      event.setId(event_id);
+    } else {
+      event.setId(eventId);
       eventDao.updateEvent(event);
       Intent intent = new Intent(this, EventView.class);
-      intent.putExtra(EVENT_MESSAGE, event_id);
+      intent.putExtra(eventMessage, eventId);
       startActivity(intent);
-      finish();
     }
+    finish();
   }
 
   // TODO: Navigation bar helper code
@@ -489,7 +508,7 @@ public class AddEvent extends AppCompatActivity {
     return new Intent(context, AddEvent.class);
   }
 
-  private void incrementDayOfYear(Event event, int by){
+  private void incrementDayOfYear(Event event, int by) {
     Calendar start = event.getEventStart();
     Calendar end = event.getEventEnd();
     start.add(Calendar.DAY_OF_YEAR, by);
@@ -498,45 +517,36 @@ public class AddEvent extends AppCompatActivity {
     event.setEventEnd(end);
   }
 
-  public void repeat(long baseId)
-  {
+  /**
+   * Adds multiple events to the database to have events repeat.
+   */
+  public void repeat(long baseId) {
     long[] ids = {baseId};
     Event event = eventDao.getById(ids).get(0);
     event.setId(0);
     event.setBaseId(baseId);                    //repeat offset is being treated as follows:
-    int repeatOffset = event.getRepeatOffset();	//Daily:    1         |Weekly:   2
-    int i = 0;                                  //BiWeekly: 3         |Monthly:  4
-    if(repeatOffset == 1)
-    {
-      while(i < 365)
-      {
+    int repeatOffset = event.getRepeatOffset(); //Daily:   1   |Weekly:   2
+    int i = 0;                                  //BiWeekly:3   |Monthly:  4
+    if (repeatOffset == 1) {
+      while (i < 365) {
         incrementDayOfYear(event, 1);
         eventDao.insert(event);
-        i+=1;
+        i += 1;
       }
-    }
-    else if(repeatOffset == 2)
-    {
-      while(i < 365)
-      {
+    } else if (repeatOffset == 2) {
+      while (i < 365) {
         incrementDayOfYear(event, 7);
         eventDao.insert(event);
-        i+=7;
+        i += 7;
       }
-    }
-    else if(repeatOffset == 3)
-    {
-      while(i < 365)
-      {
+    } else if (repeatOffset == 3) {
+      while (i < 365) {
         incrementDayOfYear(event, 14);
         eventDao.insert(event);
-        i+=14;
+        i += 14;
       }
-    }
-    else if(repeatOffset == 4)
-    {
-      while(i < 12)
-      {
+    } else if (repeatOffset == 4) {
+      while (i < 12) {
         Calendar start = event.getEventStart();
         Calendar end = event.getEventEnd();
         start.add(Calendar.MONTH, 1);
@@ -545,11 +555,9 @@ public class AddEvent extends AppCompatActivity {
         event.setEventEnd(end);
 
         eventDao.insert(event);
-        i+=1;
+        i += 1;
       }
-    }
-    else if(repeatOffset == 5)
-    {
+    } else if (repeatOffset == 5) {
       Calendar start = event.getEventStart();
       Calendar end = event.getEventEnd();
       start.add(Calendar.YEAR, 1);
