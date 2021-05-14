@@ -1,31 +1,87 @@
 package com.example.remakeme;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
-import java.time.OffsetDateTime;
-import java.util.Calendar;
 import java.util.List;
 
 @Dao
 public interface EventDao {
-    @Query("SELECT * FROM events")
-    List<Event> getAll();
+  @Query("SELECT * FROM events")
+  List<Event> getAll();
 
-    @Query("SELECT * FROM events WHERE event_id IN (:event_ids)")
-    List<Event> getById(int[] event_ids);
+  @Query("SELECT * FROM events WHERE event_id IN (:event_ids)")
+  List<Event> getById(long[] event_ids);
 
-    @Query("SELECT * FROM events WHERE eventStart IN (:event_days)")
-    List<Event> getByDays(Calendar[] event_days);
+  @Query("SELECT " +
+          "* " +
+          "FROM " +
+          "events " +
+          "WHERE date(eventStart) IN (date(:event_dates))")
+  List<Event> getByDates(String[] event_dates);
 
-    @Query("SELECT * FROM events WHERE eventName = (:event_names)")
-    List<Event> getByName(String[] event_names);
+  @Query("SELECT * FROM events WHERE eventName IN (:event_names)")
+  List<Event> getByName(String[] event_names);
 
-    @Insert
-    void insertAll(Event... events);
+  //ADD: get events for a month
+  @Query("SELECT " +
+          "* " +
+          "FROM " +
+          "events " +
+          "WHERE " +
+          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 6, 2) = :month")
+  List<Event> getByMonth(String month);
 
-    @Delete
-    void delete(Event event);
+  //TODO: GET EVENT BY DATE RANGE AND STAR RANGE
+  @Query("SELECT * FROM events WHERE " +
+          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and " +
+          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate and " +
+          "grade >= :minGrade and " +
+          "grade <= :maxGrade")
+  List<Event> getByDateStar(String minDate, String maxDate, int minGrade, int maxGrade);
+
+  // How to use
+  // https://stackoverflow.com/questions/54866247/android-assign-livedata-to-listview
+  //"YYYY-MM-DD"
+  //"2020-03-28"
+  @Query("SELECT " +
+          "* " +
+          "FROM " +
+          "events " +
+          "WHERE " +
+          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) = :day")
+  LiveData<List<Event>> getByDay(String day);
+
+  @Query("SELECT " +
+          "* " +
+          "FROM " +
+          "events " +
+          "WHERE " +
+          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) = :day")
+  List<Event> getNonLiveByDay(String day);
+
+  @Query("SELECT datetime(eventStart/1000, 'unixepoch', 'localtime') FROM events")
+  List<String> getDateTimes();
+
+  @Query("DELETE FROM events")
+  void clearAll();
+
+  @Update
+  int updateEvent(Event event);
+
+  @Insert
+  long insert(Event event);
+
+  @Insert
+  void insertAll(Event... events);
+
+  @Delete
+  void delete(Event event);
+
+  @Delete
+  int deleteAll(Event... events);
 }
