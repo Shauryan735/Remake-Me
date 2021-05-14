@@ -16,7 +16,7 @@ import java.util.List;
 
 public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnClickListener{
 
-    private List<Event> dataSet;
+    private final List<Event> dataSet;
     Context mContext;
 
     private static class ViewHolder {

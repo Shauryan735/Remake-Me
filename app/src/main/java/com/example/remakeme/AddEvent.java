@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -86,40 +85,37 @@ public class AddEvent extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        nav.setNavigationItemSelectedListener(item -> {
 
-                switch (item.getItemId()) {
-                    case R.id.navmenu_home:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        finish();
-                        break;
-                    case R.id.navmenu_dayView:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent day = new Intent(AddEvent.this, DayViewV2.class);
-                        day.putExtra(DATE_MESSAGE, date);
-                        startActivity(day);
-                        finish();
-                        break;
-                    case R.id.navmenu_newEvent:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case R.id.navmenu_infographics:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent info = new Intent(AddEvent.this, Infographics.class);
-                        startActivity(info);
-                        finish();
-                        break;
-                    case R.id.navmenu_reflection:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent reflect = new Intent(AddEvent.this, DailyReflection.class);
-                        startActivity(reflect);
-                        finish();
-                        break;
-                }
-                return true;
+            switch (item.getItemId()) {
+                case R.id.navmenu_home:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    finish();
+                    break;
+                case R.id.navmenu_dayView:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    Intent day = new Intent(AddEvent.this, DayViewV2.class);
+                    day.putExtra(DATE_MESSAGE, date);
+                    startActivity(day);
+                    finish();
+                    break;
+                case R.id.navmenu_newEvent:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
+                case R.id.navmenu_infographics:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    Intent info = new Intent(AddEvent.this, Infographics.class);
+                    startActivity(info);
+                    finish();
+                    break;
+                case R.id.navmenu_reflection:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    Intent reflect = new Intent(AddEvent.this, DailyReflection.class);
+                    startActivity(reflect);
+                    finish();
+                    break;
             }
+            return true;
         });
 
         // TODO: End of Navigation bar code

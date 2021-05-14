@@ -4,7 +4,7 @@
     <solid android:color="@color/design_default_color_background" />
     <corners android:radius="6dip" />
     <stroke
-        android:color="@color/navcolor"
+        android:color="@color/nav_color"
         android:width="2dp" />
 
 </shape>

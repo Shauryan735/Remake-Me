@@ -21,7 +21,7 @@ public class NotificationPublisher extends BroadcastReceiver {
     public static String NOTIFICATION = "notification";
     private final static String default_notification_channel_id = "default";
     private static final String EXTRA_MESSAGE = "MESSAGE_ID";
-    private static String DATE_MESSAGE = "Meme";
+    private static final String DATE_MESSAGE = "Meme";
     public static String getExtraMessage(){ return EXTRA_MESSAGE; }
 
     //TODO: needs some more tweaking (check if event has location for message,

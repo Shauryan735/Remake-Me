@@ -44,39 +44,36 @@ public class EventView extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        nav.setNavigationItemSelectedListener(item -> {
 
-                switch (item.getItemId()) {
-                    case R.id.navmenu_home:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        finish();
-                        break;
-                    case R.id.navmenu_dayView:
-                        finish();
-                        break;
-                    case R.id.navmenu_newEvent:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent event = new Intent(EventView.this, AddEvent.class);
-                        startActivity(event);
-                        finish();
-                        break;
-                    case R.id.navmenu_infographics:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent info = new Intent(EventView.this, Infographics.class);
-                        startActivity(info);
-                        finish();
-                        break;
-                    case R.id.navmenu_reflection:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent reflect = new Intent(EventView.this, DailyReflection.class);
-                        startActivity(reflect);
-                        finish();
-                        break;
-                }
-                return true;
+            switch (item.getItemId()) {
+                case R.id.navmenu_home:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    finish();
+                    break;
+                case R.id.navmenu_dayView:
+                    finish();
+                    break;
+                case R.id.navmenu_newEvent:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    Intent event = new Intent(EventView.this, AddEvent.class);
+                    startActivity(event);
+                    finish();
+                    break;
+                case R.id.navmenu_infographics:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    Intent info = new Intent(EventView.this, Infographics.class);
+                    startActivity(info);
+                    finish();
+                    break;
+                case R.id.navmenu_reflection:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    Intent reflect = new Intent(EventView.this, DailyReflection.class);
+                    startActivity(reflect);
+                    finish();
+                    break;
             }
+            return true;
         });
 
         TextView eventNameView = findViewById(R.id.eventViewName);

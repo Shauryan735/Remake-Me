@@ -36,40 +36,37 @@ public class DailyReflection extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        nav.setNavigationItemSelectedListener(item -> {
 
-                switch (item.getItemId()) {
-                    case R.id.navmenu_home:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        finish();
-                        break;
-                    case R.id.navmenu_dayView:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent day = new Intent(DailyReflection.this, DayViewV2.class);
-                        day.putExtra(DATE_MESSAGE, date);
-                        startActivity(day);
-                        finish();
-                        break;
-                    case R.id.navmenu_newEvent:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent event = new Intent(DailyReflection.this, AddEvent.class);
-                        startActivity(event);
-                        finish();
-                        break;
-                    case R.id.navmenu_infographics:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent info = new Intent(DailyReflection.this, Infographics.class);
-                        startActivity(info);
-                        finish();
-                        break;
-                    case R.id.navmenu_reflection:
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                }
-                return true;
+            switch (item.getItemId()) {
+                case R.id.navmenu_home:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    finish();
+                    break;
+                case R.id.navmenu_dayView:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    Intent day = new Intent(DailyReflection.this, DayViewV2.class);
+                    day.putExtra(DATE_MESSAGE, date);
+                    startActivity(day);
+                    finish();
+                    break;
+                case R.id.navmenu_newEvent:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    Intent event = new Intent(DailyReflection.this, AddEvent.class);
+                    startActivity(event);
+                    finish();
+                    break;
+                case R.id.navmenu_infographics:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    Intent info = new Intent(DailyReflection.this, Infographics.class);
+                    startActivity(info);
+                    finish();
+                    break;
+                case R.id.navmenu_reflection:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
             }
+            return true;
         });
         Intent intent = getIntent();
         date = intent.getStringExtra(DATE_MESSAGE);
