@@ -1,12 +1,5 @@
 package com.example.remakeme;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,14 +8,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 
+/**Displays the eventView activity for a certain event.*/
 public class EventView extends AppCompatActivity {
 
   private long eventId;
   private Event event;
-  String EVENT_MESSAGE = "event_key";
+  String eventMessage = "event_key";
   private EventDao eventDao;
   public static String DATE_MESSAGE = "Meme";
 
@@ -48,60 +47,62 @@ public class EventView extends AppCompatActivity {
     drawerLayout.addDrawerListener(toggle);
     toggle.syncState();
 
-    nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-      @Override
-      public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    nav.setNavigationItemSelectedListener(item -> {
 
-        switch (item.getItemId()) {
-          case R.id.navmenu_home:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            finish();
-            break;
-          case R.id.navmenu_dayView:
-            finish();
-            break;
-          case R.id.navmenu_newEvent:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            Intent event = new Intent(EventView.this, AddEvent.class);
-            startActivity(event);
-            finish();
-            break;
-          case R.id.navmenu_infographics:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            Intent info = new Intent(EventView.this, Infographics.class);
-            startActivity(info);
-            finish();
-            break;
-          case R.id.navmenu_reflection:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            Intent reflect = new Intent(EventView.this, DailyReflection.class);
-            startActivity(reflect);
-            finish();
-            break;
-        }
-        return true;
+      switch (item.getItemId()) {
+        case R.id.navmenu_home:
+          drawerLayout.closeDrawer(GravityCompat.START);
+          finish();
+          break;
+        case R.id.navmenu_dayView:
+          finish();
+          break;
+        case R.id.navmenu_newEvent:
+          drawerLayout.closeDrawer(GravityCompat.START);
+          Intent event = new Intent(EventView.this, AddEvent.class);
+          startActivity(event);
+          finish();
+          break;
+        case R.id.navmenu_infographics:
+          drawerLayout.closeDrawer(GravityCompat.START);
+          Intent info = new Intent(EventView.this, Infographics.class);
+          startActivity(info);
+          finish();
+          break;
+        case R.id.navmenu_reflection:
+          drawerLayout.closeDrawer(GravityCompat.START);
+          Intent reflect = new Intent(EventView.this, DailyReflection.class);
+          startActivity(reflect);
+          finish();
+          break;
       }
+      return true;
     });
 
-    TextView eventNameView = findViewById(R.id.eventViewName);
-    TextView eventDateDataView = findViewById(R.id.eventViewDateData);
-    TextView eventStartTimeDataView = findViewById(R.id.eventViewStartTimeData);
-    TextView eventEndTimeDataView = findViewById(R.id.eventViewEndTimeData);
-    TextView eventLocationDataView = findViewById(R.id.eventViewLocationData);
-    TextView eventNoteDataView = findViewById(R.id.eventViewNoteData);
-
     Intent intent = getIntent();
-    eventId = intent.getLongExtra(EVENT_MESSAGE, 0);
+    eventId = intent.getLongExtra(eventMessage, 0);
     event = getEventById(eventId);
+
+    TextView eventNameView = findViewById(R.id.eventViewName);
     eventNameView.setText(event.getEventName());
+
+    TextView eventDateDataView = findViewById(R.id.eventViewDateData);
     eventDateDataView.setText(Event.getFormattedDate(event.getEventStart()));
+
+    TextView eventStartTimeDataView = findViewById(R.id.eventViewStartTimeData);
     eventStartTimeDataView.setText(event.getFormattedStartTime());
+
+    TextView eventEndTimeDataView = findViewById(R.id.eventViewEndTimeData);
     eventEndTimeDataView.setText(event.getFormattedEndTime());
+
+    TextView eventLocationDataView = findViewById(R.id.eventViewLocationData);
     eventLocationDataView.setText(event.getLocation());
+
+    TextView eventNoteDataView = findViewById(R.id.eventViewNoteData);
     eventNoteDataView.setText(event.getNote());
 
 
-    if(!event.isGraded()){
+    if (!event.isGraded()) {
       Button reviewButton = findViewById(R.id.eventViewReflectButton);
       reviewButton.setEnabled(false);
       reviewButton.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.gray));
@@ -115,14 +116,16 @@ public class EventView extends AppCompatActivity {
     return new Intent(context, EventView.class);
   }
 
-  public void editEvent(View view){
+  /**When the corresponding button is pushed, the addEvent activity is intiated in edit mode.*/
+  public void editEvent(View view) {
     Intent intent = new Intent(EventView.this, AddEvent.class);
-    intent.putExtra(EVENT_MESSAGE, eventId);
+    intent.putExtra(eventMessage, eventId);
     startActivity(intent);
     finish();
   }
 
-  public void deleteEvent(View view){
+  /**When the corresponding button is pushed, the current event is removed from the database.*/
+  public void deleteEvent(View view) {
     Intent intent = new Intent(EventView.this, DayViewV2.class);
     intent.putExtra(DATE_MESSAGE, Event.getFormattedDate(event.getEventStart()));
     eventDao.delete(event);
@@ -130,32 +133,27 @@ public class EventView extends AppCompatActivity {
     finish();
   }
 
-  private Event getEventById(long id){
+  private Event getEventById(long id) {
     AppDatabase instance = AppDatabase.getInstance(this);
     eventDao = instance.getEventDao();
     long[] ids = new long[]{id};
     return eventDao.getById(ids).get(0);
-
-    //create dummy event for testing
-        /*Calendar start1 = Calendar.getInstance();
-        Calendar end1 = Calendar.getInstance();
-        end1.add(Calendar.MINUTE, 10);
-        return new Event("Cool Event", start1, end1, 0xFFFFA500, "San Luis Obispo", false, 0, false, "Really cool note");*/
   }
 
-  public void reflectEvent(View view){
-    if(!event.isGraded()){
+  /**When the corresponding button is pushed, the reflectEvent activity is called.*/
+  public void reflectEvent(View view) {
+    if (!event.isGraded()) {
       Toast.makeText(getApplicationContext(),
               event.getEventName() + " is not a graded event.", Toast.LENGTH_LONG)
               .show();
       return;
     }
     Intent intent = new Intent(EventView.this, EventReview.class);
-    intent.putExtra(EVENT_MESSAGE, eventId);
+    intent.putExtra(eventMessage, eventId);
     startActivity(intent);
   }
 
-  public void back(View view){
+  public void back(View view) {
     finish();
   }
 
