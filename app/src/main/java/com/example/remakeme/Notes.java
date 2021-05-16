@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Page for inputting detailed notes for an event.
+ * May not be needed, consider deleting.
+ */
 public class Notes extends AppCompatActivity {
 
   private static final String TAG = "CalendarActivity";
