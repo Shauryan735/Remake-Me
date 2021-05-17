@@ -477,7 +477,7 @@ public class AddEvent extends AppCompatActivity {
     }
 
     Switch gradedSwitch = findViewById(R.id.gradedSwitch);
-    Boolean graded = gradedSwitch.isEnabled();
+    Boolean graded = gradedSwitch.isChecked();
 
     Event event = new Event(title, startCalendar, endCalendar, color,
             location, boolRepeat, repeatOffset, boolReminder, notes, graded);
