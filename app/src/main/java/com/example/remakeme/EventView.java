@@ -70,6 +70,7 @@ public class EventView extends AppCompatActivity {
           finish();
           break;
         case R.id.navmenu_reflection:
+        default:
           drawerLayout.closeDrawer(GravityCompat.START);
           Intent reflect = new Intent(EventView.this, DailyReflection.class);
           startActivity(reflect);

@@ -7,10 +7,8 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
-
 import java.text.MessageFormat;
 import java.util.Calendar;
 
@@ -65,7 +63,7 @@ public class EventReview extends AppCompatActivity {
     button.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.black));
   }
 
-  public void back(View view){
+  public void back(View view) {
     finish();
   }
 
