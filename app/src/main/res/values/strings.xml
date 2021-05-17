@@ -129,5 +129,11 @@
     <string name="editEvent">Edit Event</string>
     <string name="reflect">Reflect</string>
     <string name="EventLayoutImage">TODO</string>
+    <string name="save">Save</string>
+    <string name="_50">Grade: 50/100</string>
+    <string name="grade">Grade:\ </string>
+    <string name="of100">/100</string>
+    <string name="review">" Review"</string>
+    <string name="reflection">Event Reflection</string>
 
 </resources>

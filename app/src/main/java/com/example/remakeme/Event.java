@@ -14,7 +14,9 @@ import java.util.Locale;
  *
  */
 
-
+/**
+ * Data type class to store calendar events.
+ */
 @Entity(tableName = "events")
 public class Event {
 
@@ -44,13 +46,18 @@ public class Event {
   private boolean graded;
   private int grade;
 
-
+  /**
+  * Event default constructor method.
+  */
   public Event() {
     this.eventStart = Calendar.getInstance();
     this.eventEnd = Calendar.getInstance();
     this.remindTime = Calendar.getInstance();
   }
 
+  /**
+   * Constructor method used by the AddEvent class.
+   */
   @Ignore
   public Event(String eventName, Calendar eventStart, Calendar eventEnd,
                int groupColor, String location, Boolean repeat, int repeatOffset,
@@ -203,6 +210,9 @@ public class Event {
     this.reviewNote = reviewNote;
   }
 
+  /**
+   * Converts hour and minute variables into a properly formatted string.
+   */
   public String getFormattedTime() {
     @SuppressLint("DefaultLocale") String startHour = String.format(
             "%02d", this.eventStart.get(Calendar.HOUR));
@@ -221,6 +231,9 @@ public class Event {
     return startHour + ":" + startMin + " - " + endHour + ":" + endMin;
   }
 
+  /**
+   * Converts hour and minute variables into a properly formatted string.
+   */
   public String getFormattedStartTime() {
     @SuppressLint("DefaultLocale") String startHour = String.format(
             "%02d", this.eventStart.get(Calendar.HOUR));
@@ -232,6 +245,9 @@ public class Event {
     return startHour + ":" + startMin;
   }
 
+  /**
+   * Converts hour and minute variables into a properly formatted string.
+   */
   public String getFormattedEndTime() {
     @SuppressLint("DefaultLocale") String endHour = String.format(
             "%02d", this.eventEnd.get(Calendar.HOUR));
@@ -243,6 +259,9 @@ public class Event {
     return endHour + ":" + endMin;
   }
 
+  /**
+   * Gets color group data from event to display proper color in the day view.
+   */
   public int getGroupColoredBox() {
     switch (this.groupColor) {
       case 0xFFFFA500:
@@ -260,12 +279,18 @@ public class Event {
     }
   }
 
+  /**
+   * Converts calendar data into a properly formatted date string.
+   */
   public static String getFormattedDate(Calendar calendar) {
     return (calendar.get(Calendar.MONTH) + 1) + "/"
             + calendar.get(Calendar.DAY_OF_MONTH) + "/"
             + calendar.get(Calendar.YEAR);
   }
 
+  /**
+   * Converts calendar data into a properly formatted date string for the database.
+   */
   public static String getDbFormattedDate(Calendar calendar) {
     return String.format(Locale.getDefault(), "%04d-%02d-%02d",
             calendar.get(Calendar.YEAR),
@@ -273,6 +298,9 @@ public class Event {
             calendar.get(Calendar.DAY_OF_MONTH));
   }
 
+  /**
+   * Gets color group data from event to display proper color in the event view.
+   */
   public int getGroupColoredOutline() {
     switch (this.groupColor) {
       case 0xFFFFA500:
