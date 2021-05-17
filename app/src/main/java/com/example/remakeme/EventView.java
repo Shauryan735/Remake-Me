@@ -101,12 +101,14 @@ public class EventView extends AppCompatActivity {
     TextView eventNoteDataView = findViewById(R.id.eventViewNoteData);
     eventNoteDataView.setText(event.getNote());
 
+    Button button = findViewById(R.id.eventViewBackButton);
+    button.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.black));
 
-    if (!event.isGraded()) {
+    /*if (!event.isGraded()) {
       Button reviewButton = findViewById(R.id.eventViewReflectButton);
       reviewButton.setEnabled(false);
       reviewButton.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.gray));
-    }
+    }*/
 
     View relativeLayout = findViewById(R.id.eventView);
     relativeLayout.setBackgroundResource(event.getGroupColoredOutline());
