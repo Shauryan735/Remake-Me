@@ -48,6 +48,7 @@ public class AddEvent extends AppCompatActivity {
   private String endMinute = "";
   private Boolean editing = false;
   private long eventId = 0;
+  private int grade = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -370,6 +371,8 @@ public class AddEvent extends AppCompatActivity {
 
       Switch gradedSwitch = findViewById(R.id.gradedSwitch);
       gradedSwitch.setChecked(editEvent.isGraded());
+
+      grade = editEvent.getGrade();
     }
   }
 
@@ -480,7 +483,7 @@ public class AddEvent extends AppCompatActivity {
     Boolean graded = gradedSwitch.isChecked();
 
     Event event = new Event(title, startCalendar, endCalendar, color,
-            location, boolRepeat, repeatOffset, boolReminder, notes, graded);
+            location, boolRepeat, repeatOffset, boolReminder, notes, graded, grade);
     /* Toast.makeText(getApplicationContext(),
             event.getEventStart().get(Calendar.MONTH) + "/" +
             event.getEventStart().get(Calendar.DATE), Toast.LENGTH_LONG)

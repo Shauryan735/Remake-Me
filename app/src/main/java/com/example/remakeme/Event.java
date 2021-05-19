@@ -61,7 +61,7 @@ public class Event {
   @Ignore
   public Event(String eventName, Calendar eventStart, Calendar eventEnd,
                int groupColor, String location, Boolean repeat, int repeatOffset,
-               Boolean sendReminders, String note, Boolean graded) {
+               Boolean sendReminders, String note, Boolean graded, int grade) {
     this.eventName = eventName;
     this.eventStart = eventStart;
     this.eventEnd = eventEnd;
@@ -72,6 +72,7 @@ public class Event {
     this.sendReminders = sendReminders;
     this.note = note;
     this.graded = graded;
+    this.grade = grade;
   }
 
   public long getId() {
