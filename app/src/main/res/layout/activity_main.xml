@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/lm_primary"
+        android:background="?attr/colorPrimary"
         app:headerLayout="@layout/nav_header"
         app:itemIconSize="24dp"
 
