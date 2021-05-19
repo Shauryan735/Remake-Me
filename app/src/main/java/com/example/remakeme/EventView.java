@@ -16,6 +16,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.MessageFormat;
+
 /**Displays the eventView activity for a certain event.*/
 public class EventView extends AppCompatActivity {
 
@@ -28,6 +30,8 @@ public class EventView extends AppCompatActivity {
   NavigationView nav;
   ActionBarDrawerToggle toggle;
   DrawerLayout drawerLayout;
+
+  //TODO: consolidate a lot of onCreate into a method that can be called with a button or triggered
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -105,11 +109,24 @@ public class EventView extends AppCompatActivity {
     Button button = findViewById(R.id.eventViewBackButton);
     button.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.black));
 
-    /*if (!event.isGraded()) {
+    TextView gradeVal = findViewById(R.id.eventViewGradeData);
+    gradeVal.setText(MessageFormat.format("{0}{1}{2}", getString(R.string.grade),
+        event.getGrade(), getString(R.string.of100)));
+
+    TextView reflectNote = findViewById(R.id.eventViewReflectNoteData);
+    reflectNote.setText(event.getReviewNote());
+
+    if (!event.isGraded()) {
       Button reviewButton = findViewById(R.id.eventViewReflectButton);
       reviewButton.setEnabled(false);
       reviewButton.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.gray));
-    }*/
+      TextView grade = findViewById(R.id.eventViewGrade);
+      grade.setTextColor(0);
+      TextView reflection = findViewById(R.id.eventViewReflectNote);
+      reflection.setTextColor(0);
+      gradeVal.setTextColor(0);
+      reflectNote.setTextColor(0);
+    }
 
     View relativeLayout = findViewById(R.id.eventView);
     relativeLayout.setBackgroundResource(event.getGroupColoredOutline());
