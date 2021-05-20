@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 // import android.widget.Toast;
 // import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -47,6 +48,7 @@ public class AddEvent extends AppCompatActivity {
   private String endMinute = "";
   private Boolean editing = false;
   private long eventId = 0;
+  private int grade = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -306,7 +308,7 @@ public class AddEvent extends AppCompatActivity {
 
 
       List<Event> eventList = eventDao.getById(events);
-      Event editEvent = (Event) eventList.get(0);
+      Event editEvent = eventList.get(0);
 
       // Switch to below for basic testing
 
@@ -366,6 +368,11 @@ public class AddEvent extends AppCompatActivity {
 
       EditText editNotes = findViewById(R.id.editTextNotes);
       editNotes.setText(editEvent.getNote());
+
+      Switch gradedSwitch = findViewById(R.id.gradedSwitch);
+      gradedSwitch.setChecked(editEvent.isGraded());
+
+      grade = editEvent.getGrade();
     }
   }
 
@@ -380,7 +387,7 @@ public class AddEvent extends AppCompatActivity {
     int color;
 
     EditText editTitle = findViewById(R.id.editTextName);
-    String title = "New Event";
+    String title;
     try {
       title = editTitle.getText().toString();
       if (title.equals("")) {
@@ -391,7 +398,7 @@ public class AddEvent extends AppCompatActivity {
     }
 
     EditText editLocation = findViewById(R.id.editTextLocation);
-    String location = "";
+    String location;
     try {
       location = editLocation.getText().toString();
     } catch (Exception e) {
@@ -399,7 +406,7 @@ public class AddEvent extends AppCompatActivity {
     }
 
     EditText editNotes = findViewById(R.id.editTextNotes);
-    String notes = "";
+    String notes;
     try {
       notes = editNotes.getText().toString();
     } catch (Exception e) {
@@ -472,8 +479,11 @@ public class AddEvent extends AppCompatActivity {
         break;
     }
 
+    Switch gradedSwitch = findViewById(R.id.gradedSwitch);
+    Boolean graded = gradedSwitch.isChecked();
+
     Event event = new Event(title, startCalendar, endCalendar, color,
-            location, boolRepeat, repeatOffset, boolReminder, notes);
+            location, boolRepeat, repeatOffset, boolReminder, notes, graded, grade);
     /* Toast.makeText(getApplicationContext(),
             event.getEventStart().get(Calendar.MONTH) + "/" +
             event.getEventStart().get(Calendar.DATE), Toast.LENGTH_LONG)

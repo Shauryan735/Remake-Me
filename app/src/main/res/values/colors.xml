@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Light Mode Colors-->
+    <color name="lm_background">#FFF5F0D1</color>
+    <color name="lm_background_alt">#FFF5F0D1</color>
+    <color name="lm_primary">#FF3d405b</color>
+    <color name="lm_primary_alt">#FF272B44</color>
+    <color name="lm_primary_alt_2">#FF10162C</color>
+    <color name="lm_secondary">#FF36A4DF</color>
+    <color name="lm_secondary_alt">#FF20688E</color>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

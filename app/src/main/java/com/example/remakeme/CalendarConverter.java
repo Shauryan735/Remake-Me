@@ -3,12 +3,18 @@ package com.example.remakeme;
 import androidx.room.TypeConverter;
 import java.util.Calendar;
 
+/**
+ * Converts time variable to a calendar variable.
+ */
 public class CalendarConverter {
 
+  /**
+   * Converts non-null longs to a calendar variable.
+   */
   @TypeConverter
-  public static Calendar toCalendar(Long longCalendarTime){
+  public static Calendar toCalendar(Long longCalendarTime) {
     Calendar newCalendar = null;
-    if(longCalendarTime != null) {
+    if (longCalendarTime != null) {
       newCalendar = Calendar.getInstance();
       newCalendar.setTimeInMillis(longCalendarTime);
     }
@@ -16,7 +22,7 @@ public class CalendarConverter {
   }
 
   @TypeConverter
-  public static Long toLong(Calendar calendar){
+  public static Long toLong(Calendar calendar) {
     return calendar == null ? null : calendar.getTimeInMillis();
   }
 }

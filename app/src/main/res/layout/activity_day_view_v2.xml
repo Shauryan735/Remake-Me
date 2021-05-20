@@ -17,10 +17,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray"
+            android:background="@color/lm_background"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="parent"
-            >
+            app:layout_constraintStart_toEndOf="parent">
 
             <TextView
                 android:id="@+id/textView"
@@ -39,8 +38,8 @@
                 android:id="@+id/dayViewToolbar"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
                 android:layout_marginTop="8dp"
+                app:layout_collapseMode="pin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:popupTheme="@style/Theme.Testing.PopupOverlay" />
@@ -54,31 +53,32 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="@dimen/fab_margin"
-                app:srcCompat="@android:drawable/ic_input_add"
-                android:contentDescription="TODO" />
+                android:contentDescription="TODO"
+                app:srcCompat="@android:drawable/ic_input_add" />
 
             <Button
                 android:id="@+id/prevDay"
                 android:layout_width="164dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="8dp"
-                android:layout_alignParentLeft="true"
                 android:text="@string/yesterday" />
+
             <Button
                 android:id="@+id/nextDay"
                 android:layout_width="164dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="8dp"
-                android:layout_alignParentRight="true"
                 android:text="@string/tmr" />
 
             <ListView
                 android:id="@+id/listView"
-                android:layout_below="@id/fab"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fab">
 
 
             </ListView>
@@ -95,25 +95,24 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/nav_color"
+            android:background="?attr/colorPrimary"
             app:title="Day View"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="?attr/colorOnPrimary" />
 
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/nav"
-        app:menu="@menu/nav_menu"
-        app:headerLayout="@layout/nav_header"
         android:layout_gravity="start"
-        android:background="@color/nav_color"
-        app:itemTextColor="@color/white"
+        android:background="?attr/colorPrimary"
+        app:headerLayout="@layout/nav_header"
+        app:itemIconSize="24dp"
+        app:itemIconTint="?attr/colorOnPrimary"
 
         app:itemTextAppearance="@style/MenuItems"
-        app:itemIconTint="@color/white"
-        app:itemIconSize="24dp"
-        />
+        app:itemTextColor="?attr/colorOnPrimary"
+        app:menu="@menu/nav_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

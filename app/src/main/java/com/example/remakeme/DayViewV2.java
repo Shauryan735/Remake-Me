@@ -1,12 +1,6 @@
 package com.example.remakeme;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+import static java.lang.Integer.parseInt;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,20 +11,26 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
 import java.util.Calendar;
 import java.util.List;
 
-import static java.lang.Integer.parseInt;
+/**
+ * Displays the current date selected and events on that day.
+ */
+public class DayViewV2 extends AppCompatActivity {
 
-public class  DayViewV2 extends AppCompatActivity {
-
-  String DATE_MESSAGE = "Meme";
+  String dateMessage = "Meme";
   String date = "Meme 2.0";
-  String EVENT_MESSAGE = "event_key";
+  String eventMessage = "event_key";
   Context context = this;
   private EventDao eventDao;
 
@@ -80,6 +80,7 @@ public class  DayViewV2 extends AppCompatActivity {
             finish();
             break;
           case R.id.navmenu_reflection:
+          default:
             drawerLayout.closeDrawer(GravityCompat.START);
             Intent reflect = new Intent(DayViewV2.this, DailyReflection.class);
             startActivity(reflect);
@@ -100,14 +101,14 @@ public class  DayViewV2 extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         Intent intent = AddEvent.makeIntent(context);
-        intent.putExtra(DATE_MESSAGE, date);
+        intent.putExtra(dateMessage, date);
         startActivity(intent);
         finish();
       }
     });
 
     Intent intent = getIntent();
-    date = intent.getStringExtra(DATE_MESSAGE);
+    date = intent.getStringExtra(dateMessage);
 
     TextView textView = findViewById(R.id.textView);
     textView.setText(date);
@@ -126,7 +127,7 @@ public class  DayViewV2 extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         Intent intent = DayViewV2.makeIntent(context);
-        intent.putExtra(DATE_MESSAGE, prevDate);
+        intent.putExtra(dateMessage, prevDate);
         startActivity(intent);
         finish();
       }
@@ -141,13 +142,11 @@ public class  DayViewV2 extends AppCompatActivity {
       @Override
       public void onClick(View view) {
         Intent intent = DayViewV2.makeIntent(context);
-        intent.putExtra(DATE_MESSAGE, nextDate);
+        intent.putExtra(dateMessage, nextDate);
         startActivity(intent);
         finish();
       }
     });
-
-    ListView listView = findViewById(R.id.listView);
 
     AppDatabase instance = AppDatabase.getInstance(this);
     eventDao = instance.getEventDao();
@@ -162,33 +161,34 @@ public class  DayViewV2 extends AppCompatActivity {
 
 
     //create testing events
-        /*Calendar start1 = Calendar.getInstance();
-        Calendar start2 = Calendar.getInstance();
-        start2.add(Calendar.HOUR, 1);
-        Calendar start3 = Calendar.getInstance();
-        start3.add(Calendar.HOUR, 2);
-        Calendar start4 = Calendar.getInstance();
-        start4.add(Calendar.HOUR, 3);
-        Calendar end1 = Calendar.getInstance();
-        end1.add(Calendar.MINUTE, 10);
-        Calendar end2 = Calendar.getInstance();
-        end2.add(Calendar.MINUTE, 70);
-        Calendar end3 = Calendar.getInstance();
-        end3.add(Calendar.MINUTE, 130);
-        Calendar end4 = Calendar.getInstance();
-        end4.add(Calendar.MINUTE, 190);
+    /*Calendar start1 = Calendar.getInstance();
+       Calendar start2 = Calendar.getInstance();
+       start2.add(Calendar.HOUR, 1);
+       Calendar start3 = Calendar.getInstance();
+       start3.add(Calendar.HOUR, 2);
+       Calendar start4 = Calendar.getInstance();
+       start4.add(Calendar.HOUR, 3);
+       Calendar end1 = Calendar.getInstance();
+       end1.add(Calendar.MINUTE, 10);
+       Calendar end2 = Calendar.getInstance();
+       end2.add(Calendar.MINUTE, 70);
+       Calendar end3 = Calendar.getInstance();
+       end3.add(Calendar.MINUTE, 130);
+       Calendar end4 = Calendar.getInstance();
+       end4.add(Calendar.MINUTE, 190);
 
-        ArrayList<Event> dayEvents = new ArrayList<Event>();
-        dayEvents.add(new Event("Event1", start1, end1,
-                0xFFFFA500, "location1", false, false, "none"));
-        dayEvents.add(new Event("Event2", start2, end2,
-                0xFFFFFF00, "location2", false, false, "none"));
-        dayEvents.add(new Event("Event3", start3, end3,
-                0xFF008000, "location3", false, false, "none"));
-        dayEvents.add(new Event("Event4", start4, end4,
-                0xFF0000FF, "location4", false, false, "none"));*/
+       ArrayList<Event> dayEvents = new ArrayList<Event>();
+       dayEvents.add(new Event("Event1", start1, end1,
+               0xFFFFA500, "location1", false, false, "none"));
+       dayEvents.add(new Event("Event2", start2, end2,
+               0xFFFFFF00, "location2", false, false, "none"));
+       dayEvents.add(new Event("Event3", start3, end3,
+               0xFF008000, "location3", false, false, "none"));
+       dayEvents.add(new Event("Event4", start4, end4,
+               0xFF0000FF, "location4", false, false, "none"));*/
 
     final EventArrayAdapter adapter = new EventArrayAdapter(dayEvents, getApplicationContext());
+    ListView listView = findViewById(R.id.listView);
     listView.setAdapter(adapter);
 
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -196,7 +196,7 @@ public class  DayViewV2 extends AppCompatActivity {
       public void onItemClick(AdapterView<?> parent, View view,
                               int position, long id) {
         Intent intent = EventView.makeIntent(context);
-        intent.putExtra(EVENT_MESSAGE, dayEvents.get(position).getId());
+        intent.putExtra(eventMessage, dayEvents.get(position).getId());
         startActivity(intent);
       }
     });

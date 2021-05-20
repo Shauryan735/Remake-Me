@@ -9,15 +9,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
 import java.util.List;
 
-public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnClickListener{
+/**adapter class for an array of Event objects.*/
+public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnClickListener {
 
   private List<Event> dataSet;
-  Context mContext;
+  Context mainContext;
 
   private static class ViewHolder {
     TextView eventName;
@@ -25,18 +24,18 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
     ImageView eventColor;
   }
 
+  /**returns an adapter for an array of Event objects.*/
   public EventArrayAdapter(List<Event> data, Context context) {
     super(context, R.layout.hour, data);
     this.dataSet = data;
-    this.mContext = context;
+    this.mainContext = context;
 
   }
 
   @Override
   public void onClick(View v) {
-    int position=(Integer) v.getTag();
-    Object object= getItem(position);
-    Event event=(Event)object;
+    int position = (Integer) v.getTag();
+    Event event = getItem(position);
   }
 
   private int lastPosition = -1;
@@ -44,7 +43,6 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
   @NonNull
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
-    Event event = getItem(position);
     ViewHolder viewHolder;
 
     final View result;
@@ -53,23 +51,24 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
 
       viewHolder = new ViewHolder();
       convertView = LayoutInflater.from(getContext()).inflate(R.layout.hour, parent, false);
-      viewHolder.eventName = (TextView) convertView.findViewById(R.id.eventName);
-      viewHolder.eventTime = (TextView) convertView.findViewById(R.id.eventTime);
-      viewHolder.eventColor = (ImageView) convertView.findViewById(R.id.eventColor);
+      viewHolder.eventName = convertView.findViewById(R.id.eventName);
+      viewHolder.eventTime = convertView.findViewById(R.id.eventTime);
+      viewHolder.eventColor = convertView.findViewById(R.id.eventColor);
 
-      result=convertView;
+      result = convertView;
 
       convertView.setTag(viewHolder);
-    }
-    else {
+    } else {
       viewHolder = (ViewHolder) convertView.getTag();
-      result=convertView;
+      result = convertView;
     }
 
-    Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+    Animation animation = AnimationUtils.loadAnimation(
+        mainContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
     result.startAnimation(animation);
     lastPosition = position;
 
+    Event event = getItem(position);
     viewHolder.eventName.setText(event.getEventName());
     viewHolder.eventTime.setText(event.getFormattedTime());
     viewHolder.eventColor.setOnClickListener(this);
