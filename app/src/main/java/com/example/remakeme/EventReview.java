@@ -80,6 +80,9 @@ public class EventReview extends AppCompatActivity {
   }
 
   public void back(View view) {
+    Intent intent = new Intent(this, EventView.class);
+    intent.putExtra(eventMessage, eventId);
+    startActivity(intent);
     finish();
   }
 
@@ -96,6 +99,9 @@ public class EventReview extends AppCompatActivity {
     event.setReviewNote(reviewNote);
 
     eventDao.updateEvent(event);
+    Intent intent = new Intent(this, EventView.class);
+    intent.putExtra(eventMessage, eventId);
+    startActivity(intent);
     finish();
   }
 

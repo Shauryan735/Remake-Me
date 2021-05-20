@@ -171,6 +171,7 @@ public class EventView extends AppCompatActivity {
     Intent intent = new Intent(EventView.this, EventReview.class);
     intent.putExtra(eventMessage, eventId);
     startActivity(intent);
+    finish();
   }
 
   public void back(View view) {
