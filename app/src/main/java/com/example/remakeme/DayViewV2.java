@@ -26,7 +26,7 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-public class DayViewV2 extends AppCompatActivity {
+public class  DayViewV2 extends AppCompatActivity {
 
   String DATE_MESSAGE = "Meme";
   String date = "Meme 2.0";

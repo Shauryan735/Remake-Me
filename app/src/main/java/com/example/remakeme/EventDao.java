@@ -36,13 +36,20 @@ public interface EventDao {
           "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 6, 2) = :month")
   List<Event> getByMonth(String month);
 
-  //TODO: GET EVENT BY DATE RANGE AND STAR RANGE
+  //TODO: GET EVENT BY DATE RANGE AND GRADE RANGE
   @Query("SELECT * FROM events WHERE " +
           "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and " +
           "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate and " +
           "grade >= :minGrade and " +
           "grade <= :maxGrade")
-  List<Event> getByDateStar(String minDate, String maxDate, int minGrade, int maxGrade);
+  List<Event> getByDateGrade(String minDate, String maxDate, int minGrade, int maxGrade);
+
+  //TODO: GET EVENT BY DATE RANGE AND COLOR
+  @Query("SELECT * FROM events WHERE " +
+          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and " +
+          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate and " +
+          "groupColor == :color")
+  List<Event> getByDateColor(String minDate, String maxDate, String color);
 
   // How to use
   // https://stackoverflow.com/questions/54866247/android-assign-livedata-to-listview
