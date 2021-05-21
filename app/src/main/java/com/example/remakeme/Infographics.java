@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -17,6 +18,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,9 @@ public class Infographics extends AppCompatActivity {
     NavigationView nav;
     ActionBarDrawerToggle toggle;
     DrawerLayout drawerLayout;
+
+    TabLayout tabLayout;
+    ViewPager viewPager;
 
     String DATE_MESSAGE = "Meme";
     String date = "Meme 2.0";
@@ -79,25 +84,14 @@ public class Infographics extends AppCompatActivity {
         Intent intent = getIntent();
         date = intent.getStringExtra(DATE_MESSAGE);
 
-        BarChart barChart = findViewById(R.id.barChart);
+        tabLayout = findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.pager);
 
-        ArrayList<BarEntry> testData = new ArrayList<>();
-        testData.add(new BarEntry(1, 10));
-        testData.add(new BarEntry(2, 17));
-        testData.add(new BarEntry(3, 23));
-        testData.add(new BarEntry(4, 39));
-        testData.add(new BarEntry(5, 31));
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        pagerAdapter.addFragment(new InfoBarChart(), "Bar Chart");
+        pagerAdapter.addFragment(new InfoPieChart(), "Pie Chart");
 
-        BarDataSet barDataSet = new BarDataSet(testData, "Rating of Events");
-        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        barDataSet.setValueTextColor(Color.BLACK);
-        barDataSet.setValueTextSize(16f);
-
-        BarData barData = new BarData(barDataSet);
-
-        barChart.setFitBars(true);
-        barChart.setData(barData);
-        barChart.getDescription().setText("Test infographics for number of events and ratings");
-        barChart.animateY(1000);
+        viewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

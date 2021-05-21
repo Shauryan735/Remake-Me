@@ -27,9 +27,9 @@
             android:id="@+id/tabLayout"
             app:tabGravity="fill"
             app:tabMode="fixed"
-            app:tabTextColor="@color/white"
-            app:tabSelectedTextColor="@color/cardview_dark_background"
-            android:background="@color/nav_color">
+            app:tabTextColor="?attr/colorOnPrimary"
+            app:tabSelectedTextColor="@color/lm_secondary_alt"
+            android:background="?attr/colorPrimary">
 
         </com.google.android.material.tabs.TabLayout>
 
