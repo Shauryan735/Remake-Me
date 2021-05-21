@@ -15,8 +15,7 @@ import java.util.List;
 /**adapter class for an array of Event objects.*/
 public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnClickListener {
 
-  private List<Event> dataSet;
-  Context mainContext;
+  final Context mainContext;
 
   private static class ViewHolder {
     TextView eventName;
@@ -27,7 +26,6 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
   /**returns an adapter for an array of Event objects.*/
   public EventArrayAdapter(List<Event> data, Context context) {
     super(context, R.layout.hour, data);
-    this.dataSet = data;
     this.mainContext = context;
 
   }
@@ -36,6 +34,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
   public void onClick(View v) {
     int position = (Integer) v.getTag();
     Event event = getItem(position);
+    //TODO: add functionality when color clicked?
   }
 
   private int lastPosition = -1;

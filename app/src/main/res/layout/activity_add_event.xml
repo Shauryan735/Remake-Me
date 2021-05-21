@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="?android:attr/colorBackground"
     tools:context=".AddEvent"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    tools:ignore="Overdraw">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

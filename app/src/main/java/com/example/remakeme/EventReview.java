@@ -7,8 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import com.google.android.material.navigation.NavigationView;
 import java.text.MessageFormat;
 
 /**Displays the eventReview activity.*/
@@ -16,14 +20,60 @@ public class EventReview extends AppCompatActivity {
 
   private long eventId;
   private Event event;
-  String eventMessage = "event_key";
+  final String eventMessage = "event_key";
   private EventDao eventDao;
   private int grade;
+
+  NavigationView nav;
+  ActionBarDrawerToggle toggle;
+  DrawerLayout drawerLayout;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_event_review);
+
+    androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
+    nav = findViewById(R.id.nav);
+    drawerLayout = findViewById(R.id.drawer);
+
+    toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+    drawerLayout.addDrawerListener(toggle);
+    toggle.syncState();
+
+    nav.setNavigationItemSelectedListener(item -> {
+
+      switch (item.getItemId()) {
+        case R.id.navmenu_home:
+          drawerLayout.closeDrawer(GravityCompat.START);
+          finish();
+          break;
+        case R.id.navmenu_dayView:
+          finish();
+          break;
+        case R.id.navmenu_newEvent:
+          drawerLayout.closeDrawer(GravityCompat.START);
+          Intent event = new Intent(EventReview.this, AddEvent.class);
+          startActivity(event);
+          finish();
+          break;
+        case R.id.navmenu_infographics:
+          drawerLayout.closeDrawer(GravityCompat.START);
+          Intent info = new Intent(EventReview.this, Infographics.class);
+          startActivity(info);
+          finish();
+          break;
+        case R.id.navmenu_reflection:
+        default:
+          drawerLayout.closeDrawer(GravityCompat.START);
+          Intent reflect = new Intent(EventReview.this, DailyReflection.class);
+          startActivity(reflect);
+          finish();
+          break;
+      }
+      return true;
+    });
 
     AppDatabase instance = AppDatabase.getInstance(this);
     eventDao = instance.getEventDao();
@@ -62,7 +112,7 @@ public class EventReview extends AppCompatActivity {
       }
 
       public void onStartTrackingTouch(SeekBar seekBar) {
-        // TODO Auto-generated method stub
+        //for whatever reason the seekBar doesn't compile without this 4shrug
       }
 
       public void onStopTrackingTouch(SeekBar seekBar) {
@@ -79,6 +129,7 @@ public class EventReview extends AppCompatActivity {
     button.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.black));
   }
 
+  /**Returns to the eventView without saving changes.*/
   public void back(View view) {
     Intent intent = new Intent(this, EventView.class);
     intent.putExtra(eventMessage, eventId);
