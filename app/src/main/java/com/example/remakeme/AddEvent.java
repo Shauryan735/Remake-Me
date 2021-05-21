@@ -31,7 +31,6 @@ public class AddEvent extends AppCompatActivity {
 
   private EventDao eventDao;
 
-  private NavigationView nav;
   ActionBarDrawerToggle toggle;
   DrawerLayout drawerLayout;
 
@@ -80,7 +79,7 @@ public class AddEvent extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    nav = findViewById(R.id.nav);
+    NavigationView nav = findViewById(R.id.nav);
     drawerLayout = findViewById(R.id.drawer);
 
     toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);

@@ -23,7 +23,7 @@ public class EventReview extends AppCompatActivity {
 
   private long eventId;
   private Event event;
-  String eventMessage = "event_key";
+  final String eventMessage = "event_key";
   private EventDao eventDao;
   private int grade;
 

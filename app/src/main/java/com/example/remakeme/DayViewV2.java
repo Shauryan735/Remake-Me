@@ -28,11 +28,10 @@ import java.util.List;
  */
 public class DayViewV2 extends AppCompatActivity {
 
-  String dateMessage = "Meme";
+  final String dateMessage = "Meme";
   String date = "Meme 2.0";
-  String eventMessage = "event_key";
-  Context context = this;
-  private EventDao eventDao;
+  final String eventMessage = "event_key";
+  final Context context = this;
 
   NavigationView nav;
   ActionBarDrawerToggle toggle;
@@ -91,12 +90,13 @@ public class DayViewV2 extends AppCompatActivity {
       }
     });
 
-    Toolbar toolbar2 = (Toolbar) findViewById(R.id.dayViewToolbar);
+    Toolbar toolbar2 = findViewById(R.id.dayViewToolbar);
     setSupportActionBar(toolbar2);
     ActionBar ab = getSupportActionBar();
+    assert ab != null;
     ab.setDisplayHomeAsUpEnabled(true);
 
-    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+    FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -122,7 +122,7 @@ public class DayViewV2 extends AppCompatActivity {
     prevDay.add(Calendar.HOUR, -24);
     String prevDate = Event.getFormattedDate(prevDay);
 
-    Button prevDayButton = (Button) findViewById(R.id.prevDay);
+    Button prevDayButton = findViewById(R.id.prevDay);
     prevDayButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -137,7 +137,7 @@ public class DayViewV2 extends AppCompatActivity {
     nextDay.add(Calendar.HOUR, 48);
     String nextDate = Event.getFormattedDate(nextDay);
 
-    Button nextDayButton = (Button) findViewById(R.id.nextDay);
+    Button nextDayButton = findViewById(R.id.nextDay);
     nextDayButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -149,9 +149,8 @@ public class DayViewV2 extends AppCompatActivity {
     });
 
     AppDatabase instance = AppDatabase.getInstance(this);
-    eventDao = instance.getEventDao();
+    EventDao eventDao = instance.getEventDao();
     //"YYYY-MM-DD"
-    String[] dateParts2 = date.split("/");
     Calendar calendar2 = Calendar.getInstance();
     calendar2.set(Calendar.MONTH, parseInt(dateParts[0]) - 1);
     calendar2.set(Calendar.DAY_OF_MONTH, parseInt(dateParts[1]));

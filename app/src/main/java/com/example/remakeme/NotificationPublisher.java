@@ -17,12 +17,12 @@ import java.util.Random;
 /**Creates notification and sends it to the device.*/
 public class NotificationPublisher extends BroadcastReceiver {
   public static final String NOTIFICATION_CHANNEL_ID = "10001";
-  public static String NOTIFICATION_ID = "notification-id";
-  public static String NOTIFICATION = "notification";
+  public static final String NOTIFICATION_ID = "notification-id";
+  public static final String NOTIFICATION = "notification";
   private static final String EVENT_MESSAGE = "event_key";
   private static final String default_notification_channel_id = "default";
   private static final String EXTRA_MESSAGE = "MESSAGE_ID";
-  private static String DATE_MESSAGE = "Meme";
+  // --Commented out by Inspection (5/20/2021 6:18 PM):private static final String DATE_MESSAGE = "Meme";
 
   public static String getExtraMessage() {
     return EXTRA_MESSAGE;
@@ -34,7 +34,7 @@ public class NotificationPublisher extends BroadcastReceiver {
   /**When the notification is triggered, this is what should be done by the app.*/
   public void onReceive(Context context, Intent intent) {
 
-    String message = intent.getStringExtra(EXTRA_MESSAGE);
+    /*String message = intent.getStringExtra(EXTRA_MESSAGE);*/
     NotificationManager notificationManager =
         (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     Notification notification = intent.getParcelableExtra(NOTIFICATION);

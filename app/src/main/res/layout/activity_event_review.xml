@@ -94,7 +94,6 @@
             android:autofillHints="@string/rate_yourself" />
 
         <Button
-            android:id="@+id/eventReviewSubmitButton"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
