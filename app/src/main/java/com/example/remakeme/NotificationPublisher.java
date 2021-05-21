@@ -22,7 +22,6 @@ public class NotificationPublisher extends BroadcastReceiver {
   private static final String EVENT_MESSAGE = "event_key";
   private static final String default_notification_channel_id = "default";
   private static final String EXTRA_MESSAGE = "MESSAGE_ID";
-  // --Commented out by Inspection (5/20/2021 6:18 PM):private static final String DATE_MESSAGE = "Meme";
 
   public static String getExtraMessage() {
     return EXTRA_MESSAGE;

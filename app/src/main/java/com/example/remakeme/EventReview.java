@@ -7,15 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.google.android.material.navigation.NavigationView;
-
 import java.text.MessageFormat;
 
 /**Displays the eventReview activity.*/
@@ -132,6 +129,7 @@ public class EventReview extends AppCompatActivity {
     button.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.black));
   }
 
+  /**Returns to the eventView without saving changes.*/
   public void back(View view) {
     Intent intent = new Intent(this, EventView.class);
     intent.putExtra(eventMessage, eventId);

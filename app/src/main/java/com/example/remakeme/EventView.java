@@ -13,7 +13,6 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
-
 import java.text.MessageFormat;
 
 /**Displays the eventView activity for a certain event.*/
