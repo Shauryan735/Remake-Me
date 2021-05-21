@@ -170,6 +170,9 @@ public class EventView extends AppCompatActivity {
   }
 
   public void back(View view) {
+    Intent intent = new Intent(EventView.this, DayViewV2.class);
+    intent.putExtra(DATE_MESSAGE, Event.getFormattedDate(event.getEventStart()));
+    startActivity(intent);
     finish();
   }
 

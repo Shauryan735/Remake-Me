@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.SystemClock;
 import androidx.core.app.NotificationCompat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Random;
 
 /**Creates notification and sends it to the device.*/
@@ -26,9 +27,6 @@ public class NotificationPublisher extends BroadcastReceiver {
   public static String getExtraMessage() {
     return EXTRA_MESSAGE;
   }
-
-  //TODO: needs some more tweaking (check if event has location for message,
-  // make sure notification intent is able to start the correct activity
 
   /**When the notification is triggered, this is what should be done by the app.*/
   public void onReceive(Context context, Intent intent) {
@@ -62,12 +60,10 @@ public class NotificationPublisher extends BroadcastReceiver {
             event.getId(),
             event.getEventStart());
 
-    Calendar now = Calendar.getInstance();
-    long delay = event.getEventStart().getTimeInMillis() - now.getTimeInMillis()
-        - event.getRemindOffset();
+    Calendar nowLocal = Calendar.getInstance(Locale.getDefault());
+    long delay = event.getEventStart().getTimeInMillis() - nowLocal.getTimeInMillis()
+        - event.getRemindOffset() + (12 * 3600 * 1000);
     scheduleNotification(context, notification, delay, ((Long) event.getId()).toString());
-    /*TODO: all events with notifications are sent ~5 sec after created,
-     * no matter when they were scheduled for*/
   }
 
   private static void scheduleNotification(Context context,
@@ -95,9 +91,9 @@ public class NotificationPublisher extends BroadcastReceiver {
       builder.setContentText(
           "Starting in " + reminderOffset / 60000 + " minutes at " + location + ".");
     }
-    //TODO: always says "in 0 minutes"
     builder.setSmallIcon(R.drawable.logo);
     builder.setAutoCancel(true);
+    builder.setPriority(NotificationCompat.PRIORITY_HIGH);
     builder.setChannelId(NOTIFICATION_CHANNEL_ID);
     builder.setContentIntent(getEventNotificationIntent(context, eventName, id, start));
     if (color != 0) {
@@ -118,7 +114,6 @@ public class NotificationPublisher extends BroadcastReceiver {
     intent.putExtra(EXTRA_MESSAGE, date);
 
     intent.putExtra(NotificationPublisher.getExtraMessage(), message);
-    //TODO: build stack s/t dayViewV2 gets the date
     TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
     stackBuilder.addNextIntentWithParentStack(intent);
     return stackBuilder.getPendingIntent((int) id, 0);

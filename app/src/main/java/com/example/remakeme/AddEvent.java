@@ -24,6 +24,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
+
 /**
  * Activity to create events for the calendar.
  */
@@ -71,6 +74,7 @@ public class AddEvent extends AppCompatActivity {
 
     EditText editDate = findViewById(R.id.editTextDate);
     editDate.setText(date);
+    //TODO: change to calendarView
 
     AppDatabase instance = AppDatabase.getInstance(this);
     eventDao = instance.getEventDao();
@@ -167,9 +171,12 @@ public class AddEvent extends AppCompatActivity {
     reminderList.add("Never");
     reminderList.add("0 minutes before");
     reminderList.add("5 minutes before");
+    reminderList.add("10 minutes before");
     reminderList.add("15 minutes before");
+    reminderList.add("20 minutes before");
     reminderList.add("30 minutes before");
-    reminderList.add("1 hour before");
+    reminderList.add("45 minutes before");
+    reminderList.add("60 minutes before");
 
     ArrayAdapter<String> arrayAdapter3 = new ArrayAdapter<>(
             this, android.R.layout.simple_spinner_item, reminderList);
@@ -223,9 +230,17 @@ public class AddEvent extends AppCompatActivity {
 
     ArrayList<String> startMinuteList = new ArrayList<>();
     startMinuteList.add("00");
+    startMinuteList.add("05");
+    startMinuteList.add("10");
     startMinuteList.add("15");
+    startMinuteList.add("20");
+    startMinuteList.add("25");
     startMinuteList.add("30");
+    startMinuteList.add("35");
+    startMinuteList.add("40");
     startMinuteList.add("45");
+    startMinuteList.add("50");
+    startMinuteList.add("55");
 
     ArrayAdapter<String> arrayAdapter5 = new ArrayAdapter<>(
             this, android.R.layout.simple_spinner_item, startMinuteList);
@@ -277,9 +292,17 @@ public class AddEvent extends AppCompatActivity {
 
     ArrayList<String> endMinuteList = new ArrayList<>();
     endMinuteList.add("00");
+    endMinuteList.add("05");
+    endMinuteList.add("10");
     endMinuteList.add("15");
+    endMinuteList.add("20");
+    endMinuteList.add("25");
     endMinuteList.add("30");
+    endMinuteList.add("35");
+    endMinuteList.add("40");
     endMinuteList.add("45");
+    endMinuteList.add("50");
+    endMinuteList.add("55");
 
     ArrayAdapter<String> arrayAdapter7 = new ArrayAdapter<>(
             this, android.R.layout.simple_spinner_item, endMinuteList);
@@ -412,10 +435,10 @@ public class AddEvent extends AppCompatActivity {
       notes = "None";
     }
 
-    final int hour1 = Integer.parseInt(startHour);
-    final int minute1 = Integer.parseInt(startMinute);
-    final int hour2 = Integer.parseInt(endHour);
-    final int minute2 = Integer.parseInt(endMinute);
+    final int hour1 = parseInt(startHour);
+    final int minute1 = parseInt(startMinute);
+    final int hour2 = parseInt(endHour);
+    final int minute2 = parseInt(endMinute);
 
     Calendar startCalendar = Calendar.getInstance();
     Calendar endCalendar = Calendar.getInstance();
@@ -423,9 +446,9 @@ public class AddEvent extends AppCompatActivity {
     EditText editDate = findViewById(R.id.editTextDate);
     date = editDate.getText().toString();
     String[] numbers = date.split("/");
-    int year = Integer.parseInt(numbers[2]);
-    int month = Integer.parseInt(numbers[0]) - 1;
-    int day = Integer.parseInt(numbers[1]);
+    int year = parseInt(numbers[2]);
+    int month = parseInt(numbers[0]) - 1;
+    int day = parseInt(numbers[1]);
 
     startCalendar.set(year, month, day, hour1, minute1);
     endCalendar.set(year, month, day, hour2, minute2);
@@ -454,6 +477,7 @@ public class AddEvent extends AppCompatActivity {
 
     if (!(reminder.equals("Never"))) {
       boolReminder = true;
+
     }
 
     switch (groupColor) {
@@ -495,6 +519,7 @@ public class AddEvent extends AppCompatActivity {
       }
       event.setId(eventId);
       if (event.getSendReminders()) {
+        event.setRemindOffset(getRemindOffset());
         NotificationPublisher.scheduleEventNotification(this, event);
       }
 
@@ -576,5 +601,10 @@ public class AddEvent extends AppCompatActivity {
 
       eventDao.insert(event);
     }
+  }
+
+  private long getRemindOffset() {
+    assert(!reminder.equals("Never"));
+    return parseLong(reminder.split(" ")[0]) * 60000;
   }
 }
