@@ -83,12 +83,13 @@ public class AddEvent extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    NavigationView nav = findViewById(R.id.nav);
     drawerLayout = findViewById(R.id.drawer);
 
     toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
     drawerLayout.addDrawerListener(toggle);
     toggle.syncState();
+
+    NavigationView nav = findViewById(R.id.nav);
 
     nav.setNavigationItemSelectedListener(item -> {
 
