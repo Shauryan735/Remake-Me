@@ -3,12 +3,10 @@ package com.example.remakeme;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -30,8 +28,6 @@ public class EventView extends AppCompatActivity {
   NavigationView nav;
   ActionBarDrawerToggle toggle;
   DrawerLayout drawerLayout;
-
-  //TODO: consolidate a lot of onCreate into a method that can be called with a button or triggered
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

@@ -90,7 +90,8 @@
             app:layout_constraintTop_toBottomOf="@id/eventReviewNoteTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:inputType="text" />
+            android:inputType="text"
+            android:autofillHints="@string/rate_yourself" />
 
         <Button
             android:id="@+id/eventReviewSubmitButton"
