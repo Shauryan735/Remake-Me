@@ -231,17 +231,65 @@ public class AddEvent extends AppCompatActivity {
 
     ArrayList<String> startMinuteList = new ArrayList<>();
     startMinuteList.add("00");
+    startMinuteList.add("01");
+    startMinuteList.add("02");
+    startMinuteList.add("03");
+    startMinuteList.add("04");
     startMinuteList.add("05");
+    startMinuteList.add("06");
+    startMinuteList.add("07");
+    startMinuteList.add("08");
+    startMinuteList.add("09");
     startMinuteList.add("10");
+    startMinuteList.add("11");
+    startMinuteList.add("12");
+    startMinuteList.add("13");
+    startMinuteList.add("14");
     startMinuteList.add("15");
+    startMinuteList.add("16");
+    startMinuteList.add("17");
+    startMinuteList.add("18");
+    startMinuteList.add("19");
     startMinuteList.add("20");
+    startMinuteList.add("21");
+    startMinuteList.add("22");
+    startMinuteList.add("23");
+    startMinuteList.add("24");
     startMinuteList.add("25");
+    startMinuteList.add("26");
+    startMinuteList.add("27");
+    startMinuteList.add("28");
+    startMinuteList.add("29");
     startMinuteList.add("30");
+    startMinuteList.add("31");
+    startMinuteList.add("32");
+    startMinuteList.add("33");
+    startMinuteList.add("34");
     startMinuteList.add("35");
+    startMinuteList.add("36");
+    startMinuteList.add("37");
+    startMinuteList.add("38");
+    startMinuteList.add("39");
     startMinuteList.add("40");
+    startMinuteList.add("41");
+    startMinuteList.add("42");
+    startMinuteList.add("43");
+    startMinuteList.add("44");
     startMinuteList.add("45");
+    startMinuteList.add("46");
+    startMinuteList.add("47");
+    startMinuteList.add("48");
+    startMinuteList.add("49");
     startMinuteList.add("50");
+    startMinuteList.add("51");
+    startMinuteList.add("52");
+    startMinuteList.add("53");
+    startMinuteList.add("54");
     startMinuteList.add("55");
+    startMinuteList.add("56");
+    startMinuteList.add("57");
+    startMinuteList.add("58");
+    startMinuteList.add("59");
 
     ArrayAdapter<String> arrayAdapter5 = new ArrayAdapter<>(
             this, android.R.layout.simple_spinner_item, startMinuteList);
@@ -293,17 +341,65 @@ public class AddEvent extends AppCompatActivity {
 
     ArrayList<String> endMinuteList = new ArrayList<>();
     endMinuteList.add("00");
+    endMinuteList.add("01");
+    endMinuteList.add("02");
+    endMinuteList.add("03");
+    endMinuteList.add("04");
     endMinuteList.add("05");
+    endMinuteList.add("06");
+    endMinuteList.add("07");
+    endMinuteList.add("08");
+    endMinuteList.add("09");
     endMinuteList.add("10");
+    endMinuteList.add("11");
+    endMinuteList.add("12");
+    endMinuteList.add("13");
+    endMinuteList.add("14");
     endMinuteList.add("15");
+    endMinuteList.add("16");
+    endMinuteList.add("17");
+    endMinuteList.add("18");
+    endMinuteList.add("19");
     endMinuteList.add("20");
+    endMinuteList.add("21");
+    endMinuteList.add("22");
+    endMinuteList.add("23");
+    endMinuteList.add("24");
     endMinuteList.add("25");
+    endMinuteList.add("26");
+    endMinuteList.add("27");
+    endMinuteList.add("28");
+    endMinuteList.add("29");
     endMinuteList.add("30");
+    endMinuteList.add("31");
+    endMinuteList.add("32");
+    endMinuteList.add("33");
+    endMinuteList.add("34");
     endMinuteList.add("35");
+    endMinuteList.add("36");
+    endMinuteList.add("37");
+    endMinuteList.add("38");
+    endMinuteList.add("39");
     endMinuteList.add("40");
+    endMinuteList.add("41");
+    endMinuteList.add("42");
+    endMinuteList.add("43");
+    endMinuteList.add("44");
     endMinuteList.add("45");
+    endMinuteList.add("46");
+    endMinuteList.add("47");
+    endMinuteList.add("48");
+    endMinuteList.add("49");
     endMinuteList.add("50");
+    endMinuteList.add("51");
+    endMinuteList.add("52");
+    endMinuteList.add("53");
+    endMinuteList.add("54");
     endMinuteList.add("55");
+    endMinuteList.add("56");
+    endMinuteList.add("57");
+    endMinuteList.add("58");
+    endMinuteList.add("59");
 
     ArrayAdapter<String> arrayAdapter7 = new ArrayAdapter<>(
             this, android.R.layout.simple_spinner_item, endMinuteList);
@@ -522,6 +618,10 @@ public class AddEvent extends AppCompatActivity {
       if (event.getSendReminders()) {
         event.setRemindOffset(getRemindOffset());
         NotificationPublisher.scheduleEventNotification(this, event);
+      }
+
+      if(event.isGraded()){
+        NotificationPublisher.scheduleGradeEventNotification(this, event);
       }
 
       Intent intent = new Intent(this, DayViewV2.class);
