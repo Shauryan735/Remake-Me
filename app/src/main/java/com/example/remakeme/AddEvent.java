@@ -1,5 +1,6 @@
 package com.example.remakeme;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
@@ -51,6 +54,8 @@ public class AddEvent extends AppCompatActivity {
   private Boolean editing = false;
   private long eventId = 0;
   private int grade = 0;
+  Button btnDate;
+  final Calendar myCalendar = Calendar.getInstance();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +77,8 @@ public class AddEvent extends AppCompatActivity {
       editing = false;
     }
 
-    EditText editDate = findViewById(R.id.editTextDate);
-    editDate.setText(date);
+    btnDate = findViewById(R.id.editTextDate);
+    btnDate.setText(date);
     //TODO: change to calendarView
 
     AppDatabase instance = AppDatabase.getInstance(this);
@@ -443,7 +448,7 @@ public class AddEvent extends AppCompatActivity {
       Date c = gotDate.getTime();
       SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
       String stringDate = df.format(c);
-      editDate.setText(stringDate);
+      btnDate.setText(stringDate);
 
       String oldStartTime = editEvent.getFormattedStartTime();
       String[] oldStartArray = oldStartTime.split(":");
@@ -495,6 +500,32 @@ public class AddEvent extends AppCompatActivity {
     }
   }
 
+  DatePickerDialog.OnDateSetListener dateSet = new DatePickerDialog.OnDateSetListener(){
+    @Override
+    public void onDateSet (DatePicker view , int year , int monthOfYear , int dayOfMonth) {
+      myCalendar.set(Calendar.YEAR, year);
+      myCalendar.set(Calendar.MONTH, monthOfYear);
+      myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+      updateLabel();
+    }
+  };
+
+  public void setDate (View view) {
+    new DatePickerDialog(
+        AddEvent.this, dateSet,
+        myCalendar.get(Calendar.YEAR),
+        myCalendar.get(Calendar.MONTH),
+        myCalendar.get(Calendar.DAY_OF_MONTH)
+    ).show();
+  }
+
+  private void updateLabel () {
+    String myFormat = "MM/dd/yyyy"; //In which you need put here
+    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault()) ;
+    Date date = myCalendar.getTime();
+    btnDate.setText(sdf.format(date));
+  }
+
   /**
    * Sends the submitted data to the database.
    * If editing an event, will instead edit the event.
@@ -540,8 +571,8 @@ public class AddEvent extends AppCompatActivity {
     Calendar startCalendar = Calendar.getInstance();
     Calendar endCalendar = Calendar.getInstance();
 
-    EditText editDate = findViewById(R.id.editTextDate);
-    date = editDate.getText().toString();
+    Button btnDate = findViewById(R.id.editTextDate);
+    date = btnDate.getText().toString();
     String[] numbers = date.split("/");
     int year = parseInt(numbers[2]);
     int month = parseInt(numbers[0]) - 1;
