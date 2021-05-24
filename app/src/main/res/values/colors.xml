@@ -7,6 +7,15 @@
     <color name="lm_secondary">#FF36A4DF</color>
     <color name="lm_secondary_alt">#FF20688E</color>
 
+    <color name="lm_on_surface">#2F000000</color>
+    <!--Dark Mode Colors-->
+    <color name="dm_background">#FF0D1330</color>
+    <color name="dm_primary">#FF121B44</color>
+    <color name="dm_primary_alt">#FF18235A</color>
+
+    <color name="dm_on_primary">#FF868686</color>
+    <color name="dm_on_surface">#2FFFFFFF</color>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>

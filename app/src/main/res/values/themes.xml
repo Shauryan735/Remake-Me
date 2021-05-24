@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Testing" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:colorBackground">@color/lm_background</item>
+        <item name="colorOnSurface">@color/lm_on_surface</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/lm_primary</item>
         <item name="colorPrimaryVariant">@color/lm_primary_alt</item>
