@@ -42,9 +42,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <SeekBar
             android:id="@+id/seekBar"
@@ -61,37 +61,41 @@
             android:id="@+id/eventReviewSeekBarValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/_0"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/seekBar"
+            android:text="@string/_0"
+            android:textColor="?attr/colorOnSecondary"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/seekBar" />
 
         <TextView
             android:id="@+id/eventReviewNoteTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/how_do"
-            android:textSize="16sp"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/eventReviewSeekBarValue"
+            android:text="@string/how_do"
+            android:textColor="?attr/colorOnSecondary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/eventReviewSeekBarValue" />
 
         <EditText
             android:id="@+id/eventReviewNote"
-            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/rate_yourself"
+            android:layout_margin="16dp"
+            android:autofillHints="@string/rate_yourself"
             android:background="@color/gray"
-            android:padding="8dp"
-            android:maxLines="20"
-            app:layout_constraintTop_toBottomOf="@id/eventReviewNoteTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="@string/rate_yourself"
             android:inputType="text"
-            android:autofillHints="@string/rate_yourself" />
+            android:maxLines="20"
+            android:padding="8dp"
+            android:textColor="?attr/colorOnSecondary"
+            android:textColorHint="?attr/colorOnSurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventReviewNoteTitle" />
 
         <Button
             android:layout_width="120dp"
