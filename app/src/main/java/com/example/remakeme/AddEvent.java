@@ -54,6 +54,7 @@ public class AddEvent extends AppCompatActivity {
   private Boolean editing = false;
   private long eventId = 0;
   private int grade = 0;
+  private String reviewNote;
   Button btnDate;
   final Calendar myCalendar = Calendar.getInstance();
 
@@ -434,6 +435,8 @@ public class AddEvent extends AppCompatActivity {
       List<Event> eventList = eventDao.getById(events);
       Event editEvent = eventList.get(0);
 
+      reviewNote = editEvent.getReviewNote();
+
       // Switch to below for basic testing
 
       /* Calendar start1 = Calendar.getInstance();
@@ -659,6 +662,7 @@ public class AddEvent extends AppCompatActivity {
       intent.putExtra(dateMessage, date);
       startActivity(intent);
     } else {
+      event.setReviewNote(reviewNote);
       event.setId(eventId);
       eventDao.updateEvent(event);
       Intent intent = new Intent(this, EventView.class);
