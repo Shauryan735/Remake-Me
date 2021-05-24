@@ -3,6 +3,8 @@ package com.example.remakeme;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,5 +77,30 @@ public class DailyReflection extends AppCompatActivity {
     });
     Intent intent = getIntent();
     date = intent.getStringExtra(dateMessage);
+
+    // AppDatabase instance = AppDatabase.getInstance(this);
+    // reflectionDao = instance.getReflectionDao();
+  }
+
+  /**
+   * Submits daily reflection to the database.
+   */
+  public void submitReflection(View view) {
+    EditText editReflection = findViewById(R.id.editReflection);
+    try {
+      String reflection = editReflection.getText().toString();
+    } catch (Exception e) {
+      String reflection = "";
+    }
+
+    // TODO: Add reflection database to store reflection
+
+
+    // Placeholder until navigation passes date to this activity
+    date = "01/01/2001";
+    Intent intent = new Intent(DailyReflection.this, DayViewV2.class);
+    intent.putExtra(dateMessage, date);
+    startActivity(intent);
+    finish();
   }
 }
