@@ -14,6 +14,7 @@ public class ArraySqlConverter {
   public ArrayList<Long> toLongArrayList(String listString) {
     ArrayList<Long> events = new ArrayList<Long>();
     String modified = listString.replaceAll("\\[|\\]|\\s| ", "");
+    modified = modified.replaceAll(".$", "");
     String[] listStringSplit = modified.split(",");
 
     for (int i = 0; i < listStringSplit.length; i++) {
@@ -28,7 +29,7 @@ public class ArraySqlConverter {
 
   @TypeConverter
   public String toArrayString(ArrayList<Long> eventsArray) {
-    String result = eventsArray.toString();
+    String result = eventsArray.toString().replaceAll("\\]", ", ]");
     return result;
   }
 }

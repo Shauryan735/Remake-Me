@@ -16,6 +16,7 @@ public class Project {
   private String projectName;
 
   @NonNull
+  @ColumnInfo(name = "event_ids")
   private ArrayList<Long> eventIds;
 
   public Project() {
@@ -45,5 +46,9 @@ public class Project {
 
   public void setEventIds(@NonNull ArrayList<Long> eventIds) {
     this.eventIds = eventIds;
+  }
+
+  public void addEventID(long eventId) {
+    this.eventIds.add(new Long(eventId));
   }
 }

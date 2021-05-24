@@ -27,9 +27,10 @@ public class ExampleUnitTest {
         events.add(new Long(2));
         events.add(new Long(3));
         events.add(new Long(4));
-        String result = events.toString();
-        assertEquals("[1, 2, 3, 4]", result);
+        String result = events.toString().replaceAll("\\]", ", ]");
+        assertEquals("[1, 2, 3, 4, ]", result);
         String modified = result.replaceAll("\\[|\\]|\\s| ", "");
+        modified = modified.replaceAll(".$", "");
         assertEquals("1,2,3,4", modified);
         String[] stringSplited = modified.split(",");
 
@@ -42,5 +43,16 @@ public class ExampleUnitTest {
                 //NOTE: write something here if you need to recover from formatting errors
             };
         }
+    }
+
+    @Test
+    public void test_regex_stuff(){
+        String listString = "[1, 2, 3, ]";
+        String modified = listString.replaceAll("\\[|\\]|\\s| ", "");
+        modified = modified.replaceAll(".$", "");
+        assertEquals("1,2,3", modified);
+        String[] answer = modified.split(",");
+        assertEquals(3, answer.length);
+
     }
 }

@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -46,6 +47,38 @@ public class ProjectTableTests {
 
     List<Project> dbList = projectDao.getAll();
     assertEquals("test_project", dbList.get(0).getProjectName());
+  }
+
+  @Test
+  public void testListToStringConversion() throws Exception {
+    Project project = new Project();
+
+    project.addEventID(1);
+    project.addEventID(2);
+    project.addEventID(3);
+
+    projectDao.insert(project);
+
+    List<Project> projects = projectDao.getAll();
+
+    assertNotEquals(0, projects.get(0).getEventIds().size());
+  }
+
+  @Test
+  public void testGetProjectByEventId() throws Exception {
+    Project project = new Project();
+    project.setProjectName("test_project");
+
+    project.addEventID(1);
+    project.addEventID(2);
+    project.addEventID(3);
+
+    projectDao.insert(project);
+    List<Project> projects = projectDao.getProjectByEventId(1);
+
+    ArrayList<Long> events = projects.get(0).getEventIds();
+
+    assertEquals(new Long(1), events.get(0));
   }
 
 }
