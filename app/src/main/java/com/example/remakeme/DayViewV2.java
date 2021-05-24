@@ -197,6 +197,7 @@ public class DayViewV2 extends AppCompatActivity {
         Intent intent = EventView.makeIntent(context);
         intent.putExtra(eventMessage, dayEvents.get(position).getId());
         startActivity(intent);
+        finish();
       }
     });
   }
