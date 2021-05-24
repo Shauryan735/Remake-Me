@@ -47,7 +47,7 @@ public interface EventDao {
   @Query("SELECT * FROM events WHERE " +
           "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and " +
           "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate and " +
-          "groupColor == :color")
+          "groupColor = :color")
   List<Event> getByDateColor(String minDate, String maxDate, int color);
 
   // How to use

@@ -264,9 +264,9 @@ public class Event {
    */
   public int getGroupColoredBox() {
     switch (this.groupColor) {
-      case 0xFFFFA500:
+      case R.color.orange:
         return R.drawable.orange_box;
-      case 0xFFFFFF00:
+      case R.color.yellow:
         return R.drawable.yellow_box;
       case 0xFF008000:
         return R.drawable.green_box;
@@ -303,15 +303,15 @@ public class Event {
    */
   public int getGroupColoredOutline() {
     switch (this.groupColor) {
-      case 0xFFFFA500:
+      case R.color.orange:
         return R.drawable.orange_boarder;
-      case 0xFFFFFF00:
+      case R.color.yellow:
         return R.drawable.yellow_boarder;
-      case 0xFF008000:
+      case R.color.green:
         return R.drawable.green_boarder;
-      case 0xFF0000FF:
+      case R.color.blue:
         return R.drawable.blue_boarder;
-      case 0xFF800080:
+      case R.color.purple_200:
         return R.drawable.purple_boarder;
       default:
         return R.drawable.red_boarder;

@@ -138,4 +138,13 @@ public class DatabaseUnitTests {
 
     }
 
+    @Test
+    public void test_getByColor() throws Exception {
+        Event event = new Event();
+        event.setEventName("test_event");
+        event.setGroupColor(R.color.red);
+        long eId = eventDao.insert(event);
+        List<Event> result = eventDao.getByDateColor("2021-05-24","2021-05-24", R.color.red);
+        assertEquals(1, result.size());
+    }
 }

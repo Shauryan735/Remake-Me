@@ -198,7 +198,7 @@ public class InfoPieChart extends Fragment {
                 endSet = true;
 
                 if (startSet && endSet) {
-                    List<Event> events = eventDao.getByDateColor(startDate, endDate, R.color.red);
+                    List<Event> events = eventDao.getByDateColor(startDate, endDate, R.color.green);
 //                    int testing = getColorEvents("Red");
                     checkArraySize.setText(Integer.toString(events.size()));
                 }
