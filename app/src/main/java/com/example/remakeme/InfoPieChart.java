@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,9 +41,14 @@ public class InfoPieChart extends Fragment {
 
     TextView startText;
     TextView endText;
+    TextView checkArraySize;
+
+    private EventDao eventDao;
 
     private String startDate;
     private String endDate;
+    private boolean startSet = false;
+    private boolean endSet = false;
 
     public InfoPieChart() {
         // Required empty public constructor
@@ -80,6 +87,32 @@ public class InfoPieChart extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_info_pie_chart, container, false);
 
+        startText = view.findViewById(R.id.startText);
+        endText =  view.findViewById(R.id.endText);
+        checkArraySize = view.findViewById(R.id.checkArraySize);
+
+        AppDatabase instance = AppDatabase.getInstance(getContext());
+        eventDao = instance.getEventDao();
+
+        Button startButton = view.findViewById(R.id.startButton);
+        Button endButton = view.findViewById(R.id.endButton);
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerStart();
+            }
+        });
+
+        endButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerEnd();
+            }
+        });
+
+        //TODO: Import events from Database
+
         PieChart pieChart = view.findViewById(R.id.pieChart);
 
         ArrayList<PieEntry> testData = new ArrayList<>();
@@ -112,8 +145,21 @@ public class InfoPieChart extends Fragment {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month++;
-                String dateHolder = year + "-" + month + "-" + day;
-                startText.setText(dateHolder);
+                String dayString;
+                String monthString;
+                if (day < 10){
+                    dayString = "0" + day;
+                } else {
+                    dayString = "" + day;
+                }
+                if (month < 10){
+                    monthString = "0" + month;
+                } else {
+                    monthString = "" + month;
+                }
+                startDate = year + "-" + monthString + "-" + dayString;
+                startText.setText(startDate);
+                startSet = true;
             }
         };
 
@@ -130,8 +176,26 @@ public class InfoPieChart extends Fragment {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month++;
-                String dateHolder = year + "-" + month + "-" + day;
-                endText.setText(dateHolder);
+                String dayString;
+                String monthString;
+                if (day < 10){
+                    dayString = "0" + day;
+                } else {
+                    dayString = "" + day;
+                }
+                if (month < 10){
+                    monthString = "0" + month;
+                } else {
+                    monthString = "" + month;
+                }
+                endDate = year + "-" + monthString + "-" + dayString;
+                endText.setText(endDate);
+                endSet = true;
+
+                if (startSet && endSet) {
+                    int testing = getColorEvents("Red");
+                    checkArraySize.setText(testing);
+                }
             }
         };
 
@@ -140,6 +204,12 @@ public class InfoPieChart extends Fragment {
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
+    }
+
+
+    private int getColorEvents(String color) {
+        List<Event> events = eventDao.getByDateColor(startDate, endDate, color);
+        return events.size();
     }
 
 }

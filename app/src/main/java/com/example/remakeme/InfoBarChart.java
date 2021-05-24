@@ -22,6 +22,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,11 +40,16 @@ public class InfoBarChart extends Fragment{
     private String mParam1;
     private String mParam2;
 
+    private EventDao eventDao;
+
     TextView startText;
     TextView endText;
+    TextView checkArraySize;
 
     private String startDate;
     private String endDate;
+    private boolean startSet = false;
+    private boolean endSet = false;
 
     public InfoBarChart() {
         // Required empty public constructor
@@ -83,8 +89,12 @@ public class InfoBarChart extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_info_bar_chart, container, false);
 
+        AppDatabase instance = AppDatabase.getInstance(getContext());
+        eventDao = instance.getEventDao();
+
         startText = view.findViewById(R.id.startText);
         endText =  view.findViewById(R.id.endText);
+        checkArraySize = view.findViewById(R.id.checkArraySize);
 
         Button startButton = view.findViewById(R.id.startButton);
         Button endButton = view.findViewById(R.id.endButton);
@@ -135,8 +145,21 @@ public class InfoBarChart extends Fragment{
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month++;
-                String dateHolder = year + "-" + month + "-" + day;
-                startText.setText(dateHolder);
+                String dayString;
+                String monthString;
+                if (day < 10){
+                    dayString = "0" + day;
+                } else {
+                    dayString = "" + day;
+                }
+                if (month < 10){
+                    monthString = "0" + month;
+                } else {
+                    monthString = "" + month;
+                }
+                startDate = year + "-" + monthString + "-" + dayString;
+                startText.setText(startDate);
+                startSet = true;
             }
         };
 
@@ -153,8 +176,26 @@ public class InfoBarChart extends Fragment{
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month++;
-                String dateHolder = year + "-" + month + "-" + day;
-                endText.setText(dateHolder);
+                String dayString;
+                String monthString;
+                if (day < 10){
+                    dayString = "0" + day;
+                } else {
+                    dayString = "" + day;
+                }
+                if (month < 10){
+                    monthString = "0" + month;
+                } else {
+                    monthString = "" + month;
+                }
+                endDate = year + "-" + monthString + "-" + dayString;
+                endText.setText(endDate);
+                endSet = true;
+
+                if (startSet && endSet) {
+                    int testing = getRatedEvents(80, 100);
+                    checkArraySize.setText(testing);
+                }
             }
         };
 
@@ -163,6 +204,11 @@ public class InfoBarChart extends Fragment{
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
+    }
+
+    private int getRatedEvents(int lowerGrade, int upperGrade) {
+        List<Event> events = eventDao.getByDateGrade(startDate, endDate, lowerGrade, upperGrade);
+        return events.size();
     }
 
 
