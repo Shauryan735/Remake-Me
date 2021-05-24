@@ -268,11 +268,11 @@ public class Event {
         return R.drawable.orange_box;
       case R.color.yellow:
         return R.drawable.yellow_box;
-      case 0xFF008000:
+      case R.color.green:
         return R.drawable.green_box;
-      case 0xFF0000FF:
+      case R.color.blue:
         return R.drawable.blue_box;
-      case 0xFF800080:
+      case R.color.purple_200:
         return R.drawable.purple_box;
       default:
         return R.drawable.red_box;
