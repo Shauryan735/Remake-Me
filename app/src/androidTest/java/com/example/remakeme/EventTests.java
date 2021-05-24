@@ -54,4 +54,9 @@ public class EventTests {
     assertEquals(event.getGroupColoredBox(), R.drawable.blue_box);
     assertEquals(event.getGroupColoredOutline(), R.drawable.blue_boarder);
   }
+
+  /*
+  Navigation Checklist:
+
+   */
 }
