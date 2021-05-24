@@ -8,8 +8,12 @@ import androidx.room.Query;
 import androidx.room.Update;
 import java.util.List;
 
+/**
+ * Dao to get events from DB
+ */
 @Dao
 public interface EventDao {
+
   @Query("SELECT * FROM events")
   List<Event> getAll();
 
