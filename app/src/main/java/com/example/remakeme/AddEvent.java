@@ -17,6 +17,7 @@ import android.widget.Switch;
 // import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
@@ -80,7 +81,7 @@ public class AddEvent extends AppCompatActivity {
 
     btnDate = findViewById(R.id.editTextDate);
     btnDate.setText(date);
-    //TODO: change to calendarView
+    /*btnDate.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.attr.colorSecondary));*/
 
     AppDatabase instance = AppDatabase.getInstance(this);
     eventDao = instance.getEventDao();
@@ -465,22 +466,22 @@ public class AddEvent extends AppCompatActivity {
 
       String hexColor;
       switch (editEvent.getGroupColor()) {
-        case 0xFFFFA500:
+        case R.color.orange:
           hexColor = "Orange";
           break;
-        case 0xFFFFFF00:
+        case R.color.yellow:
           hexColor = "Yellow";
           break;
-        case 0xFF008000:
+        case R.color.green:
           hexColor = "Green";
           break;
-        case 0xFF0000FF:
+        case R.color.blue:
           hexColor = "Blue";
           break;
-        case 0xFF800080:
+        case R.color.purple_200:
           hexColor = "Purple";
           break;
-        case 0xFFFF0000:
+        case R.color.red:
         default:
           hexColor = "Red";
           break;
@@ -613,23 +614,23 @@ public class AddEvent extends AppCompatActivity {
 
     switch (groupColor) {
       case "Orange":
-        color = 0xFFFFA500;
+        color = R.color.orange;
         break;
       case "Yellow":
-        color = 0xFFFFFF00;
+        color = R.color.yellow;
         break;
       case "Green":
-        color = 0xFF008000;
+        color = R.color.green;
         break;
       case "Blue":
-        color = 0xFF0000FF;
+        color = R.color.blue;
         break;
       case "Purple":
-        color = 0xFF800080;
+        color = R.color.purple_200;
         break;
       case "Red":
       default:
-        color = 0xFFFF0000;
+        color = R.color.red;
         break;
     }
 
