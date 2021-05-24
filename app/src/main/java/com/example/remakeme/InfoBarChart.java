@@ -193,8 +193,8 @@ public class InfoBarChart extends Fragment{
                 endSet = true;
 
                 if (startSet && endSet) {
-                    int testing = getRatedEvents(80, 100);
-                    checkArraySize.setText(testing);
+                    Integer testing = getRatedEvents(80, 100);
+                    checkArraySize.setText(testing.toString());
                 }
             }
         };

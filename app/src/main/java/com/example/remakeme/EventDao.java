@@ -48,7 +48,7 @@ public interface EventDao {
           "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and " +
           "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate and " +
           "groupColor == :color")
-  List<Event> getByDateColor(String minDate, String maxDate, String color);
+  List<Event> getByDateColor(String minDate, String maxDate, int color);
 
   // How to use
   // https://stackoverflow.com/questions/54866247/android-assign-livedata-to-listview

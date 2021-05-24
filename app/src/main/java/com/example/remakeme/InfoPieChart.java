@@ -1,6 +1,7 @@
 package com.example.remakeme;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -38,6 +39,8 @@ public class InfoPieChart extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    Context context;
 
     TextView startText;
     TextView endText;
@@ -79,6 +82,9 @@ public class InfoPieChart extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        AppDatabase instance = AppDatabase.getInstance(requireContext());
+        eventDao = instance.getEventDao();
     }
 
     @Override
@@ -87,12 +93,11 @@ public class InfoPieChart extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_info_pie_chart, container, false);
 
+        context = container.getContext();
+
         startText = view.findViewById(R.id.startText);
         endText =  view.findViewById(R.id.endText);
         checkArraySize = view.findViewById(R.id.checkArraySize);
-
-        AppDatabase instance = AppDatabase.getInstance(getContext());
-        eventDao = instance.getEventDao();
 
         Button startButton = view.findViewById(R.id.startButton);
         Button endButton = view.findViewById(R.id.endButton);
@@ -193,8 +198,9 @@ public class InfoPieChart extends Fragment {
                 endSet = true;
 
                 if (startSet && endSet) {
-                    int testing = getColorEvents("Red");
-                    checkArraySize.setText(testing);
+                    List<Event> events = eventDao.getByDateColor(startDate, endDate, R.color.red);
+//                    int testing = getColorEvents("Red");
+                    checkArraySize.setText(Integer.toString(events.size()));
                 }
             }
         };
@@ -207,7 +213,7 @@ public class InfoPieChart extends Fragment {
     }
 
 
-    private int getColorEvents(String color) {
+    private int getColorEvents(int color) {
         List<Event> events = eventDao.getByDateColor(startDate, endDate, color);
         return events.size();
     }
