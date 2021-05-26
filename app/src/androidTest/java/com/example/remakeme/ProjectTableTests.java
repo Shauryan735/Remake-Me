@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -74,11 +73,18 @@ public class ProjectTableTests {
     project.addEventID(3);
 
     projectDao.insert(project);
-    List<Project> projects = projectDao.getProjectByEventId(1);
+    List<Project> projects = projectDao.getProjectsByEventId(1);
 
     ArrayList<Long> events = projects.get(0).getEventIds();
 
     assertEquals(new Long(1), events.get(0));
+
+    Project project1 = new Project();
+    project.addEventID(4);
+    projectDao.insert(project);
+    projects = projectDao.getProjectsByEventId(4);
+    events = projects.get(0).getEventIds();
+    assertEquals(new Long(4), events.get(0));
   }
 
 }

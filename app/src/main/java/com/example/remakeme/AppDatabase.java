@@ -14,8 +14,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 /**
  * Database to store event data.
  */
-@Database(entities = {Event.class, Project.class},
-        version = 3, exportSchema = true)
+@Database(entities = {Event.class, Project.class, Reflection.class},
+        version = 4, exportSchema = true)
 @TypeConverters({CalendarConverter.class, ArraySqlConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
   private static final String DB_NAME = "calendar_db";
@@ -36,4 +36,5 @@ public abstract class AppDatabase extends RoomDatabase {
 
   public abstract EventDao getEventDao();
   public abstract ProjectDao getProjectDao();
+  public abstract ReflectionDao getReflectionDao();
 }

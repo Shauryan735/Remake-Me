@@ -51,8 +51,8 @@ public interface EventDao {
   @Query("SELECT * FROM events WHERE " +
           "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and " +
           "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate and " +
-          "groupColor == :color")
-  List<Event> getByDateColor(String minDate, String maxDate, String color);
+          "groupColor = :color")
+  List<Event> getByDateColor(String minDate, String maxDate, int color);
 
   // How to use
   // https://stackoverflow.com/questions/54866247/android-assign-livedata-to-listview
@@ -76,6 +76,12 @@ public interface EventDao {
 
   @Query("SELECT datetime(eventStart/1000, 'unixepoch', 'localtime') FROM events")
   List<String> getDateTimes();
+
+  @Query("SELECT * FROM events "
+          + "INNER JOIN projects "
+          + "on events.event_id || ', ' like projects.event_ids "
+          + "WHERE projects.project_id = :pid")
+  List<Event> getProjectEvents(long pid);
 
   @Query("DELETE FROM events")
   void clearAll();

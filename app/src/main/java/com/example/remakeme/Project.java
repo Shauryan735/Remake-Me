@@ -51,4 +51,8 @@ public class Project {
   public void addEventID(long eventId) {
     this.eventIds.add(new Long(eventId));
   }
+
+  public void removeEventId(long eventId) {
+    this.eventIds.remove(new Long(eventId));
+  }
 }
