@@ -79,12 +79,11 @@ public class ProjectTableTests {
 
     assertEquals(new Long(1), events.get(0));
 
-    Project project1 = new Project();
     project.addEventID(4);
     projectDao.insert(project);
     projects = projectDao.getProjectsByEventId(4);
     events = projects.get(0).getEventIds();
-    assertEquals(new Long(4), events.get(0));
+    assertEquals(new Long(4), events.get(3));
   }
 
 }

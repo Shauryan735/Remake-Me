@@ -79,7 +79,7 @@ public interface EventDao {
 
   @Query("SELECT * FROM events "
           + "INNER JOIN projects "
-          + "on events.event_id || ', ' like projects.event_ids "
+          + "on projects.event_ids like '%' || events.event_id || ', ' || '%'"
           + "WHERE projects.project_id = :pid")
   List<Event> getProjectEvents(long pid);
 

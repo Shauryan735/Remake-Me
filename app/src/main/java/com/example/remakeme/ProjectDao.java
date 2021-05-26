@@ -14,7 +14,7 @@ public interface ProjectDao {
   @Query("SELECT * FROM projects")
   List<Project> getAll();
 
-  @Query("SELECT * FROM projects WHERE :id || ', ' like event_ids")
+  @Query("SELECT * FROM projects WHERE event_ids like '%' || :id || ', ' || '%'")
   List<Project> getProjectsByEventId(long id);
 
   @Update
