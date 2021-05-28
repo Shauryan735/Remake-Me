@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class DayViewV2 extends AppCompatActivity {
 
-  final String dateMessage = "Meme";
+  final static String dateMessage = "Meme";
   String date = "Meme 2.0";
   final String eventMessage = "event_key";
   final Context context = this;
@@ -36,6 +36,10 @@ public class DayViewV2 extends AppCompatActivity {
   NavigationView nav;
   ActionBarDrawerToggle toggle;
   DrawerLayout drawerLayout;
+
+  public static String getDateMessage() {
+    return dateMessage;
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

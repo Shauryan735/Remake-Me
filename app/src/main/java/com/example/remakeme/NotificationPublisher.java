@@ -14,8 +14,11 @@ import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+
+import static java.lang.Integer.parseInt;
 
 /**Creates notification and sends it to the device.*/
 public class NotificationPublisher extends BroadcastReceiver {
@@ -74,7 +77,7 @@ public class NotificationPublisher extends BroadcastReceiver {
     scheduleNotification(context, notification, delay, ((Long) event.getId()).toString());
   }
 
-  /**Public method to create a notification for an event.*/
+  /**Public method to create a notification for grading an event.*/
   public static void scheduleGradeEventNotification(Context context, Event event) {
     /*assert(event.getSendReminders());*///reminder for debugging
     Notification notification = getGradeEventNotification(
@@ -89,9 +92,55 @@ public class NotificationPublisher extends BroadcastReceiver {
     /*Toast.makeText(context,
           "sending grading notification in " + delay/1000/60 + " minutes", Toast.LENGTH_LONG)
           .show();*/
-    Long id = (Long) event.getId();
+    long id = (Long) event.getId();
     id += 0x69420;
-    scheduleNotification(context, notification, delay, id.toString());
+    scheduleNotification(context, notification, delay, Long.toString(id));
+  }
+
+  /**Public method to create a notification for a day's review.*/
+  public static void scheduleDayReviewNotification(Context context, String date) {
+    String[] dateParts = date.split("/");
+    Calendar calendar2 = Calendar.getInstance();
+    calendar2.set(Calendar.MONTH, parseInt(dateParts[0]) - 1);
+    calendar2.set(Calendar.DAY_OF_MONTH, parseInt(dateParts[1]));
+    calendar2.set(Calendar.YEAR, parseInt(dateParts[2]));
+    AppDatabase instance = AppDatabase.getInstance(context);
+    EventDao eventDao = instance.getEventDao();
+    List<Event> dayEvents = eventDao.getNonLiveByDay(Event.getDbFormattedDate(calendar2));
+    int event;
+    if((event = getLastEventEnd(dayEvents)) >= 0){
+      Notification notification = getDayReviewNotification(context,
+          date, 69420000, dayEvents.get(event).getEventEnd());
+
+      Calendar nowLocal = Calendar.getInstance(Locale.getDefault());
+      long delay = dayEvents.get(event).getEventEnd().getTimeInMillis()
+          - nowLocal.getTimeInMillis();
+      if(nowLocal.get(Calendar.HOUR_OF_DAY) >= 12){
+        delay += (12 * 3600 * 1000);
+      }
+      /*Toast.makeText(context,
+          "sending notification in " + delay/1000/60 + " minutes", Toast.LENGTH_LONG)
+          .show();*/
+      scheduleNotification(context, notification, delay, "69420000");
+    }
+    /*else {
+      Toast.makeText(context,
+          "not sending dayReview notification", Toast.LENGTH_LONG)
+          .show();
+    }*/
+  }
+
+  private static int getLastEventEnd(List<Event> events){
+    if(events.size() == 0){
+      return -1;
+    }
+    int lastEnd = 0;
+    for(int i=1; i<events.size(); i++){
+      if(events.get(i).getEventEnd().getTimeInMillis() > events.get(lastEnd).getEventEnd().getTimeInMillis()){
+        lastEnd = i;
+      }
+    }
+    return lastEnd;
   }
 
   private static void scheduleNotification(Context context,
@@ -176,6 +225,36 @@ public class NotificationPublisher extends BroadcastReceiver {
     intent.putExtra(EVENT_MESSAGE, id);
 
     intent.putExtra(NotificationPublisher.getExtraMessage(), message);
+    TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+    stackBuilder.addNextIntentWithParentStack(intent);
+    return stackBuilder.getPendingIntent((int) id, 0);
+  }
+
+  private static Notification getDayReviewNotification(
+      Context context, String date, long id, Calendar end) {
+    NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
+        default_notification_channel_id);
+    builder.setContentTitle("Review yourself for");
+    builder.setContentText(date);
+    builder.setSmallIcon(R.drawable.logo);
+    builder.setAutoCancel(true);
+    long time = end.getTimeInMillis();
+    if(Calendar.getInstance(Locale.getDefault()).get(Calendar.HOUR_OF_DAY) >= 12){
+      time += 12 * 3600 * 1000;
+    }
+    builder.setWhen(time);
+    builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+    builder.setChannelId(NOTIFICATION_CHANNEL_ID);
+    builder.setContentIntent(getDayReviewNotificationIntent(context, date, id));
+    return builder.build();
+  }
+
+  private static PendingIntent getDayReviewNotificationIntent(
+      Context context, String date, long id) {
+    Intent intent = new Intent(context, DayReview.class);
+    intent.putExtra(EVENT_MESSAGE, id);
+
+    intent.putExtra(DayViewV2.getDateMessage(), date);
     TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
     stackBuilder.addNextIntentWithParentStack(intent);
     return stackBuilder.getPendingIntent((int) id, 0);
