@@ -185,7 +185,7 @@ public class EventsTableTests {
         assertEquals(1, result.size());
         assertEquals(new Double(75), result.get(0));
 
-        /*
+
         event.setGrade(90);
         Calendar temp = event.getEventStart();
         temp.add(Calendar.DATE, 1);
@@ -195,6 +195,6 @@ public class EventsTableTests {
         assertEquals(2, result.size());
         assertEquals(new Double(75), result.get(0));
         assertEquals(new Double(90), result.get(1));
-         */
+
     }
 }
