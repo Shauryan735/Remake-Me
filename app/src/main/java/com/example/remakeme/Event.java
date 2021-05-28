@@ -327,4 +327,17 @@ public class Event {
         return R.drawable.red_boarder;
     }
   }
+
+  /*
+  public int getColoredStar() {
+    if (this.grade == 100) {
+      return R.drawable.goldStar;
+    } else if (this.grade > 85) {
+      return R.drawable.silverStar;
+    } else if (this.grade > 70) {
+      return R.drawable.bronzeStar;
+    } else {
+      return R.drawable.emptyStar;
+    }
+  } */
 }

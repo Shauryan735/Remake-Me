@@ -20,10 +20,10 @@
 
     <TextView
         android:id="@+id/eventTime"
-        android:layout_width="fill_parent"
-        android:layout_height="26dip"
-        android:layout_alignParentEnd="true"
+        android:layout_width="251dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="1dp"
         android:layout_toEndOf="@id/eventColor"
         android:singleLine="true"
         android:text="@string/desc"
@@ -32,17 +32,28 @@
 
     <TextView
         android:id="@+id/eventName"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="257dp"
+        android:layout_height="32dp"
         android:layout_alignWithParentIfMissing="true"
         android:layout_above="@id/eventTime"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="82dp"
+        android:layout_marginBottom="2dp"
         android:layout_toEndOf="@id/eventColor"
         android:gravity="center_vertical"
         android:text="@string/example_App"
         android:textColor="@color/black"
         android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/eventGrade"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="6dp" />
 
 
 </RelativeLayout>
