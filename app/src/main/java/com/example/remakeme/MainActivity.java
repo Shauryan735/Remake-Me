@@ -103,9 +103,6 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  /**
-   * Sets the date equal to the current actual date.
-   */
   /*public void setDate(View view) {
     CalendarView simpleCalendarView = findViewById(R.id.calender);
     long selectedDate = simpleCalendarView.getDate();

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class DayViewV2 extends AppCompatActivity {
 
-  final static String dateMessage = "Meme";
+  static final String dateMessage = "Meme";
   String date = "Meme 2.0";
   final String eventMessage = "event_key";
   final Context context = this;
@@ -56,42 +56,39 @@ public class DayViewV2 extends AppCompatActivity {
     drawerLayout.addDrawerListener(toggle);
     toggle.syncState();
 
-    nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-      @Override
-      public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    nav.setNavigationItemSelectedListener(item -> {
 
-        switch (item.getItemId()) {
-          case R.id.navmenu_home:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            Intent intent = new Intent(DayViewV2.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-            break;
-          case R.id.navmenu_dayView:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            break;
-          case R.id.navmenu_newEvent:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            Intent event = new Intent(DayViewV2.this, AddEvent.class);
-            startActivity(event);
-            finish();
-            break;
-          case R.id.navmenu_infographics:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            Intent info = new Intent(DayViewV2.this, Infographics.class);
-            startActivity(info);
-            finish();
-            break;
-          case R.id.navmenu_reflection:
-          default:
-            drawerLayout.closeDrawer(GravityCompat.START);
-            Intent reflect = new Intent(DayViewV2.this, DailyReflection.class);
-            startActivity(reflect);
-            finish();
-            break;
-        }
-        return true;
+      switch (item.getItemId()) {
+        case R.id.navmenu_home:
+          drawerLayout.closeDrawer(GravityCompat.START);
+          Intent intent = new Intent(DayViewV2.this, MainActivity.class);
+          startActivity(intent);
+          finish();
+          break;
+        case R.id.navmenu_dayView:
+          drawerLayout.closeDrawer(GravityCompat.START);
+          break;
+        case R.id.navmenu_newEvent:
+          drawerLayout.closeDrawer(GravityCompat.START);
+          Intent event = new Intent(DayViewV2.this, AddEvent.class);
+          startActivity(event);
+          finish();
+          break;
+        case R.id.navmenu_infographics:
+          drawerLayout.closeDrawer(GravityCompat.START);
+          Intent info = new Intent(DayViewV2.this, Infographics.class);
+          startActivity(info);
+          finish();
+          break;
+        case R.id.navmenu_reflection:
+        default:
+          drawerLayout.closeDrawer(GravityCompat.START);
+          Intent reflect = new Intent(DayViewV2.this, DailyReflection.class);
+          startActivity(reflect);
+          finish();
+          break;
       }
+      return true;
     });
 
     Toolbar toolbar2 = findViewById(R.id.dayViewToolbar);
@@ -101,14 +98,11 @@ public class DayViewV2 extends AppCompatActivity {
     ab.setDisplayHomeAsUpEnabled(true);
 
     FloatingActionButton fab = findViewById(R.id.fab);
-    fab.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Intent intent = AddEvent.makeIntent(context);
-        intent.putExtra(dateMessage, date);
-        startActivity(intent);
-        finish();
-      }
+    fab.setOnClickListener(view -> {
+      Intent intent = AddEvent.makeIntent(context);
+      intent.putExtra(dateMessage, date);
+      startActivity(intent);
+      finish();
     });
 
     Intent intent = getIntent();
@@ -122,34 +116,26 @@ public class DayViewV2 extends AppCompatActivity {
     calendar.set(Calendar.MONTH, parseInt(dateParts[0]) - 1);
     calendar.set(Calendar.DAY_OF_MONTH, parseInt(dateParts[1]));
     calendar.set(Calendar.YEAR, parseInt(dateParts[2]));
-    Calendar prevDay = calendar;
-    prevDay.add(Calendar.HOUR, -24);
-    String prevDate = Event.getFormattedDate(prevDay);
+    calendar.add(Calendar.HOUR, -24);
+    String prevDate = Event.getFormattedDate(calendar);
 
     Button prevDayButton = findViewById(R.id.prevDay);
-    prevDayButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Intent intent = DayViewV2.makeIntent(context);
-        intent.putExtra(dateMessage, prevDate);
-        startActivity(intent);
-        finish();
-      }
+    prevDayButton.setOnClickListener(view -> {
+      Intent intent1 = DayViewV2.makeIntent(context);
+      intent1.putExtra(dateMessage, prevDate);
+      startActivity(intent1);
+      finish();
     });
 
-    Calendar nextDay = calendar;
-    nextDay.add(Calendar.HOUR, 48);
-    String nextDate = Event.getFormattedDate(nextDay);
+    calendar.add(Calendar.HOUR, 48);
+    String nextDate = Event.getFormattedDate(calendar);
 
     Button nextDayButton = findViewById(R.id.nextDay);
-    nextDayButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Intent intent = DayViewV2.makeIntent(context);
-        intent.putExtra(dateMessage, nextDate);
-        startActivity(intent);
-        finish();
-      }
+    nextDayButton.setOnClickListener(view -> {
+      Intent intent12 = DayViewV2.makeIntent(context);
+      intent12.putExtra(dateMessage, nextDate);
+      startActivity(intent12);
+      finish();
     });
 
     AppDatabase instance = AppDatabase.getInstance(this);
@@ -194,15 +180,11 @@ public class DayViewV2 extends AppCompatActivity {
     ListView listView = findViewById(R.id.listView);
     listView.setAdapter(adapter);
 
-    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> parent, View view,
-                              int position, long id) {
-        Intent intent = EventView.makeIntent(context);
-        intent.putExtra(eventMessage, dayEvents.get(position).getId());
-        startActivity(intent);
-        finish();
-      }
+    listView.setOnItemClickListener((parent, view, position, id) -> {
+      Intent intent13 = EventView.makeIntent(context);
+      intent13.putExtra(eventMessage, dayEvents.get(position).getId());
+      startActivity(intent13);
+      finish();
     });
   }
 

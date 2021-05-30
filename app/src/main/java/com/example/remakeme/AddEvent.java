@@ -1,10 +1,12 @@
 package com.example.remakeme;
 
+import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
+
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-// import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,11 +15,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
-// import android.widget.Toast;
-// import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
@@ -27,9 +26,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import static java.lang.Integer.parseInt;
-import static java.lang.Long.parseLong;
 
 /**
  * Activity to create events for the calendar.
@@ -81,7 +77,8 @@ public class AddEvent extends AppCompatActivity {
 
     btnDate = findViewById(R.id.editTextDate);
     btnDate.setText(date);
-    /*btnDate.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.attr.colorSecondary));*/
+    /*btnDate.setBackgroundTintList(
+    * AppCompatResources.getColorStateList(this, R.attr.colorSecondary));*/
 
     AppDatabase instance = AppDatabase.getInstance(this);
     eventDao = instance.getEventDao();
@@ -504,9 +501,9 @@ public class AddEvent extends AppCompatActivity {
     }
   }
 
-  DatePickerDialog.OnDateSetListener dateSet = new DatePickerDialog.OnDateSetListener(){
+  DatePickerDialog.OnDateSetListener dateSet = new DatePickerDialog.OnDateSetListener() {
     @Override
-    public void onDateSet (DatePicker view , int year , int monthOfYear , int dayOfMonth) {
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
       myCalendar.set(Calendar.YEAR, year);
       myCalendar.set(Calendar.MONTH, monthOfYear);
       myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -514,7 +511,8 @@ public class AddEvent extends AppCompatActivity {
     }
   };
 
-  public void setDate (View view) {
+  /**Sets the date in the datePickerDialogue button.*/
+  public void setDate(View view) {
     new DatePickerDialog(
         AddEvent.this, dateSet,
         myCalendar.get(Calendar.YEAR),
@@ -523,9 +521,9 @@ public class AddEvent extends AppCompatActivity {
     ).show();
   }
 
-  private void updateLabel () {
+  private void updateLabel() {
     String myFormat = "MM/dd/yyyy"; //In which you need put here
-    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault()) ;
+    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
     Date date = myCalendar.getTime();
     btnDate.setText(sdf.format(date));
   }
@@ -655,7 +653,7 @@ public class AddEvent extends AppCompatActivity {
         NotificationPublisher.scheduleEventNotification(this, event);
       }
 
-      if(event.isGraded()){
+      if (event.isGraded()) {
         NotificationPublisher.scheduleGradeEventNotification(this, event);
       }
 
@@ -741,7 +739,7 @@ public class AddEvent extends AppCompatActivity {
   }
 
   private long getRemindOffset() {
-    assert(!reminder.equals("Never"));
+    assert (!reminder.equals("Never"));
     return parseLong(reminder.split(" ")[0]) * 60000;
   }
 }

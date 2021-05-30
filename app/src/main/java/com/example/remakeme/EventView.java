@@ -131,7 +131,7 @@ public class EventView extends AppCompatActivity {
     return new Intent(context, EventView.class);
   }
 
-  /**When the corresponding button is pushed, the addEvent activity is intiated in edit mode.*/
+  /**When the corresponding button is pushed, the addEvent activity is initiated in edit mode.*/
   public void editEvent(View view) {
     Intent intent = new Intent(EventView.this, AddEvent.class);
     intent.putExtra(eventMessage, eventId);
@@ -169,6 +169,7 @@ public class EventView extends AppCompatActivity {
     finish();
   }
 
+  /**Returns the user to the DayView Activity.*/
   public void back(View view) {
     Intent intent = new Intent(EventView.this, DayViewV2.class);
     intent.putExtra(DATE_MESSAGE, Event.getFormattedDate(event.getEventStart()));

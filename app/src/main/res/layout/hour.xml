@@ -53,7 +53,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="6dp" />
+        android:layout_marginEnd="6dp"
+        android:contentDescription="TODO" />
 
 
 </RelativeLayout>

@@ -1,16 +1,15 @@
 package com.example.remakeme;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 
+/**DayReview activity.*/
 public class DayReview extends AppCompatActivity {
 
-
-  final static String dateMessage = "Meme";
   String date = "Meme 2.0";
+  static final String dateMessage = "Meme";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
