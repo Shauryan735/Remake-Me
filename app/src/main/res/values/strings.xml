@@ -39,5 +39,7 @@
     <string name="example_App">Example application</string>
     <string name="select_date">Select Date</string>
     <string name="graded">Graded</string>
+    <string name="home">Home</string>
+    <string name="day">Day</string>
 
 </resources>

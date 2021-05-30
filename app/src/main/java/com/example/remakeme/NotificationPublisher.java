@@ -112,7 +112,7 @@ public class NotificationPublisher extends BroadcastReceiver {
 
       Calendar nowLocal = Calendar.getInstance(Locale.getDefault());
       long delay = dayEvents.get(event).getEventEnd().getTimeInMillis()
-          - nowLocal.getTimeInMillis();
+          - nowLocal.getTimeInMillis() + 900000;
       if (nowLocal.get(Calendar.HOUR_OF_DAY) >= 12) {
         delay += (12 * 3600 * 1000);
       }
