@@ -41,5 +41,9 @@
     <string name="graded">Graded</string>
     <string name="home">Home</string>
     <string name="day">Day</string>
+    <string name="avg_day_grade">Average grade today:</string>
+    <string name="avg_week_grade">Average grade this week:</string>
+    <string name="avg_month_grade">Average grade this month:</string>
+    <string name="recommendation">Recommendation…</string>
 
 </resources>

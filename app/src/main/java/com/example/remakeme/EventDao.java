@@ -95,13 +95,15 @@ public interface EventDao {
   double getAverageGradeInRange(String minDate, String maxDate);
 
   @Query("SELECT avg_grade from ("
-          + "SELECT substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) as date, "
-          + "avg(grade) as avg_grade "
-          + "FROM events "
-          + "WHERE graded = 1 "
-          + "GROUP BY date "
-          + "ORDER BY date)")
-  List<Double> getAverageGrades();
+      + "SELECT substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) as date, "
+      + "avg(grade) as avg_grade "
+      + "FROM events "
+      + "WHERE graded = 1 and "
+      + "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate "
+      + "GROUP BY date "
+      + "ORDER BY date)")
+  List<Double> getAverageGrades(String maxDate);
+
 
   @Query("SELECT avg_grade from ("
           + "SELECT substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) as date, "

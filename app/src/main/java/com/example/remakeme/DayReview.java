@@ -1,31 +1,32 @@
 package com.example.remakeme;
 
+import static java.lang.Integer.parseInt;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.google.android.material.navigation.NavigationView;
-
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
-import static java.lang.Integer.parseInt;
-import static java.lang.Math.random;
 
 /**DayReview activity.*/
 public class DayReview extends AppCompatActivity {
 
   String date = "Meme 2.0";
   static final String dateMessage = "Meme";
+  static final int streakThreshold = 85;
   NavigationView nav;
   ActionBarDrawerToggle toggle;
   DrawerLayout drawerLayout;
@@ -106,7 +107,7 @@ public class DayReview extends AppCompatActivity {
       finish();
     });
 
-    TextView textView = findViewById(R.id.textView);
+    TextView textView = findViewById(R.id.dayRevDate);
     textView.setText(date);
 
     String[] dateParts = date.split("/");
@@ -132,9 +133,46 @@ public class DayReview extends AppCompatActivity {
         Event.getDbFormattedDate(calendar2), Event.getDbFormattedDate(calendar));
 
     String recommendation = getRecommendation(daysAvgGrade, weekAvgGrade);
-    Toast.makeText(this,
-        date + " has recommendation " + recommendation, Toast.LENGTH_LONG)
-        .show();
+    TextView dayAvg = findViewById(R.id.dayRevDayAvgData);
+    dayAvg.setText(new StringBuilder().append((int)daysAvgGrade).append("/100").toString());
+    TextView weekAvg = findViewById(R.id.dayRevWeekAvgData);
+    weekAvg.setText(new StringBuilder().append((int)weekAvgGrade).append("/100").toString());
+    TextView monthAvg = findViewById(R.id.dayRevMonthAvgData);
+    monthAvg.setText(new StringBuilder().append((int)monthAvgGrade).append("/100").toString());
+    TextView recc = findViewById(R.id.dayRevRec);
+    recc.setText(recommendation);
+
+    List<Double> grades = eventDao.getAverageGrades(Event.getDbFormattedDate(calendar));
+    int streakLen = 0;
+    for (int i = grades.size() - 1; i > 0; i--) {
+      if (grades.get(i) >= streakThreshold) {
+        streakLen += 1;
+      } else {
+        break;
+      }
+    }
+    TextView streak = findViewById(R.id.dayRevStreak);
+    streak.setText(getStreakMessage(streakLen));
+  }
+
+  private String getStreakMessage(int streakLen){
+    View relativeLayout = findViewById(R.id.dayReview);
+    if (streakLen > 0) {
+      relativeLayout.setBackgroundResource(R.drawable.red_boarder);
+    }
+    if (streakLen == 0) {
+      return "Get your grades up to start a streak!";
+    }
+    if (streakLen < 7) {
+      relativeLayout.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.star_bronze));
+      return streakLen + " day streak!";
+    }
+    if (streakLen < 28) {
+      relativeLayout.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.star_silver));
+      return streakLen + " day streak!";
+    }
+    relativeLayout.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.star_gold));
+    return streakLen + " day streak!";
   }
 
   private String getRecommendation(double daysAvgGrade, double weekAvgGrade) {
@@ -162,7 +200,7 @@ public class DayReview extends AppCompatActivity {
     } else {
       Random rand = new Random();
       int antiCheat = rand.nextInt(100);
-      if(antiCheat != 99) {
+      if (antiCheat != 99) {
         rec += "Keep up the good work!\n";
       } else {
         rec += "You've got good grades. I sure hope you're being honest!\n";

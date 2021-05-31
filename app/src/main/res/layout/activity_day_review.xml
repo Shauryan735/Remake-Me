@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/dayRevDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -25,6 +25,135 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/Theme.Testing.PopupOverlay" />
+
+        <TextView
+            android:id="@+id/dayRevDayAvg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:inputType="none"
+            android:text="@string/avg_day_grade"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dayRevDate" />
+
+        <TextView
+            android:id="@+id/dayRevDayAvgData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:inputType="none"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/dayRevDayAvg"
+            app:layout_constraintTop_toBottomOf="@+id/dayRevDate" />
+
+        <TextView
+            android:id="@+id/dayRevWeekAvg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:inputType="none"
+            android:text="@string/avg_week_grade"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dayRevDayAvgData" />
+
+        <TextView
+            android:id="@+id/dayRevWeekAvgData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:inputType="none"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/dayRevWeekAvg"
+            app:layout_constraintTop_toBottomOf="@+id/dayRevDayAvgData" />
+
+        <TextView
+            android:id="@+id/dayRevMonthAvg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:inputType="none"
+            android:text="@string/avg_month_grade"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dayRevWeekAvgData" />
+
+        <TextView
+            android:id="@+id/dayRevMonthAvgData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:inputType="none"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/dayRevMonthAvg"
+            app:layout_constraintTop_toBottomOf="@+id/dayRevWeekAvgData" />
+
+        <TextView
+            android:id="@+id/dayRevRec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/recommendation"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="28sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dayRevMonthAvgData" />
+
+        <TextView
+            android:id="@+id/dayRevStreak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/recommendation"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="28sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dayRevRec" />
 
         <Button
             android:id="@+id/dayRevBack"
@@ -52,6 +181,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/dayReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
