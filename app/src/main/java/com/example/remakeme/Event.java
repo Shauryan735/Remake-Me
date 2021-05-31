@@ -45,6 +45,8 @@ public class Event {
   private boolean graded;
   private int grade;
 
+  private long projectId;
+
   /**
   * Event default constructor method.
   */
@@ -208,6 +210,14 @@ public class Event {
 
   public void setReviewNote(String reviewNote) {
     this.reviewNote = reviewNote;
+  }
+
+  public long getProjectId() {
+    return projectId;
+  }
+
+  public void setProjectId(long projectId) {
+    this.projectId = projectId;
   }
 
   /**

@@ -12,14 +12,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.security.spec.ECField;
 import java.util.Calendar;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
-public class DatabaseUnitTests {
+public class EventsTableTests {
     private EventDao eventDao;
+    private ProjectDao projectDao;
     private AppDatabase db;
 
     @Before
@@ -28,6 +30,7 @@ public class DatabaseUnitTests {
         context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase.class).build();
         eventDao = db.getEventDao();
+        projectDao = db.getProjectDao();
     }
 
     @After
@@ -70,12 +73,12 @@ public class DatabaseUnitTests {
         event.setEventStart(Calendar.getInstance());
         eventDao.insertAll(event);
 
-        List<Event> months = eventDao.getByMonth("04");
+        List<Event> months = eventDao.getByMonth("05");
         assertEquals(2, months.size());
         assertEquals("1st Event", months.get(0).getEventName());
         assertEquals("2nd Event", months.get(1).getEventName());
 
-        List<Event> no_months = eventDao.getByMonth("05");
+        List<Event> no_months = eventDao.getByMonth("06");
         assertEquals(0, no_months.size());
         eventDao.deleteAll(months.get(0), months.get(1));
     }
@@ -133,7 +136,7 @@ public class DatabaseUnitTests {
 
         List<String> dateTimes = eventDao.getDateTimes();
         //assertEquals("", dateTimes.get(0));
-        List<Event> eventList = eventDao.getNonLiveByDay("2021-05-08");
+        List<Event> eventList = eventDao.getNonLiveByDay("2021-05-25");
         assertEquals("other name", eventList.get(0).getEventName());
 
     }
@@ -144,7 +147,29 @@ public class DatabaseUnitTests {
         event.setEventName("test_event");
         event.setGroupColor(R.color.red);
         long eId = eventDao.insert(event);
-        List<Event> result = eventDao.getByDateColor("2021-05-24","2021-05-24", R.color.red);
+        List<Event> result = eventDao.getByDateColor("2021-05-25","2021-05-25", R.color.red);
         assertEquals(1, result.size());
+    }
+
+    @Test
+    public void test_getEventsByProject_Id(){
+        Event event = new Event();
+        event.setEventName("test_event");
+        long eId = eventDao.insert(event);
+        event.setEventName("test_event2");
+        long eId2 = eventDao.insert(event);
+
+        Project project = new Project();
+        project.setProjectName("test_project");
+        project.addEventID(eId);
+        project.addEventID(eId2);
+        long pId = projectDao.insert(project);
+
+        List<Event> result = eventDao.getProjectEvents(pId);
+        assertEquals(2, result.size());
+        Event rEvent = result.get(0);
+        assertEquals("test_event", rEvent.getEventName());
+        Event rEvent2 = result.get(1);
+        assertEquals("test_event2", rEvent2.getEventName());
     }
 }

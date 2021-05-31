@@ -19,6 +19,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,7 +45,8 @@ public class InfoPieChart extends Fragment {
 
     TextView startText;
     TextView endText;
-    TextView checkArraySize;
+    FloatingActionButton showChart;
+    PieChart pieChart;
 
     private EventDao eventDao;
 
@@ -52,6 +54,14 @@ public class InfoPieChart extends Fragment {
     private String endDate;
     private boolean startSet = false;
     private boolean endSet = false;
+
+    private int redEvents = 0;
+    private int orangeEvents = 0;
+    private int yellowEvents = 0;
+    private int greenEvents = 0;
+    private int blueEvents = 0;
+    private int purpleEvents = 0;
+
 
     public InfoPieChart() {
         // Required empty public constructor
@@ -97,7 +107,7 @@ public class InfoPieChart extends Fragment {
 
         startText = view.findViewById(R.id.startText);
         endText =  view.findViewById(R.id.endText);
-        checkArraySize = view.findViewById(R.id.checkArraySize);
+        showChart = view.findViewById(R.id.showChart);
 
         Button startButton = view.findViewById(R.id.startButton);
         Button endButton = view.findViewById(R.id.endButton);
@@ -118,27 +128,51 @@ public class InfoPieChart extends Fragment {
 
         //TODO: Import events from Database
 
-        PieChart pieChart = view.findViewById(R.id.pieChart);
+        pieChart = view.findViewById(R.id.pieChart);
+        pieChart.setVisibility(view.INVISIBLE);
 
-        ArrayList<PieEntry> testData = new ArrayList<>();
+        showChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        testData.add(new PieEntry(30, "Red"));
-        testData.add(new PieEntry(70, "Yellow"));
-        testData.add(new PieEntry(40, "Blue"));
-        testData.add(new PieEntry(10, "Green"));
-        testData.add(new PieEntry(40, "Orange"));
+                pieChart.notifyDataSetChanged();
+                pieChart.invalidate();
 
+                pieChart.setVisibility(view.VISIBLE);
 
-        PieDataSet pieDataSet = new PieDataSet(testData, "Colors");
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        pieDataSet.setValueTextColor(Color.BLACK);
-        pieDataSet.setValueTextSize(16f);
+                ArrayList<PieEntry> testData = new ArrayList<>();
 
-        PieData pieData = new PieData(pieDataSet);
+                if (redEvents > 0) {
+                    testData.add(new PieEntry(redEvents, "Red"));
+                }
+                if (orangeEvents > 0) {
+                    testData.add(new PieEntry(orangeEvents, "Orange"));
+                }
+                if (yellowEvents > 0) {
+                    testData.add(new PieEntry(yellowEvents, "Yellow"));
+                }
+                if (greenEvents > 0) {
+                    testData.add(new PieEntry(greenEvents, "Green"));
+                }
+                if (blueEvents > 0) {
+                    testData.add(new PieEntry(blueEvents, "Blue"));
+                }
+                if (purpleEvents > 0) {
+                    testData.add(new PieEntry(purpleEvents, "Purple"));
+                }
 
-        pieChart.setData(pieData);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setCenterText("Colors");
+                PieDataSet pieDataSet = new PieDataSet(testData, "Colors");
+                pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                pieDataSet.setValueTextColor(Color.BLACK);
+                pieDataSet.setValueTextSize(16f);
+
+                PieData pieData = new PieData(pieDataSet);
+
+                pieChart.setData(pieData);
+                pieChart.getDescription().setEnabled(false);
+                pieChart.setCenterText("Colors");
+                }
+        });
 
         return view;
     }
@@ -150,19 +184,7 @@ public class InfoPieChart extends Fragment {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month++;
-                String dayString;
-                String monthString;
-                if (day < 10){
-                    dayString = "0" + day;
-                } else {
-                    dayString = "" + day;
-                }
-                if (month < 10){
-                    monthString = "0" + month;
-                } else {
-                    monthString = "" + month;
-                }
-                startDate = year + "-" + monthString + "-" + dayString;
+                startDate = setDateString(year, month, day);
                 startText.setText(startDate);
                 startSet = true;
             }
@@ -181,26 +203,24 @@ public class InfoPieChart extends Fragment {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month++;
-                String dayString;
-                String monthString;
-                if (day < 10){
-                    dayString = "0" + day;
-                } else {
-                    dayString = "" + day;
-                }
-                if (month < 10){
-                    monthString = "0" + month;
-                } else {
-                    monthString = "" + month;
-                }
-                endDate = year + "-" + monthString + "-" + dayString;
+                endDate = setDateString(year, month, day);
                 endText.setText(endDate);
                 endSet = true;
 
                 if (startSet && endSet) {
-                    List<Event> events = eventDao.getByDateColor(startDate, endDate, R.color.green);
-//                    int testing = getColorEvents("Red");
-                    checkArraySize.setText(Integer.toString(events.size()));
+                    List<Event> events = eventDao.getByDateColor(startDate, endDate, R.color.red);
+                    redEvents = events.size();
+                    events = eventDao.getByDateColor(startDate, endDate, R.color.orange);
+                    orangeEvents = events.size();
+                    events = eventDao.getByDateColor(startDate, endDate, R.color.yellow);
+                    yellowEvents = events.size();
+                    events = eventDao.getByDateColor(startDate, endDate, R.color.green);
+                    greenEvents = events.size();
+                    events = eventDao.getByDateColor(startDate, endDate, R.color.blue);
+                    blueEvents = events.size();
+                    events = eventDao.getByDateColor(startDate, endDate, R.color.purple_200);
+                    purpleEvents = events.size();
+
                 }
             }
         };
@@ -212,10 +232,21 @@ public class InfoPieChart extends Fragment {
         datePickerDialog.show();
     }
 
-
-    private int getColorEvents(int color) {
-        List<Event> events = eventDao.getByDateColor(startDate, endDate, color);
-        return events.size();
+    private String setDateString(int year, int month, int day){
+        String dayString;
+        String monthString;
+        if (day < 10){
+            dayString = "0" + day;
+        } else {
+            dayString = "" + day;
+        }
+        if (month < 10){
+            monthString = "0" + month;
+        } else {
+            monthString = "" + month;
+        }
+        String date = year + "-" + monthString + "-" + dayString;
+        return date;
     }
 
 }
