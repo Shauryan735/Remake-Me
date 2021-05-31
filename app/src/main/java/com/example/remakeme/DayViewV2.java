@@ -139,13 +139,13 @@ public class DayViewV2 extends AppCompatActivity {
     });
 
     /**testing code for dayRev*/
-    Button dayRevButton = findViewById(R.id.dayRev);
+    /*Button dayRevButton = findViewById(R.id.dayRev);
     dayRevButton.setOnClickListener(view -> {
       Intent intent3 = new Intent(this, DayReview.class);
       intent3.putExtra(dateMessage, date);
       startActivity(intent3);
       finish();
-    });
+    });*/
 
     AppDatabase instance = AppDatabase.getInstance(this);
     EventDao eventDao = instance.getEventDao();
