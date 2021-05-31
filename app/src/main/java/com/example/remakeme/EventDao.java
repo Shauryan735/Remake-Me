@@ -20,58 +20,58 @@ public interface EventDao {
   @Query("SELECT * FROM events WHERE event_id IN (:event_ids)")
   List<Event> getById(long[] event_ids);
 
-  @Query("SELECT " +
-          "* " +
-          "FROM " +
-          "events " +
-          "WHERE date(eventStart) IN (date(:event_dates))")
+  @Query("SELECT "
+          + "* "
+          + "FROM "
+          + "events "
+          + "WHERE date(eventStart) IN (date(:event_dates))")
   List<Event> getByDates(String[] event_dates);
 
   @Query("SELECT * FROM events WHERE eventName IN (:event_names)")
   List<Event> getByName(String[] event_names);
 
   //ADD: get events for a month
-  @Query("SELECT " +
-          "* " +
-          "FROM " +
-          "events " +
-          "WHERE " +
-          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 6, 2) = :month")
+  @Query("SELECT "
+          + "* "
+          + "FROM "
+          + "events "
+          + "WHERE "
+          + "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 6, 2) = :month")
   List<Event> getByMonth(String month);
 
   //TODO: GET EVENT BY DATE RANGE AND GRADE RANGE
-  @Query("SELECT * FROM events WHERE " +
-          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and " +
-          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate and " +
-          "grade >= :minGrade and " +
-          "grade <= :maxGrade")
+  @Query("SELECT * FROM events WHERE "
+          + "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and "
+          + "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate and "
+          + "grade >= :minGrade and "
+          + "grade <= :maxGrade")
   List<Event> getByDateGrade(String minDate, String maxDate, int minGrade, int maxGrade);
 
   //TODO: GET EVENT BY DATE RANGE AND COLOR
-  @Query("SELECT * FROM events WHERE " +
-          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and " +
-          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate and " +
-          "groupColor = :color")
+  @Query("SELECT * FROM events WHERE "
+          + "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and "
+          + "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate and "
+          + "groupColor = :color")
   List<Event> getByDateColor(String minDate, String maxDate, int color);
 
   // How to use
   // https://stackoverflow.com/questions/54866247/android-assign-livedata-to-listview
   //"YYYY-MM-DD"
   //"2020-03-28"
-  @Query("SELECT " +
-          "* " +
-          "FROM " +
-          "events " +
-          "WHERE " +
-          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) = :day")
+  @Query("SELECT "
+          + "* "
+          + "FROM "
+          + "events "
+          + "WHERE "
+          + "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) = :day")
   LiveData<List<Event>> getByDay(String day);
 
-  @Query("SELECT " +
-          "* " +
-          "FROM " +
-          "events " +
-          "WHERE " +
-          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) = :day")
+  @Query("SELECT "
+          + "* "
+          + "FROM "
+          + "events "
+          + "WHERE "
+          + "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) = :day")
   List<Event> getNonLiveByDay(String day);
 
   @Query("SELECT datetime(eventStart/1000, 'unixepoch', 'localtime') FROM events")
@@ -84,20 +84,23 @@ public interface EventDao {
   List<Event> getProjectEvents(long pid);
 
   @Query("SELECT avg(grade) FROM events "
-          + "where substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) = :day")
+          + "where substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) = :day and "
+          + "graded = 1")
   double getDaysAverageGrade(String day);
 
-  @Query("SELECT avg(grade) FROM events WHERE " +
-          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and " +
-          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate")
+  @Query("SELECT avg(grade) FROM events WHERE "
+          + "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and "
+          + "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate and "
+          + "graded = 1")
   double getAverageGradeInRange(String minDate, String maxDate);
 
-  @Query("SELECT avg_grade from (" +
-          "SELECT substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) as date, " +
-          "avg(grade) as avg_grade " +
-          "FROM events " +
-          "GROUP BY date " +
-          "ORDER BY date)")
+  @Query("SELECT avg_grade from ("
+          + "SELECT substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) as date, "
+          + "avg(grade) as avg_grade "
+          + "FROM events "
+          + "WHERE graded = 1 "
+          + "GROUP BY date "
+          + "ORDER BY date)")
   List<Double> getAverageGrades();
 
   @Query("SELECT avg_grade from ("

@@ -75,7 +75,9 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
     viewHolder.eventColor.setOnClickListener(this);
     viewHolder.eventColor.setTag(position);
     viewHolder.eventColor.setImageResource(event.getGroupColoredBox());
-    viewHolder.eventGrade.setImageResource(R.drawable.star_icon);
+    if (event.isGraded()) {
+      viewHolder.eventGrade.setImageResource(event.getColoredStar());
+    }
     return convertView;
   }
 }
