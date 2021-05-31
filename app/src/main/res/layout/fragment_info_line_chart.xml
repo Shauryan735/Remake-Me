@@ -5,19 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".InfoBarChart">
+    tools:context=".InfoLineChart">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
+    
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
         android:layout_width="350dp"
         android:layout_height="500dp"
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" >
+
+
+    </com.github.mikephil.charting.charts.LineChart>
 
     <Button
         android:id="@+id/startButton"
@@ -35,7 +38,7 @@
         android:layout_marginStart="44dp"
         android:layout_marginBottom="8dp"
         android:text="End Date"
-        app:layout_constraintBottom_toTopOf="@+id/barChart"
+        app:layout_constraintBottom_toTopOf="@+id/lineChart"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -57,10 +60,22 @@
         android:layout_marginBottom="20dp"
         android:text="YYYY-MM-DD"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/barChart"
+        app:layout_constraintBottom_toTopOf="@+id/lineChart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.329"
         app:layout_constraintStart_toEndOf="@+id/endButton" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/showChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:clickable="true"
+        android:src="@drawable/infoicon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->

@@ -72,10 +72,12 @@ public class MainActivity extends AppCompatActivity {
         } else if (itemId == R.id.navmenu_infographics) {
           drawerLayout.closeDrawer(GravityCompat.START);
           Intent info = new Intent(MainActivity.this, Infographics.class);
+          info.putExtra(DATE_MESSAGE, MainActivity.date);
           startActivity(info);
         } else {
           drawerLayout.closeDrawer(GravityCompat.START);
           Intent reflect = new Intent(MainActivity.this, DailyReflection.class);
+          reflect.putExtra(DATE_MESSAGE, MainActivity.date);
           startActivity(reflect);
         }
         return true;

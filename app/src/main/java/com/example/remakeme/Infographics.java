@@ -80,8 +80,8 @@ public class Infographics extends AppCompatActivity {
     viewPager = findViewById(R.id.pager);
 
     PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-    pagerAdapter.addFragment(new InfoBarChart(), "Bar Chart");
-    pagerAdapter.addFragment(new InfoPieChart(), "Pie Chart");
+    pagerAdapter.addFragment(new InfoLineChart(), "Average Grade");
+    pagerAdapter.addFragment(new InfoPieChart(), "Event type division");
 
     viewPager.setAdapter(pagerAdapter);
     tabLayout.setupWithViewPager(viewPager);
