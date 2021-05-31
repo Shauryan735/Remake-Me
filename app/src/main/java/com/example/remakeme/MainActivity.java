@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
     date = df.format(c);
 
+    NotificationPublisher.scheduleDayReviewNotification(this, date);
+
     nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
       @Override
       public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -103,14 +105,11 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  /**
-   * Sets the date equal to the current actual date.
-   */
-  public void setDate(View view) {
+  /*public void setDate(View view) {
     CalendarView simpleCalendarView = findViewById(R.id.calender);
     long selectedDate = simpleCalendarView.getDate();
     simpleCalendarView.setDate(selectedDate);
-  }
+  }*/
 
 
   /*Toast.makeText(getApplicationContext(),

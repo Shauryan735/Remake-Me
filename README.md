@@ -17,3 +17,16 @@ RemakeMe is a calendar app designed to encourage self-reflection and thoughtful 
 
 Java Style Guide:
 https://google.github.io/styleguide/javaguide.html#s4.2-block-indentation
+
+Setting Up Coding Environment:
+1. Download Android Studio with all the recommended plugins
+2. Connect your GitHub account to Android Studio
+3. Create a new Android Studio Project using a GitHub repository, choosing this one
+4. Pull all the files from the repository
+5. If you want to test the app with a real phone:
+  a. Plug your phone in via USB and select your device in the Run menu
+6. If you want to test the app with an emulated device:
+  a. Open the AVD Manager
+  b. Create a new device, choosing Pixel XL and as the system image
+  c. Select for the build to run with the newly created device
+7. Run the app and start testing/developing the app!

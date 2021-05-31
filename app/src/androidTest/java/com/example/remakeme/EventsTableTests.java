@@ -172,4 +172,29 @@ public class EventsTableTests {
         Event rEvent2 = result.get(1);
         assertEquals("test_event2", rEvent2.getEventName());
     }
+
+    @Test
+    public void test_getAverageGrades(){
+        Event event = new Event();
+        event.setGrade(100);
+        eventDao.insert(event);
+        event.setGrade(50);
+        eventDao.insert(event);
+
+        List<Double> result = eventDao.getAverageGrades();
+        assertEquals(1, result.size());
+        assertEquals(new Double(75), result.get(0));
+
+
+        event.setGrade(90);
+        Calendar temp = event.getEventStart();
+        temp.add(Calendar.DATE, 1);
+        event.setEventStart(temp);
+        eventDao.insert(event);
+        result = eventDao.getAverageGrades();
+        assertEquals(2, result.size());
+        assertEquals(new Double(75), result.get(0));
+        assertEquals(new Double(90), result.get(1));
+
+    }
 }

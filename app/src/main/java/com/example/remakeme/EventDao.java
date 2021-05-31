@@ -83,6 +83,23 @@ public interface EventDao {
           + "WHERE projects.project_id = :pid")
   List<Event> getProjectEvents(long pid);
 
+  @Query("SELECT avg(grade) FROM events "
+          + "where substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) = :day")
+  double getDaysAverageGrade(String day);
+
+  @Query("SELECT avg(grade) FROM events WHERE " +
+          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and " +
+          "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate")
+  double getAverageGradeInRange(String minDate, String maxDate);
+
+  @Query("SELECT avg_grade from (" +
+          "SELECT substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) as date, " +
+          "avg(grade) as avg_grade " +
+          "FROM events " +
+          "GROUP BY date " +
+          "ORDER BY date)")
+  List<Double> getAverageGrades();
+
   @Query("DELETE FROM events")
   void clearAll();
 

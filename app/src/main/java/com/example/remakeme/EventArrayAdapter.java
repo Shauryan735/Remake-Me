@@ -21,6 +21,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
     TextView eventName;
     TextView eventTime;
     ImageView eventColor;
+    ImageView eventGrade;
   }
 
   /**returns an adapter for an array of Event objects.*/
@@ -53,6 +54,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
       viewHolder.eventName = convertView.findViewById(R.id.eventName);
       viewHolder.eventTime = convertView.findViewById(R.id.eventTime);
       viewHolder.eventColor = convertView.findViewById(R.id.eventColor);
+      viewHolder.eventGrade = convertView.findViewById(R.id.eventGrade);
 
       result = convertView;
 
@@ -73,6 +75,7 @@ public class EventArrayAdapter extends ArrayAdapter<Event> implements View.OnCli
     viewHolder.eventColor.setOnClickListener(this);
     viewHolder.eventColor.setTag(position);
     viewHolder.eventColor.setImageResource(event.getGroupColoredBox());
+    viewHolder.eventGrade.setImageResource(R.drawable.star_icon);
     return convertView;
   }
 }
