@@ -2,6 +2,7 @@ package com.example.remakeme;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -46,6 +47,7 @@ public class InfoPieChart extends Fragment {
     TextView startText;
     TextView endText;
     FloatingActionButton showChart;
+    FloatingActionButton share;
     PieChart pieChart;
 
     private EventDao eventDao;
@@ -111,6 +113,7 @@ public class InfoPieChart extends Fragment {
 
         Button startButton = view.findViewById(R.id.startButton);
         Button endButton = view.findViewById(R.id.endButton);
+        FloatingActionButton shareButton = view.findViewById(R.id.shareButton);
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,44 +137,54 @@ public class InfoPieChart extends Fragment {
         showChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (startSet && endSet) {
+                    pieChart.notifyDataSetChanged();
+                    pieChart.invalidate();
 
-                pieChart.notifyDataSetChanged();
-                pieChart.invalidate();
+                    pieChart.setVisibility(view.VISIBLE);
 
-                pieChart.setVisibility(view.VISIBLE);
+                    ArrayList<PieEntry> testData = new ArrayList<>();
 
-                ArrayList<PieEntry> testData = new ArrayList<>();
+                    if (redEvents > 0) {
+                        testData.add(new PieEntry(redEvents, "Red"));
+                    }
+                    if (orangeEvents > 0) {
+                        testData.add(new PieEntry(orangeEvents, "Orange"));
+                    }
+                    if (yellowEvents > 0) {
+                        testData.add(new PieEntry(yellowEvents, "Yellow"));
+                    }
+                    if (greenEvents > 0) {
+                        testData.add(new PieEntry(greenEvents, "Green"));
+                    }
+                    if (blueEvents > 0) {
+                        testData.add(new PieEntry(blueEvents, "Blue"));
+                    }
+                    if (purpleEvents > 0) {
+                        testData.add(new PieEntry(purpleEvents, "Purple"));
+                    }
 
-                if (redEvents > 0) {
-                    testData.add(new PieEntry(redEvents, "Red"));
-                }
-                if (orangeEvents > 0) {
-                    testData.add(new PieEntry(orangeEvents, "Orange"));
-                }
-                if (yellowEvents > 0) {
-                    testData.add(new PieEntry(yellowEvents, "Yellow"));
-                }
-                if (greenEvents > 0) {
-                    testData.add(new PieEntry(greenEvents, "Green"));
-                }
-                if (blueEvents > 0) {
-                    testData.add(new PieEntry(blueEvents, "Blue"));
-                }
-                if (purpleEvents > 0) {
-                    testData.add(new PieEntry(purpleEvents, "Purple"));
-                }
+                    PieDataSet pieDataSet = new PieDataSet(testData, "Colors of Events");
+                    pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                    pieDataSet.setValueTextColor(Color.BLACK);
+                    pieDataSet.setValueTextSize(16f);
 
-                PieDataSet pieDataSet = new PieDataSet(testData, "Colors");
-                pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                pieDataSet.setValueTextColor(Color.BLACK);
-                pieDataSet.setValueTextSize(16f);
+                    PieData pieData = new PieData(pieDataSet);
 
-                PieData pieData = new PieData(pieDataSet);
-
-                pieChart.setData(pieData);
-                pieChart.getDescription().setEnabled(false);
-                pieChart.setCenterText("Colors");
+                    pieChart.setData(pieData);
+                    pieChart.getDescription().setEnabled(false);
+                    pieChart.setCenterText("Colors of Events");
                 }
+            }
+        });
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bitmap bitmap = pieChart.getChartBitmap();
+
+                //TODO: Export bitmap
+            }
         });
 
         return view;
@@ -187,6 +200,21 @@ public class InfoPieChart extends Fragment {
                 startDate = setDateString(year, month, day);
                 startText.setText(startDate);
                 startSet = true;
+
+                if (startSet && endSet) {
+                    List<Event> events = eventDao.getByDateColor(startDate, endDate, R.color.red);
+                    redEvents = events.size();
+                    events = eventDao.getByDateColor(startDate, endDate, R.color.orange);
+                    orangeEvents = events.size();
+                    events = eventDao.getByDateColor(startDate, endDate, R.color.yellow);
+                    yellowEvents = events.size();
+                    events = eventDao.getByDateColor(startDate, endDate, R.color.green);
+                    greenEvents = events.size();
+                    events = eventDao.getByDateColor(startDate, endDate, R.color.blue);
+                    blueEvents = events.size();
+                    events = eventDao.getByDateColor(startDate, endDate, R.color.purple_200);
+                    purpleEvents = events.size();
+                }
             }
         };
 
@@ -220,7 +248,6 @@ public class InfoPieChart extends Fragment {
                     blueEvents = events.size();
                     events = eventDao.getByDateColor(startDate, endDate, R.color.purple_200);
                     purpleEvents = events.size();
-
                 }
             }
         };

@@ -1,6 +1,7 @@
 package com.example.remakeme;
 
 import android.app.DatePickerDialog;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -18,10 +19,12 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,8 +46,10 @@ public class InfoLineChart extends Fragment{
 
     TextView startText;
     TextView endText;
+    FloatingActionButton showChart;
 
     LineChart lineChart;
+    List<Double> eventGrades;
 
     private String startDate;
     private String endDate;
@@ -80,6 +85,9 @@ public class InfoLineChart extends Fragment{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        AppDatabase instance = AppDatabase.getInstance(requireContext());
+        eventDao = instance.getEventDao();
     }
 
     @Override
@@ -89,14 +97,13 @@ public class InfoLineChart extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_info_line_chart, container, false);
 
-        AppDatabase instance = AppDatabase.getInstance(getContext());
-        eventDao = instance.getEventDao();
-
         startText = view.findViewById(R.id.startText);
         endText =  view.findViewById(R.id.endText);
+        showChart = view.findViewById(R.id.showChart);
 
         Button startButton = view.findViewById(R.id.startButton);
         Button endButton = view.findViewById(R.id.endButton);
+        FloatingActionButton shareButton = view.findViewById(R.id.shareButton);
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,48 +122,48 @@ public class InfoLineChart extends Fragment{
         //TODO: Import events from Database
 
         lineChart = view.findViewById(R.id.lineChart);
+        lineChart.setVisibility(view.INVISIBLE);
 
-        ArrayList<Entry> testData = new ArrayList<>();
+        showChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (startSet && endSet) {
+                    lineChart.notifyDataSetChanged();
+                    lineChart.invalidate();
 
-        testData.add(new Entry(10, 20));
-        testData.add(new Entry(20, 20));
-        testData.add(new Entry(30, 40));
-        testData.add(new Entry(40, 30));
-        testData.add(new Entry(50, 60));
-        testData.add(new Entry(60, 70));
+                    lineChart.setVisibility(view.VISIBLE);
 
-        LineDataSet lineDataSet = new LineDataSet(testData, "Line Chart");
-        lineDataSet.setCircleColors(ColorTemplate.COLORFUL_COLORS);
-        lineDataSet.setValueTextColor(Color.BLACK);
-        lineDataSet.setColor(Color.BLACK);
-        lineDataSet.setCircleHoleRadius(15f);
-        lineDataSet.setValueTextSize(16f);
+                    ArrayList<Entry> testData = new ArrayList<>();
 
-        LineData lineData = new LineData(lineDataSet);
+                    for (int i = 0; i < eventGrades.size(); i++) {
+                        float grade = eventGrades.get(i).floatValue();
+                        testData.add(new Entry(i, grade));
+                    }
 
-        lineChart.setData(lineData);
-        lineChart.animate();
-//
-//        BarChart barChart = view.findViewById(R.id.barChart);
-//
-//        ArrayList<BarEntry> testData = new ArrayList<>();
-//        testData.add(new BarEntry(1, 10));
-//        testData.add(new BarEntry(2, 17));
-//        testData.add(new BarEntry(3, 23));
-//        testData.add(new BarEntry(4, 39));
-//        testData.add(new BarEntry(5, 31));
-//
-//        BarDataSet barDataSet = new BarDataSet(testData, "Rating of Events");
-//        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-//        barDataSet.setValueTextColor(Color.BLACK);
-//        barDataSet.setValueTextSize(16f);
-//
-//        BarData barData = new BarData(barDataSet);
-//
-//        barChart.setFitBars(true);
-//        barChart.setData(barData);
-//        barChart.getDescription().setText("Test infographics for number of events and ratings");
-//        barChart.animateY(1000);
+                    LineDataSet lineDataSet = new LineDataSet(testData, "Average grade of events per day");
+                    lineDataSet.setCircleColors(ColorTemplate.COLORFUL_COLORS);
+                    lineDataSet.setValueTextColor(Color.BLACK);
+                    lineDataSet.setColor(Color.BLACK);
+                    lineDataSet.setCircleHoleRadius(15f);
+                    lineDataSet.setValueTextSize(16f);
+
+                    LineData lineData = new LineData(lineDataSet);
+
+                    lineChart.setData(lineData);
+                    lineChart.getDescription().setEnabled(false);
+                    lineChart.animate();
+                }
+            }
+        });
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bitmap bitmap = lineChart.getChartBitmap();
+
+                //TODO: Export bitmap
+            }
+        });
 
         return view;
     }
@@ -170,6 +177,10 @@ public class InfoLineChart extends Fragment{
                 startDate = setDateString(year, month, day);
                 startText.setText(startDate);
                 startSet = true;
+
+                if (startSet && endSet) {
+                    eventGrades = eventDao.getAverageGradesInRange(startDate, endDate);
+                }
             }
         };
 
@@ -191,7 +202,7 @@ public class InfoLineChart extends Fragment{
                 endSet = true;
 
                 if (startSet && endSet) {
-
+                    eventGrades = eventDao.getAverageGradesInRange(startDate, endDate);
                 }
             }
         };

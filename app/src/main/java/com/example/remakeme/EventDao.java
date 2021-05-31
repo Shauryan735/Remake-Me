@@ -100,6 +100,17 @@ public interface EventDao {
           "ORDER BY date)")
   List<Double> getAverageGrades();
 
+  @Query("SELECT avg_grade from ("
+          + "SELECT substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) as date, "
+          + "avg(grade) as avg_grade "
+          + "FROM events "
+          + "WHERE graded = 1 and "
+          + "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) >= :minDate and "
+          + "substr(datetime(eventStart/1000, 'unixepoch', 'localtime'), 1, 10) <= :maxDate "
+          + "GROUP BY date "
+          + "ORDER BY date)")
+  List<Double> getAverageGradesInRange(String minDate, String maxDate);
+
   @Query("DELETE FROM events")
   void clearAll();
 
