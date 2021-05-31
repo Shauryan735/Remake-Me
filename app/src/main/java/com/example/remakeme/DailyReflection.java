@@ -97,7 +97,7 @@ public class DailyReflection extends AppCompatActivity {
 
 
     // Placeholder until navigation passes date to this activity
-    date = "01/01/2001";
+    date = "06/04/2021";
     Intent intent = new Intent(DailyReflection.this, DayViewV2.class);
     intent.putExtra(dateMessage, date);
     startActivity(intent);

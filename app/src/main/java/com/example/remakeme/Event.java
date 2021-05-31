@@ -328,16 +328,16 @@ public class Event {
     }
   }
 
-  /*
+
   public int getColoredStar() {
-    if (this.grade == 100) {
-      return R.drawable.goldStar;
-    } else if (this.grade > 85) {
-      return R.drawable.silverStar;
+    if (this.grade >= 90) {
+      return R.drawable.star_gold;
+    } else if (this.grade > 80) {
+      return R.drawable.star_silver;
     } else if (this.grade > 70) {
-      return R.drawable.bronzeStar;
+      return R.drawable.star_bronze;
     } else {
-      return R.drawable.emptyStar;
+      return R.drawable.star_icon;
     }
-  } */
+  }
 }
