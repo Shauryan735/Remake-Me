@@ -80,7 +80,7 @@
             android:layout_marginBottom="4dp"
             android:clickable="true"
             app:fabSize="mini"
-            android:src="@drawable/infoicon"
+            android:src="@drawable/piecharticon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.954"
