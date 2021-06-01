@@ -145,7 +145,7 @@ public class InfoLineChart extends Fragment{
             testData.add(new Entry(i, grade));
           }
 
-          LineDataSet lineDataSet = new LineDataSet(testData, "Average grade of events per day");
+          LineDataSet lineDataSet = new LineDataSet(testData, "Average Grade of Events per Day");
           lineDataSet.setCircleColors(ColorTemplate.COLORFUL_COLORS);
           lineDataSet.setValueTextColor(Color.BLACK);
           lineDataSet.setColor(Color.BLACK);

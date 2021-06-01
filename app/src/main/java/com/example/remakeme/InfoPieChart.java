@@ -182,7 +182,7 @@ public class InfoPieChart extends Fragment {
 
           pieChart.setData(pieData);
           pieChart.getDescription().setEnabled(false);
-          pieChart.setCenterText("Colors of Events");
+          pieChart.setCenterText("Number of Events by Color");
         }
       }
     });
