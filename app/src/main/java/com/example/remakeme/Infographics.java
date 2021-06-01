@@ -1,14 +1,25 @@
 package com.example.remakeme;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Displays event grades in both bar chart and pie chart formats.
@@ -85,5 +96,44 @@ public class Infographics extends AppCompatActivity {
 
     viewPager.setAdapter(pagerAdapter);
     tabLayout.setupWithViewPager(viewPager);
+  }
+
+  @SuppressWarnings("ResultOfMethodCallIgnored")
+  public static void shareBitmap(@NonNull Bitmap bitmap, Context context)
+  {
+    //---Save bitmap to external cache directory---//
+    //get cache directory
+    File cachePath = new File(context.getExternalCacheDir(), "my_images/");
+    cachePath.mkdirs();
+
+    //create png file
+    File file = new File(cachePath, "Image_123.png");
+    FileOutputStream fileOutputStream;
+    try
+    {
+      fileOutputStream = new FileOutputStream(file);
+      bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+      fileOutputStream.flush();
+      fileOutputStream.close();
+
+    } catch (FileNotFoundException e)
+    {
+      e.printStackTrace();
+    } catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+
+    //---Share File---//
+    //get file uri
+    Uri myImageFileUri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", file);
+
+    //create a intent
+    Intent intent = new Intent(Intent.ACTION_SEND);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+    intent.putExtra(Intent.EXTRA_STREAM, myImageFileUri);
+    intent.setType("image/png");
+    context.startActivity(Intent.createChooser(intent, "Share with"));
   }
 }
