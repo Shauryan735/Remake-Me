@@ -193,6 +193,70 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/eventViewLocationData" />
 
+        <TextView
+            android:id="@+id/eventViewGradeData"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="none"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventViewNoteData" />
+
+        <TextView
+            android:id="@+id/eventViewGrade"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/grade2"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventViewNoteData" />
+
+        <TextView
+            android:id="@+id/eventViewReflectNote"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/reflection2"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventViewGradeData" />
+
+        <TextView
+            android:id="@+id/eventViewReflectNoteData"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="none"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventViewGradeData" />
+
 
         <Button
             android:id="@+id/eventViewEditButton"
@@ -242,7 +306,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -260,25 +323,24 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/nav_color"
+            android:background="?attr/colorPrimary"
             app:title="Event"
             app:titleTextColor="@color/white" />
 
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/nav"
-        app:menu="@menu/nav_menu"
-        app:headerLayout="@layout/nav_header"
         android:layout_gravity="start"
-        android:background="@color/nav_color"
-        app:itemTextColor="@color/white"
+        android:background="?attr/colorPrimary"
+        app:headerLayout="@layout/nav_header"
+        app:itemIconSize="24dp"
+        app:itemIconTint="?attr/colorOnPrimary"
 
         app:itemTextAppearance="@style/MenuItems"
-        app:itemIconTint="@color/white"
-        app:itemIconSize="24dp"
-        />
+        app:itemTextColor="?attr/colorOnPrimary"
+        app:menu="@menu/nav_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer"
+    tools:openDrawer="start"
+    tools:context=".DayReview">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/dayRevDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="64dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="?attr/colorOnSecondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/Theme.Testing.PopupOverlay" />
+
+        <TextView
+            android:id="@+id/dayRevDayAvg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:inputType="none"
+            android:text="@string/avg_day_grade"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dayRevDate" />
+
+        <TextView
+            android:id="@+id/dayRevDayAvgData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:inputType="none"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/dayRevDayAvg"
+            app:layout_constraintTop_toBottomOf="@+id/dayRevDate" />
+
+        <TextView
+            android:id="@+id/dayRevWeekAvg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:inputType="none"
+            android:text="@string/avg_week_grade"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dayRevDayAvgData" />
+
+        <TextView
+            android:id="@+id/dayRevWeekAvgData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:inputType="none"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/dayRevWeekAvg"
+            app:layout_constraintTop_toBottomOf="@+id/dayRevDayAvgData" />
+
+        <TextView
+            android:id="@+id/dayRevMonthAvg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:inputType="none"
+            android:text="@string/avg_month_grade"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dayRevWeekAvgData" />
+
+        <TextView
+            android:id="@+id/dayRevMonthAvgData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:inputType="none"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/dayRevMonthAvg"
+            app:layout_constraintTop_toBottomOf="@+id/dayRevWeekAvgData" />
+
+        <TextView
+            android:id="@+id/dayRevRec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/recommendation"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="28sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dayRevMonthAvgData" />
+
+        <TextView
+            android:id="@+id/dayRevStreak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/recommendation"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            android:textColorLink="#00000000"
+            android:textSize="28sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dayRevRec" />
+
+        <Button
+            android:id="@+id/dayRevBack"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/day"
+            android:textColor="?attr/colorOnPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/dayRevReflect"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+            android:id="@+id/dayRevReflect"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/reflect"
+            android:textColor="?attr/colorOnPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/dayRevBack"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/dayReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            app:title="Daily Review"
+            app:titleTextColor="?attr/colorOnPrimary" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="?attr/colorPrimary"
+        app:headerLayout="@layout/nav_header"
+        app:itemIconSize="24dp"
+        app:itemIconTint="?attr/colorOnPrimary"
+
+        app:itemTextAppearance="@style/MenuItems"
+        app:itemTextColor="?attr/colorOnPrimary"
+        app:menu="@menu/nav_menu" />
+
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

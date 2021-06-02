@@ -3,7 +3,6 @@ package com.example.remakeme;
 import android.annotation.SuppressLint;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import java.util.Calendar;
@@ -14,7 +13,9 @@ import java.util.Locale;
  *
  */
 
-
+/**
+ * Data type class to store calendar events.
+ */
 @Entity(tableName = "events")
 public class Event {
 
@@ -44,17 +45,24 @@ public class Event {
   private boolean graded;
   private int grade;
 
+  private long projectId;
 
+  /**
+  * Event default constructor method.
+  */
   public Event() {
     this.eventStart = Calendar.getInstance();
     this.eventEnd = Calendar.getInstance();
     this.remindTime = Calendar.getInstance();
   }
 
+  /**
+   * Constructor method used by the AddEvent class.
+   */
   @Ignore
   public Event(String eventName, Calendar eventStart, Calendar eventEnd,
                int groupColor, String location, Boolean repeat, int repeatOffset,
-               Boolean sendReminders, String note) {
+               Boolean sendReminders, String note, Boolean graded, int grade) {
     this.eventName = eventName;
     this.eventStart = eventStart;
     this.eventEnd = eventEnd;
@@ -64,6 +72,8 @@ public class Event {
     this.repeatOffset = repeatOffset;
     this.sendReminders = sendReminders;
     this.note = note;
+    this.graded = graded;
+    this.grade = grade;
   }
 
   public long getId() {
@@ -202,6 +212,17 @@ public class Event {
     this.reviewNote = reviewNote;
   }
 
+  public long getProjectId() {
+    return projectId;
+  }
+
+  public void setProjectId(long projectId) {
+    this.projectId = projectId;
+  }
+
+  /**
+   * Converts hour and minute variables into a properly formatted string.
+   */
   public String getFormattedTime() {
     @SuppressLint("DefaultLocale") String startHour = String.format(
             "%02d", this.eventStart.get(Calendar.HOUR));
@@ -220,6 +241,9 @@ public class Event {
     return startHour + ":" + startMin + " - " + endHour + ":" + endMin;
   }
 
+  /**
+   * Converts hour and minute variables into a properly formatted string.
+   */
   public String getFormattedStartTime() {
     @SuppressLint("DefaultLocale") String startHour = String.format(
             "%02d", this.eventStart.get(Calendar.HOUR));
@@ -231,6 +255,9 @@ public class Event {
     return startHour + ":" + startMin;
   }
 
+  /**
+   * Converts hour and minute variables into a properly formatted string.
+   */
   public String getFormattedEndTime() {
     @SuppressLint("DefaultLocale") String endHour = String.format(
             "%02d", this.eventEnd.get(Calendar.HOUR));
@@ -242,29 +269,38 @@ public class Event {
     return endHour + ":" + endMin;
   }
 
+  /**
+   * Gets color group data from event to display proper color in the day view.
+   */
   public int getGroupColoredBox() {
     switch (this.groupColor) {
-      case 0xFFFFA500:
+      case R.color.orange:
         return R.drawable.orange_box;
-      case 0xFFFFFF00:
+      case R.color.yellow:
         return R.drawable.yellow_box;
-      case 0xFF008000:
+      case R.color.green:
         return R.drawable.green_box;
-      case 0xFF0000FF:
+      case R.color.blue:
         return R.drawable.blue_box;
-      case 0xFF800080:
+      case R.color.purple_200:
         return R.drawable.purple_box;
       default:
         return R.drawable.red_box;
     }
   }
 
+  /**
+   * Converts calendar data into a properly formatted date string.
+   */
   public static String getFormattedDate(Calendar calendar) {
     return (calendar.get(Calendar.MONTH) + 1) + "/"
             + calendar.get(Calendar.DAY_OF_MONTH) + "/"
             + calendar.get(Calendar.YEAR);
   }
 
+  /**
+   * Converts calendar data into a properly formatted date string for the database.
+   */
   public static String getDbFormattedDate(Calendar calendar) {
     return String.format(Locale.getDefault(), "%04d-%02d-%02d",
             calendar.get(Calendar.YEAR),
@@ -272,20 +308,36 @@ public class Event {
             calendar.get(Calendar.DAY_OF_MONTH));
   }
 
+  /**
+   * Gets color group data from event to display proper color in the event view.
+   */
   public int getGroupColoredOutline() {
     switch (this.groupColor) {
-      case 0xFFFFA500:
+      case R.color.orange:
         return R.drawable.orange_boarder;
-      case 0xFFFFFF00:
+      case R.color.yellow:
         return R.drawable.yellow_boarder;
-      case 0xFF008000:
+      case R.color.green:
         return R.drawable.green_boarder;
-      case 0xFF0000FF:
+      case R.color.blue:
         return R.drawable.blue_boarder;
-      case 0xFF800080:
+      case R.color.purple_200:
         return R.drawable.purple_boarder;
       default:
         return R.drawable.red_boarder;
+    }
+  }
+
+
+  public int getColoredStar() {
+    if (this.grade >= 90) {
+      return R.drawable.star_gold;
+    } else if (this.grade > 80) {
+      return R.drawable.star_silver;
+    } else if (this.grade > 70) {
+      return R.drawable.star_bronze;
+    } else {
+      return R.drawable.star_icon;
     }
   }
 }

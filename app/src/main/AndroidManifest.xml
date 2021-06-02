@@ -4,12 +4,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/appicon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/appiconround"
         android:supportsRtl="true"
         android:theme="@style/Theme.Testing">
-        <activity android:name=".EventReview"></activity>
+        <activity android:name=".DayReview"></activity>
+        <activity android:name=".EventReview" />
         <activity
             android:name=".EventView"
             android:parentActivityName=".DayViewV2">
@@ -38,6 +39,15 @@
         </activity>
 
         <receiver android:name=".NotificationPublisher" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

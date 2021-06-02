@@ -3,22 +3,25 @@ package com.example.remakeme;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-
+import android.view.View;
+import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.google.android.material.navigation.NavigationView;
 
+/**
+ * Lets user input their thoughts on how they think they did each day.
+ */
 public class DailyReflection extends AppCompatActivity {
 
   NavigationView nav;
   ActionBarDrawerToggle toggle;
   DrawerLayout drawerLayout;
 
-  String DATE_MESSAGE = "Meme";
+  String dateMessage = "Meme";
   String date = "Meme 2.0";
 
   @Override
@@ -48,7 +51,7 @@ public class DailyReflection extends AppCompatActivity {
           case R.id.navmenu_dayView:
             drawerLayout.closeDrawer(GravityCompat.START);
             Intent day = new Intent(DailyReflection.this, DayViewV2.class);
-            day.putExtra(DATE_MESSAGE, date);
+            day.putExtra(dateMessage, date);
             startActivity(day);
             finish();
             break;
@@ -65,6 +68,7 @@ public class DailyReflection extends AppCompatActivity {
             finish();
             break;
           case R.id.navmenu_reflection:
+          default:
             drawerLayout.closeDrawer(GravityCompat.START);
             break;
         }
@@ -72,6 +76,31 @@ public class DailyReflection extends AppCompatActivity {
       }
     });
     Intent intent = getIntent();
-    date = intent.getStringExtra(DATE_MESSAGE);
+    date = intent.getStringExtra(dateMessage);
+
+    // AppDatabase instance = AppDatabase.getInstance(this);
+    // reflectionDao = instance.getReflectionDao();
+  }
+
+  /**
+   * Submits daily reflection to the database.
+   */
+  public void submitReflection(View view) {
+    EditText editReflection = findViewById(R.id.editReflection);
+    try {
+      String reflection = editReflection.getText().toString();
+    } catch (Exception e) {
+      String reflection = "";
+    }
+
+    // TODO: Add reflection database to store reflection
+
+
+    // Placeholder until navigation passes date to this activity
+    date = "06/04/2021";
+    Intent intent = new Intent(DailyReflection.this, DayViewV2.class);
+    intent.putExtra(dateMessage, date);
+    startActivity(intent);
+    finish();
   }
 }
