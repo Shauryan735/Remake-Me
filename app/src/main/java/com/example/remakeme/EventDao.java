@@ -119,6 +119,9 @@ public interface EventDao {
   @Query("DELETE FROM events")
   void clearAll();
 
+  @Query("DELETE FROM events WHERE event_id = :bId or baseId = :bId")
+  void deleteRepeating(long bId);
+
   @Update
   int updateEvent(Event event);
 
